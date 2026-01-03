@@ -324,6 +324,7 @@ export function Heroes({ rows }) {
       {selectedHero && (
         <HeroDetailsDrawer
           hero={selectedHero}
+          rows={rows}
           onClose={() => setSelectedHero(null)}
         />
       )}

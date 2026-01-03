@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { 
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, ReferenceLine 
@@ -7,13 +7,15 @@ import clsx from 'clsx'
 import { KpiCard } from './KpiCard'
 import { Badge } from './Badge'
 import { HeroAvatar } from './HeroAvatar'
+import { HeroFunnyBlocks } from './HeroFunnyBlocks'
 import { formatNumber, formatPercent, formatCompact, formatDecimal, formatDuration } from '../utils/format'
+import { getHeroFunnyHighlights } from '../data/heroHighlights'
 
 /**
  * Hero details drawer/panel
  * Shows deep analytics for a selected hero
  */
-export function HeroDetailsDrawer({ hero, onClose }) {
+export function HeroDetailsDrawer({ hero, rows, onClose }) {
   // Close on ESC key
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -25,7 +27,28 @@ export function HeroDetailsDrawer({ hero, onClose }) {
 
   if (!hero) return null
 
-  const { kpis, maps, players, trend, mostViolent, name, role } = hero
+  const { kpis, maps, players, trend, name, role } = hero
+  
+  // Compute funny highlights
+  const funnyHighlights = useMemo(() => {
+    if (!rows || !name) {
+      console.warn('HeroDetailsDrawer: Missing rows or name', { rows: rows?.length, name })
+      return []
+    }
+    try {
+      const highlights = getHeroFunnyHighlights(rows, name)
+      console.log('HeroDetailsDrawer: Computed highlights', { 
+        heroName: name, 
+        rowsCount: rows.length, 
+        highlightsCount: highlights.length,
+        firstHighlight: highlights[0]?.title 
+      })
+      return highlights
+    } catch (error) {
+      console.error('Error computing funny highlights:', error)
+      return []
+    }
+  }, [rows, name])
 
   return (
     <>
@@ -233,28 +256,9 @@ export function HeroDetailsDrawer({ hero, onClose }) {
             </section>
           )}
 
-          {/* Most Violent Match */}
-          {mostViolent && (
-            <section>
-              <h3 className="text-lg font-semibold text-white mb-3">🔥 Partida Más Violenta</h3>
-              <div className="bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-xl p-4 border border-red-500/30">
-                <div className="flex items-center gap-4">
-                  <div className="text-4xl">💥</div>
-                  <div>
-                    <p className="text-2xl font-bold text-white">
-                      {formatCompact(mostViolent.totalDamage)} daño total
-                    </p>
-                    <p className="text-slate-300 text-sm">
-                      {formatCompact(mostViolent.heroDamage)} héroe + {formatCompact(mostViolent.siegeDamage)} asedio
-                    </p>
-                    <p className="text-slate-400 text-sm mt-1">
-                      {mostViolent.player} en {mostViolent.map}
-                      {mostViolent.winner ? ' 🏆' : ''}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
+          {/* Funny Highlights */}
+          {funnyHighlights && funnyHighlights.length > 0 && (
+            <HeroFunnyBlocks blocks={funnyHighlights} />
           )}
         </div>
       </div>
