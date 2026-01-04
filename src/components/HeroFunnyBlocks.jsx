@@ -142,12 +142,37 @@ export function HeroFunnyBlocks({ blocks }) {
           return (
             <div
               key={block.id || index}
-              className={`${getGradientClasses(accent)} rounded-xl p-4 border relative overflow-hidden`}
+              className="rounded-xl p-4 border relative overflow-hidden bg-slate-800/50"
             >
-              {/* Placeholder para imagen de fondo */}
-              <div className="absolute inset-0 w-full h-full bg-slate-800/50 flex items-center justify-center">
-                <span className="text-slate-500 text-xs">🖼️ Imagen placeholder</span>
+              {/* Contenedor de imagen con gradiente de máscara para difuminar lado izquierdo */}
+              <div className="absolute right-0 top-0 h-full w-auto overflow-hidden pointer-events-none">
+                <img 
+                  src={`/highlight-images/${block.id}.jpg`}
+                  alt=""
+                  className="h-full w-auto object-contain object-right opacity-75"
+                  onError={(e) => {
+                    // Fallback si la imagen no existe: mostrar gradiente de fondo
+                    e.target.style.display = 'none'
+                    const parent = e.target.closest('.rounded-xl')
+                    if (parent) {
+                      parent.className = `${getGradientClasses(accent)} rounded-xl p-4 border relative overflow-hidden`
+                    }
+                  }}
+                />
+                {/* Gradiente overlay sobre la imagen para difuminar lado izquierdo */}
+                <div 
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to left, transparent 0%, rgba(15, 23, 42, 0.3) 30%, rgba(15, 23, 42, 0.7) 60%, rgba(15, 23, 42, 0.95) 100%)'
+                  }}
+                />
               </div>
+              {/* Overlay oscuro general sutil para mejorar legibilidad del texto */}
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-l from-slate-900/50 via-slate-900/20 to-transparent pointer-events-none" />
+              {/* Overlay oscuro general sutil para mejorar legibilidad del texto */}
+              <div className="absolute inset-0 w-full h-full bg-slate-900/20" />
+              {/* Gradiente de acento sutil por encima */}
+              <div className={`absolute inset-0 w-full h-full ${getGradientClasses(accent)} opacity-15`} />
               {/* Contenido de texto por encima */}
               <div className="flex items-start gap-4 relative z-10">
                 <div className="text-4xl shrink-0">

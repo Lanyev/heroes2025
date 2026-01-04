@@ -194,6 +194,48 @@ export function getTopHeroesByMetric(heroTable, metricKey, topN = 10, minMatches
 }
 
 /**
+ * Get top players by winrate for a specific hero
+ * @param {Array} rows - All filtered rows
+ * @param {string} heroName - Hero to analyze
+ * @param {number} topN - Number of top players to return (default 3)
+ * @param {number} minMatches - Minimum matches required (default 3)
+ * @returns {Array} - Array of top players with {name, matches, wins, winRate}
+ */
+export function getTopPlayersByWinrate(rows, heroName, topN = 3, minMatches = 3) {
+  const heroRows = rows.filter(r => r.heroName === heroName)
+  
+  if (heroRows.length === 0) {
+    return []
+  }
+  
+  const players = {}
+  
+  for (const row of heroRows) {
+    const player = row.playerName || 'Unknown'
+    if (!players[player]) {
+      players[player] = { name: player, matches: 0, wins: 0 }
+    }
+    players[player].matches++
+    if (row.winner) players[player].wins++
+  }
+  
+  // Process players - compute winrate and filter by minMatches
+  const playersList = Object.values(players)
+    .filter(p => p.matches >= minMatches)
+    .map(p => ({ ...p, winRate: safeDivide(p.wins, p.matches) }))
+    .sort((a, b) => {
+      // Sort by winrate first, then by matches as tiebreaker
+      if (Math.abs(a.winRate - b.winRate) > 0.001) {
+        return b.winRate - a.winRate
+      }
+      return b.matches - a.matches
+    })
+    .slice(0, topN)
+  
+  return playersList
+}
+
+/**
  * Get detailed stats for a specific hero
  * @param {Array} rows - All filtered rows
  * @param {string} heroName - Hero to analyze

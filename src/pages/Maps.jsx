@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { useMemo, useCallback } from 'react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { ChartCard } from '../components/ChartCard'
 import { SectionShell } from '../app/layout/SectionShell'
 import { EmptyState } from '../components/EmptyState'
@@ -22,6 +22,26 @@ export function Maps({ rows }) {
   const mapsByWinRate = [...mapsData]
     .filter(m => m.matches >= 5)
     .sort((a, b) => b.winRate - a.winRate)
+
+  // Calculate max values for opacity calculation
+  const maxMatches = useMemo(() => {
+    return mapsByMatches.length > 0 ? Math.max(...mapsByMatches.map(m => m.matches)) : 1
+  }, [mapsByMatches])
+
+  const maxWinRate = useMemo(() => {
+    return mapsByWinRate.length > 0 ? Math.max(...mapsByWinRate.map(m => m.winRate)) : 1
+  }, [mapsByWinRate])
+
+  // Function to calculate fill color with opacity based on value
+  const getMatchesFill = useCallback((entry) => {
+    const opacity = Math.max(0.3, entry.matches / maxMatches) // Minimum opacity 0.3, max 1.0
+    return `rgba(6, 182, 212, ${opacity})` // #06b6d4 with opacity
+  }, [maxMatches])
+
+  const getWinRateFill = useCallback((entry) => {
+    const opacity = Math.max(0.3, entry.winRate / maxWinRate) // Minimum opacity 0.3, max 1.0
+    return `rgba(16, 185, 129, ${opacity})` // #10b981 with opacity
+  }, [maxWinRate])
 
   return (
     <div className="space-y-8">
@@ -56,9 +76,12 @@ export function Maps({ rows }) {
                 <Bar 
                   dataKey="matches" 
                   name="Partidas"
-                  fill="#06b6d4"
                   radius={[0, 4, 4, 0]}
-                />
+                >
+                  {mapsByMatches.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={getMatchesFill(entry)} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -99,9 +122,12 @@ export function Maps({ rows }) {
                 <Bar 
                   dataKey="winRate" 
                   name="Win Rate"
-                  fill="#10b981"
                   radius={[0, 4, 4, 0]}
-                />
+                >
+                  {mapsByWinRate.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={getWinRateFill(entry)} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>

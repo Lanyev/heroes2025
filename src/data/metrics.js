@@ -233,56 +233,172 @@ export function calculateOverviewMetrics(rows) {
 // FUN FACTS / AWARDS
 // =====================
 
+// Constants for thresholds
+const MIN_MATCHES = 10
+const MIN_SHORT_MATCHES = 5
+const MIN_WIN_RATE_SPEEDRUNNER = 0.60
+const MIN_WIN_RATE_TILTPROOF = 0.55
+const HIGH_DEATHS = 8
+const SHORT_MATCH_SECONDS = 15 * 60 // 15 minutes
+const MIN_HIGH_DEATH_MATCHES = 5
+
 /**
- * Find player with most total OnFire time
- * @param {Array} rows 
- * @returns {{ name: string, value: number }|null}
+ * Helper: Get number from row, trying multiple possible keys
+ * @param {Object} row 
+ * @param {...string} possibleKeys 
+ * @returns {number}
  */
-export function getMostOnFire(rows) {
-  const totals = new Map()
-  
-  for (const row of rows) {
-    if (!row.playerName) continue
-    totals.set(row.playerName, (totals.get(row.playerName) || 0) + row.onFire)
-  }
-  
-  let best = null
-  let bestValue = 0
-  
-  for (const [name, value] of totals) {
-    if (value > bestValue) {
-      best = name
-      bestValue = value
+function getNumber(row, ...possibleKeys) {
+  for (const key of possibleKeys) {
+    const value = row[key]
+    if (value !== null && value !== undefined && value !== '') {
+      const num = Number(value)
+      if (!isNaN(num)) return num
     }
   }
-  
-  return best ? { name: best, value: bestValue } : null
+  return 0
 }
 
 /**
- * Find player with most total time dead
- * @param {Array} rows 
- * @returns {{ name: string, value: number }|null}
+ * Helper: Get string from row, trying multiple possible keys
+ * @param {Object} row 
+ * @param {...string} possibleKeys 
+ * @returns {string}
  */
-export function getMostTimeDead(rows) {
-  const totals = new Map()
+function getString(row, ...possibleKeys) {
+  for (const key of possibleKeys) {
+    const value = row[key]
+    if (value !== null && value !== undefined && value !== '') {
+      return String(value).trim()
+    }
+  }
+  return ''
+}
+
+/**
+ * Helper: Parse game time to seconds (defensive)
+ * Handles: "mm:ss", "hh:mm:ss", integer seconds, or already parsed gameTimeSeconds
+ * @param {any} value 
+ * @returns {number}
+ */
+function parseGameTimeToSeconds(value) {
+  if (!value) return 0
+  if (typeof value === 'number') return value
+  
+  const str = String(value).trim()
+  if (/^\d+$/.test(str)) {
+    return parseInt(str, 10)
+  }
+  
+  const parts = str.split(':').map(p => parseInt(p, 10) || 0)
+  if (parts.length === 3) {
+    return parts[0] * 3600 + parts[1] * 60 + parts[2]
+  }
+  if (parts.length === 2) {
+    return parts[0] * 60 + parts[1]
+  }
+  
+  return 0
+}
+
+/**
+ * Helper: Determine if row represents a win
+ * @param {Object} row 
+ * @returns {boolean}
+ */
+function isWin(row) {
+  // Use normalized field first (most common case)
+  if (row.winner === true || row.winner === 1) return true
+  if (row.winner === false || row.winner === 0) return false
+  
+  // Fallback: Check Winner field
+  const winner = getString(row, 'Winner', 'winner')
+  if (winner) {
+    const lower = winner.toLowerCase()
+    if (['true', 'yes', 'win', 'won', '1', 'victory', 'si', 'sí'].includes(lower)) return true
+    if (['false', 'no', 'loss', 'lost', '0', 'defeat', 'derrota'].includes(lower)) return false
+  }
+  
+  // Fallback: Check Win/Lost fields
+  const win = getNumber(row, 'Win', 'win')
+  const lost = getNumber(row, 'Lost', 'lost', 'Loss', 'loss')
+  if (win > 0 && lost === 0) return true
+  if (lost > 0 && win === 0) return false
+  
+  // Default to row.winner if it's a boolean
+  return Boolean(row.winner)
+}
+
+/**
+ * Find player with highest average OnFire time per match
+ * @param {Array} rows 
+ * @param {number} minMatches 
+ * @returns {{ name: string, value: number, matches: number }|null}
+ */
+export function getMostOnFire(rows, minMatches = MIN_MATCHES) {
+  const stats = new Map()
   
   for (const row of rows) {
     if (!row.playerName) continue
-    totals.set(row.playerName, (totals.get(row.playerName) || 0) + row.spentDeadSeconds)
+    if (!stats.has(row.playerName)) {
+      stats.set(row.playerName, { totalOnFire: 0, matches: 0 })
+    }
+    const s = stats.get(row.playerName)
+    s.totalOnFire += row.onFire || 0
+    s.matches++
   }
   
   let best = null
-  let bestValue = 0
+  let bestAvg = 0
+  let bestMatches = 0
   
-  for (const [name, value] of totals) {
-    if (value > bestValue) {
+  for (const [name, s] of stats) {
+    if (s.matches < minMatches) continue
+    const avg = s.matches > 0 ? s.totalOnFire / s.matches : 0
+    if (avg > bestAvg) {
       best = name
-      bestValue = value
+      bestAvg = avg
+      bestMatches = s.matches
     }
   }
   
-  return best ? { name: best, value: bestValue } : null
+  return best ? { name: best, value: bestAvg, matches: bestMatches } : null
+}
+
+/**
+ * Find player with highest average time dead per match
+ * @param {Array} rows 
+ * @param {number} minMatches 
+ * @returns {{ name: string, value: number, matches: number }|null}
+ */
+export function getMostTimeDead(rows, minMatches = MIN_MATCHES) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    if (!stats.has(row.playerName)) {
+      stats.set(row.playerName, { totalTimeDead: 0, matches: 0 })
+    }
+    const s = stats.get(row.playerName)
+    s.totalTimeDead += row.spentDeadSeconds || 0
+    s.matches++
+  }
+  
+  let best = null
+  let bestAvg = 0
+  let bestMatches = 0
+  
+  for (const [name, s] of stats) {
+    if (s.matches < minMatches) continue
+    const avg = s.matches > 0 ? s.totalTimeDead / s.matches : 0
+    if (avg > bestAvg) {
+      best = name
+      bestAvg = avg
+      bestMatches = s.matches
+    }
+  }
+  
+  return best ? { name: best, value: bestAvg, matches: bestMatches } : null
 }
 
 /**
@@ -349,7 +465,7 @@ export function getClutchHero(rows) {
 /**
  * Find most violent match (max HeroDamage + SiegeDamage)
  * @param {Array} rows 
- * @returns {{ playerName: string, heroName: string, value: number, map: string }|null}
+ * @returns {{ playerName: string, heroName: string, value: number, map: string, replayName: string, winner: boolean }|null}
  */
 export function getMostViolentMatch(rows) {
   let best = null
@@ -367,7 +483,9 @@ export function getMostViolentMatch(rows) {
     playerName: best.playerName, 
     heroName: best.heroName, 
     value: bestValue,
-    map: best.map
+    map: best.map,
+    replayName: best.replayName || getString(best, 'Name', 'ReplayName', 'replayName'),
+    winner: isWin(best)
   } : null
 }
 
@@ -390,6 +508,422 @@ export function getCursedMap(rows, minMatches = 10) {
 }
 
 /**
+ * Get Medic of the Year (highest average healing/shielding per match)
+ * @param {Array} rows 
+ * @param {number} minMatches 
+ * @returns {{ name: string, value: number, matches: number }|null}
+ */
+export function getMedicOfYear(rows, minMatches = MIN_MATCHES) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    // Use normalized field first, then try alternatives
+    const healing = row.healingShielding || getNumber(row, 'HealingShielding', 'Healing/Shielding', 'Healing')
+    if (healing > 0) {
+      if (!stats.has(row.playerName)) {
+        stats.set(row.playerName, { totalHealing: 0, matches: 0 })
+      }
+      const s = stats.get(row.playerName)
+      s.totalHealing += healing
+      s.matches++
+    }
+  }
+  
+  let best = null
+  let bestAvg = 0
+  let bestMatches = 0
+  
+  for (const [name, s] of stats) {
+    if (s.matches < minMatches) continue
+    const avg = s.matches > 0 ? s.totalHealing / s.matches : 0
+    if (avg > bestAvg) {
+      best = name
+      bestAvg = avg
+      bestMatches = s.matches
+    }
+  }
+  
+  return best ? { name: best, value: bestAvg, matches: bestMatches } : null
+}
+
+/**
+ * Get XP Sponge (highest average experience per match)
+ * @param {Array} rows 
+ * @param {number} minMatches 
+ * @returns {{ name: string, value: number, matches: number }|null}
+ */
+export function getXpSponge(rows, minMatches = MIN_MATCHES) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    // Use normalized field first
+    const xp = row.experience || getNumber(row, 'Experience', 'XP')
+    if (xp > 0) {
+      if (!stats.has(row.playerName)) {
+        stats.set(row.playerName, { totalXP: 0, matches: 0 })
+      }
+      const s = stats.get(row.playerName)
+      s.totalXP += xp
+      s.matches++
+    }
+  }
+  
+  let best = null
+  let bestAvg = 0
+  let bestMatches = 0
+  
+  for (const [name, s] of stats) {
+    if (s.matches < minMatches) continue
+    const avg = s.matches > 0 ? s.totalXP / s.matches : 0
+    if (avg > bestAvg) {
+      best = name
+      bestAvg = avg
+      bestMatches = s.matches
+    }
+  }
+  
+  return best ? { name: best, value: bestAvg, matches: bestMatches } : null
+}
+
+/**
+ * Get Siege Lord (highest average siege/structure damage per match)
+ * @param {Array} rows 
+ * @param {number} minMatches 
+ * @returns {{ name: string, value: number, matches: number }|null}
+ */
+export function getSiegeLord(rows, minMatches = MIN_MATCHES) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    
+    // Prefer Total Siege Damage (normalized as siegeDamage), else use siegeDamage + structureDamage, else just structureDamage
+    let siege = row.siegeDamage || getNumber(row, 'TotalSiegeDamage', 'Total Siege Damage', 'totalSiegeDamage')
+    
+    if (siege === 0) {
+      const siegeDmg = row.siegeDamage || getNumber(row, 'SiegeDamage', 'Siege Damage')
+      const structureDmg = getNumber(row, 'StructureDamage', 'Structure Damage', 'structureDamage')
+      siege = siegeDmg + structureDmg
+    }
+    
+    if (siege > 0) {
+      if (!stats.has(row.playerName)) {
+        stats.set(row.playerName, { totalSiege: 0, matches: 0 })
+      }
+      const s = stats.get(row.playerName)
+      s.totalSiege += siege
+      s.matches++
+    }
+  }
+  
+  let best = null
+  let bestAvg = 0
+  let bestMatches = 0
+  
+  for (const [name, s] of stats) {
+    if (s.matches < minMatches) continue
+    const avg = s.matches > 0 ? s.totalSiege / s.matches : 0
+    if (avg > bestAvg) {
+      best = name
+      bestAvg = avg
+      bestMatches = s.matches
+    }
+  }
+  
+  return best ? { name: best, value: bestAvg, matches: bestMatches } : null
+}
+
+/**
+ * Get Mercenary Union (highest average merc camp captures per match)
+ * @param {Array} rows 
+ * @param {number} minMatches 
+ * @returns {{ name: string, value: number, matches: number }|null}
+ */
+export function getMercenaryUnion(rows, minMatches = MIN_MATCHES) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    const merc = getNumber(row, 'MercCampCaptures', 'Merc Camp Captures', 'mercCampCaptures', 'Mercenary')
+    if (merc > 0) {
+      if (!stats.has(row.playerName)) {
+        stats.set(row.playerName, { totalMerc: 0, matches: 0 })
+      }
+      const s = stats.get(row.playerName)
+      s.totalMerc += merc
+      s.matches++
+    }
+  }
+  
+  let best = null
+  let bestAvg = 0
+  let bestMatches = 0
+  
+  for (const [name, s] of stats) {
+    if (s.matches < minMatches) continue
+    const avg = s.matches > 0 ? s.totalMerc / s.matches : 0
+    if (avg > bestAvg) {
+      best = name
+      bestAvg = avg
+      bestMatches = s.matches
+    }
+  }
+  
+  return best ? { name: best, value: bestAvg, matches: bestMatches } : null
+}
+
+/**
+ * Get CC Machine (highest average CC per match)
+ * @param {Array} rows 
+ * @param {number} minMatches 
+ * @returns {{ name: string, value: number, matches: number }|null}
+ */
+export function getCcMachine(rows, minMatches = MIN_MATCHES) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    
+    // Prefer CC Heroes, else sum Stun + Silence + Rooting
+    let cc = getNumber(row, 'CCHeroes', 'CC Heroes', 'ccHeroes')
+    
+    if (cc === 0) {
+      const stun = getNumber(row, 'StunHeroes', 'Stun Heroes', 'stunHeroes')
+      const silence = getNumber(row, 'SilenceHeroes', 'Silence Heroes', 'silenceHeroes')
+      const rooting = getNumber(row, 'RootingHeroes', 'Rooting Heroes', 'rootingHeroes')
+      cc = stun + silence + rooting
+    }
+    
+    if (cc > 0) {
+      if (!stats.has(row.playerName)) {
+        stats.set(row.playerName, { totalCC: 0, matches: 0 })
+      }
+      const s = stats.get(row.playerName)
+      s.totalCC += cc
+      s.matches++
+    }
+  }
+  
+  let best = null
+  let bestAvg = 0
+  let bestMatches = 0
+  
+  for (const [name, s] of stats) {
+    if (s.matches < minMatches) continue
+    const avg = s.matches > 0 ? s.totalCC / s.matches : 0
+    if (avg > bestAvg) {
+      best = name
+      bestAvg = avg
+      bestMatches = s.matches
+    }
+  }
+  
+  return best ? { name: best, value: bestAvg, matches: bestMatches } : null
+}
+
+/**
+ * Get Speedrunner (best winrate in short matches)
+ * @param {Array} rows 
+ * @returns {{ name: string, winRate: number, matches: number }|null}
+ */
+export function getSpeedrunner(rows) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    
+    // Use normalized field first
+    const gameTime = row.gameTimeSeconds || parseGameTimeToSeconds(getString(row, 'GameTime', 'Game Time', 'gameTime'))
+    if (gameTime > 0 && gameTime <= SHORT_MATCH_SECONDS) {
+      if (!stats.has(row.playerName)) {
+        stats.set(row.playerName, { shortMatches: 0, shortWins: 0 })
+      }
+      const s = stats.get(row.playerName)
+      s.shortMatches++
+      if (isWin(row)) {
+        s.shortWins++
+      }
+    }
+  }
+  
+  let best = null
+  let bestWinRate = 0
+  let bestMatches = 0
+  let bestWins = 0
+  
+  for (const [name, s] of stats) {
+    if (s.shortMatches < MIN_SHORT_MATCHES) continue
+    
+    const winRate = s.shortMatches > 0 ? s.shortWins / s.shortMatches : 0
+    if (winRate < MIN_WIN_RATE_SPEEDRUNNER) continue
+    
+    // Pick highest winRate; tie-breaker: more matches, then more wins
+    if (winRate > bestWinRate || 
+        (winRate === bestWinRate && s.shortMatches > bestMatches) ||
+        (winRate === bestWinRate && s.shortMatches === bestMatches && s.shortWins > bestWins)) {
+      best = name
+      bestWinRate = winRate
+      bestMatches = s.shortMatches
+      bestWins = s.shortWins
+    }
+  }
+  
+  return best ? { name: best, winRate: bestWinRate, matches: bestMatches } : null
+}
+
+/**
+ * Get Tilt-Proof (best winrate in high-death matches)
+ * @param {Array} rows 
+ * @returns {{ name: string, winRate: number, matches: number }|null}
+ */
+export function getTiltProof(rows) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    
+    // Use normalized field first
+    const deaths = row.deaths || getNumber(row, 'Deaths')
+    if (deaths >= HIGH_DEATHS) {
+      if (!stats.has(row.playerName)) {
+        stats.set(row.playerName, { highDeathMatches: 0, highDeathWins: 0 })
+      }
+      const s = stats.get(row.playerName)
+      s.highDeathMatches++
+      if (isWin(row)) {
+        s.highDeathWins++
+      }
+    }
+  }
+  
+  let best = null
+  let bestWinRate = 0
+  let bestMatches = 0
+  
+  for (const [name, s] of stats) {
+    if (s.highDeathMatches < MIN_HIGH_DEATH_MATCHES) continue
+    
+    const winRate = s.highDeathMatches > 0 ? s.highDeathWins / s.highDeathMatches : 0
+    if (winRate < MIN_WIN_RATE_TILTPROOF) continue
+    
+    // Pick highest winRate; tie-breaker: more matches
+    if (winRate > bestWinRate || (winRate === bestWinRate && s.highDeathMatches > bestMatches)) {
+      best = name
+      bestWinRate = winRate
+      bestMatches = s.highDeathMatches
+    }
+  }
+  
+  return best ? { name: best, winRate: bestWinRate, matches: bestMatches } : null
+}
+
+/**
+ * Get Longest Match (single row with maximum game time)
+ * @param {Array} rows 
+ * @returns {{ playerName: string, heroName: string, map: string, valueSeconds: number, date?: Date, replayName: string, winner: boolean }|null}
+ */
+export function getLongestMatch(rows) {
+  let best = null
+  let bestTime = 0
+  
+  for (const row of rows) {
+    // Use normalized field first
+    const gameTime = row.gameTimeSeconds || parseGameTimeToSeconds(getString(row, 'GameTime', 'Game Time', 'gameTime'))
+    if (gameTime > bestTime) {
+      bestTime = gameTime
+      best = row
+    }
+  }
+  
+  if (!best || bestTime === 0) return null
+  
+  return {
+    playerName: best.playerName || getString(best, 'Player', 'PlayerName', 'playerName'),
+    heroName: best.heroName || getString(best, 'Hero', 'HeroName', 'heroName'),
+    map: best.map || getString(best, 'Map', 'map'),
+    valueSeconds: bestTime,
+    date: best.dateObj || null,
+    replayName: best.replayName || getString(best, 'Name', 'ReplayName', 'replayName'),
+    winner: isWin(best)
+  }
+}
+
+/**
+ * Get Shortest Win (minimum game time among wins)
+ * @param {Array} rows 
+ * @returns {{ playerName: string, heroName: string, map: string, valueSeconds: number, replayName: string, winner: boolean }|null}
+ */
+export function getShortestWin(rows) {
+  let best = null
+  let bestTime = Infinity
+  
+  for (const row of rows) {
+    if (!isWin(row)) continue
+    
+    // Use normalized field first
+    const gameTime = row.gameTimeSeconds || parseGameTimeToSeconds(getString(row, 'GameTime', 'Game Time', 'gameTime'))
+    if (gameTime > 0 && gameTime < bestTime) {
+      bestTime = gameTime
+      best = row
+    }
+  }
+  
+  if (!best || bestTime === Infinity) return null
+  
+  return {
+    playerName: best.playerName || getString(best, 'Player', 'PlayerName', 'playerName'),
+    heroName: best.heroName || getString(best, 'Hero', 'HeroName', 'heroName'),
+    map: best.map || getString(best, 'Map', 'map'),
+    valueSeconds: bestTime,
+    replayName: best.replayName || getString(best, 'Name', 'ReplayName', 'replayName'),
+    winner: isWin(best)
+  }
+}
+
+/**
+ * Get KDA King (highest KDA per player)
+ * @param {Array} rows 
+ * @param {number} minMatches 
+ * @returns {{ name: string, kda: number, matches: number }|null}
+ */
+export function getKdaKing(rows, minMatches = MIN_MATCHES) {
+  const stats = new Map()
+  
+  for (const row of rows) {
+    if (!row.playerName) continue
+    
+    if (!stats.has(row.playerName)) {
+      stats.set(row.playerName, { takedowns: 0, assists: 0, deaths: 0, matches: 0 })
+    }
+    const s = stats.get(row.playerName)
+    // Use normalized fields first
+    s.takedowns += row.takedowns || getNumber(row, 'Takedowns')
+    s.assists += row.assists || getNumber(row, 'Assists')
+    s.deaths += row.deaths || getNumber(row, 'Deaths')
+    s.matches++
+  }
+  
+  let best = null
+  let bestKda = 0
+  let bestMatches = 0
+  
+  for (const [name, s] of stats) {
+    if (s.matches < minMatches) continue
+    
+    const kda = (s.takedowns + s.assists) / Math.max(1, s.deaths)
+    if (kda > bestKda) {
+      best = name
+      bestKda = kda
+      bestMatches = s.matches
+    }
+  }
+  
+  return best ? { name: best, kda: bestKda, matches: bestMatches } : null
+}
+
+/**
  * Calculate all fun facts/awards
  * @param {Array} rows 
  * @returns {Object}
@@ -401,7 +935,17 @@ export function calculateFunFacts(rows) {
     kamikazeAward: getKamikazeAward(rows),
     clutchHero: getClutchHero(rows),
     mostViolentMatch: getMostViolentMatch(rows),
-    cursedMap: getCursedMap(rows)
+    cursedMap: getCursedMap(rows),
+    medicOfYear: getMedicOfYear(rows),
+    xpSponge: getXpSponge(rows),
+    siegeLord: getSiegeLord(rows),
+    mercenaryUnion: getMercenaryUnion(rows),
+    ccMachine: getCcMachine(rows),
+    speedrunner: getSpeedrunner(rows),
+    tiltProof: getTiltProof(rows),
+    longestMatch: getLongestMatch(rows),
+    shortestWin: getShortestWin(rows),
+    kdaKing: getKdaKing(rows)
   }
 }
 

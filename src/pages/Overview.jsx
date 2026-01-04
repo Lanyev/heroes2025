@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
+import { useMemo, useCallback } from 'react'
 import { 
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, 
-  Tooltip, ResponsiveContainer, Legend 
+  Tooltip, ResponsiveContainer, Legend, Cell 
 } from 'recharts'
 import { KpiCard } from '../components/KpiCard'
 import { ChartCard } from '../components/ChartCard'
@@ -21,6 +21,17 @@ export function Overview({ rows }) {
   const metrics = useMemo(() => calculateOverviewMetrics(rows), [rows])
   const roleDistribution = useMemo(() => getRoleDistribution(rows), [rows])
   const matchesOverTime = useMemo(() => getMatchesOverTime(rows), [rows])
+
+  // Calculate max value for opacity calculation
+  const maxCount = useMemo(() => {
+    return roleDistribution.length > 0 ? Math.max(...roleDistribution.map(r => r.count)) : 1
+  }, [roleDistribution])
+
+  // Function to calculate fill color with opacity based on value
+  const getRoleFill = useCallback((entry) => {
+    const opacity = Math.max(0.3, entry.count / maxCount) // Minimum opacity 0.3, max 1.0
+    return `rgba(99, 102, 241, ${opacity})` // #6366f1 with opacity
+  }, [maxCount])
   
   if (rows.length === 0) {
     return <EmptyState />
@@ -173,8 +184,11 @@ export function Overview({ rows }) {
                   dataKey="count" 
                   name="Partidas"
                   radius={[0, 4, 4, 0]}
-                  fill="#6366f1"
-                />
+                >
+                  {roleDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={getRoleFill(entry)} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>

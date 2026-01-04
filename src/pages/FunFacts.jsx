@@ -2,13 +2,13 @@ import { useMemo } from 'react'
 import { SectionShell } from '../app/layout/SectionShell'
 import { EmptyState } from '../components/EmptyState'
 import { calculateFunFacts } from '../data/metrics'
-import { formatNumber, formatPercent, formatDuration, formatCompact } from '../utils/format'
+import { formatNumber, formatPercent, formatDuration, formatCompact, truncate } from '../utils/format'
 import clsx from 'clsx'
 
 /**
  * Award Card component for fun facts
  */
-function AwardCard({ title, icon, winner, value, description, color = 'indigo' }) {
+function AwardCard({ title, icon, winner, value, description, color = 'indigo', replayName, isWinner, imageId }) {
   const colorClasses = {
     indigo: 'from-indigo-500/20 to-purple-500/20 border-indigo-500/30',
     amber: 'from-amber-500/20 to-orange-500/20 border-amber-500/30',
@@ -20,18 +20,65 @@ function AwardCard({ title, icon, winner, value, description, color = 'indigo' }
 
   return (
     <div className={clsx(
-      'bg-gradient-to-br rounded-xl p-6 border',
+      'rounded-xl p-6 border relative overflow-hidden',
       'hover:scale-[1.02] transition-transform duration-300',
       'animate-fade-in',
-      colorClasses[color] || colorClasses.indigo
+      !imageId && (colorClasses[color] || colorClasses.indigo),
+      imageId && 'bg-slate-800/50'
     )}>
-      <div className="flex items-start gap-4">
+      {/* Imagen de fondo si existe */}
+      {imageId && (
+        <>
+          {/* Contenedor de imagen con gradiente de máscara para difuminar lado izquierdo */}
+          <div className="absolute right-0 top-0 h-full w-auto overflow-hidden pointer-events-none">
+            <img 
+              src={`/highlight-images/${imageId}.jpg`}
+              alt=""
+              className="h-full w-auto object-contain object-right opacity-75"
+              onError={(e) => {
+                // Fallback si la imagen no existe: mostrar gradiente de fondo
+                e.target.style.display = 'none'
+                const parent = e.target.closest('.rounded-xl')
+                if (parent) {
+                  parent.className = `${colorClasses[color] || colorClasses.indigo} rounded-xl p-6 border relative overflow-hidden hover:scale-[1.02] transition-transform duration-300 animate-fade-in`
+                }
+              }}
+            />
+            {/* Gradiente overlay sobre la imagen para difuminar lado izquierdo */}
+            <div 
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{
+                background: 'linear-gradient(to left, transparent 0%, rgba(15, 23, 42, 0.3) 30%, rgba(15, 23, 42, 0.7) 60%, rgba(15, 23, 42, 0.95) 100%)'
+              }}
+            />
+          </div>
+          {/* Overlay oscuro general sutil para mejorar legibilidad del texto */}
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-l from-slate-900/50 via-slate-900/20 to-transparent pointer-events-none" />
+          {/* Gradiente de acento sutil por encima */}
+          <div className={`absolute inset-0 w-full h-full ${colorClasses[color] || colorClasses.indigo} opacity-15 pointer-events-none`} />
+        </>
+      )}
+      
+      {/* Contenido de texto por encima */}
+      <div className="flex items-start gap-4 relative z-10">
         <div className="text-4xl">{icon}</div>
         <div className="flex-1">
           <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
           <div className="text-2xl font-bold text-white mb-2">{winner}</div>
           <div className="text-xl font-semibold text-slate-300 mb-2">{value}</div>
-          <p className="text-slate-400 text-sm">{description}</p>
+          <p className="text-slate-400 text-sm mb-2">{description}</p>
+          {replayName && (
+            <div className="mt-2">
+              <span className={clsx(
+                'text-xs font-medium px-1.5 py-0.5 rounded inline-block truncate max-w-full',
+                isWinner 
+                  ? 'bg-green-500/10 text-green-300 border border-green-500/20' 
+                  : 'bg-red-500/10 text-red-300 border border-red-500/20'
+              )} title={replayName}>
+                {truncate(replayName, 40)}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -53,17 +100,19 @@ export function FunFacts({ rows }) {
       title: '🔥 Most On Fire',
       icon: '🔥',
       winner: facts.mostOnFire.name,
-      value: formatDuration(facts.mostOnFire.value),
-      description: 'El jugador que más tiempo ha pasado "on fire" durante las partidas. ¡Imparable!',
-      color: 'amber'
+      value: formatDuration(facts.mostOnFire.value) + '/partida',
+      description: `Promedio más alto de tiempo "on fire" por partida en ${facts.mostOnFire.matches} partidas. ¡Imparable!`,
+      color: 'amber',
+      imageId: null // No hay imagen específica
     },
     facts.mostTimeDead && {
       title: '💀 Most Time Dead',
       icon: '⏰',
       winner: facts.mostTimeDead.name,
-      value: formatDuration(facts.mostTimeDead.value),
-      description: 'Ha pasado más tiempo mirando la pantalla gris que jugando. ¡Récord!',
-      color: 'purple'
+      value: formatDuration(facts.mostTimeDead.value) + '/partida',
+      description: `Promedio más alto de tiempo muerto por partida en ${facts.mostTimeDead.matches} partidas. ¡Récord!`,
+      color: 'purple',
+      imageId: 'most_time_dead'
     },
     facts.kamikazeAward && {
       title: '💣 Kamikaze Award',
@@ -71,7 +120,8 @@ export function FunFacts({ rows }) {
       winner: facts.kamikazeAward.name,
       value: `${facts.kamikazeAward.value.toFixed(1)} muertes/partida`,
       description: `En ${facts.kamikazeAward.matches} partidas, ha demostrado un compromiso inquebrantable con el respawn.`,
-      color: 'red'
+      color: 'red',
+      imageId: 'most_deaths'
     },
     facts.clutchHero && {
       title: '🎯 Clutch Hero',
@@ -79,7 +129,8 @@ export function FunFacts({ rows }) {
       winner: facts.clutchHero.name,
       value: `${formatPercent(facts.clutchHero.winRate)} WR`,
       description: `Solo ${facts.clutchHero.matches} partidas, pero con un winrate impresionante. Héroe secreto.`,
-      color: 'emerald'
+      color: 'emerald',
+      imageId: null // No hay imagen específica
     },
     facts.mostViolentMatch && {
       title: '⚔️ Most Violent Match',
@@ -87,7 +138,10 @@ export function FunFacts({ rows }) {
       winner: `${facts.mostViolentMatch.playerName} con ${facts.mostViolentMatch.heroName}`,
       value: formatCompact(facts.mostViolentMatch.value) + ' daño total',
       description: `En ${facts.mostViolentMatch.map}. Una partida para recordar... o para olvidar.`,
-      color: 'cyan'
+      color: 'cyan',
+      replayName: facts.mostViolentMatch.replayName,
+      isWinner: facts.mostViolentMatch.winner,
+      imageId: 'most_violent'
     },
     facts.cursedMap && {
       title: '☠️ Cursed Map',
@@ -95,7 +149,102 @@ export function FunFacts({ rows }) {
       winner: facts.cursedMap.name,
       value: `${formatPercent(facts.cursedMap.winRate)} WR`,
       description: `En ${facts.cursedMap.matches} partidas, este mapa ha demostrado ser una pesadilla.`,
-      color: 'purple'
+      color: 'purple',
+      imageId: null // No hay imagen específica
+    },
+    facts.medicOfYear && {
+      title: '🏥 Medic of the Year',
+      icon: '🏥',
+      winner: facts.medicOfYear.name,
+      value: formatCompact(facts.medicOfYear.value) + ' healing/partida',
+      description: `Promedio más alto de healing/shielding por partida en ${facts.medicOfYear.matches} partidas. ¡Salvando vidas desde el minuto 1!`,
+      color: 'emerald',
+      imageId: 'most_healing'
+    },
+    facts.xpSponge && {
+      title: '🧠 XP Sponge',
+      icon: '🧠',
+      winner: facts.xpSponge.name,
+      value: formatCompact(facts.xpSponge.value) + ' XP/partida',
+      description: `Promedio más alto de experiencia por partida en ${facts.xpSponge.matches} partidas. ¡Nivel máximo!`,
+      color: 'cyan',
+      imageId: null // No hay imagen específica
+    },
+    facts.siegeLord && {
+      title: '🏰 Siege Lord',
+      icon: '🏰',
+      winner: facts.siegeLord.name,
+      value: formatCompact(facts.siegeLord.value) + ' siege/partida',
+      description: `Promedio más alto de daño a estructuras por partida en ${facts.siegeLord.matches} partidas. ¡Demolición garantizada!`,
+      color: 'amber',
+      imageId: 'push_enjoyer'
+    },
+    facts.mercenaryUnion && {
+      title: '🐗 Mercenary Union',
+      icon: '🐗',
+      winner: facts.mercenaryUnion.name,
+      value: `${facts.mercenaryUnion.value.toFixed(1)} camps/partida`,
+      description: `Promedio más alto de capturas de campamentos por partida en ${facts.mercenaryUnion.matches} partidas. ¡Contratista profesional!`,
+      color: 'indigo',
+      imageId: null // No hay imagen específica
+    },
+    facts.ccMachine && {
+      title: '🧊 CC Machine',
+      icon: '🧊',
+      winner: facts.ccMachine.name,
+      value: formatCompact(facts.ccMachine.value) + ' CC/partida',
+      description: `Promedio más alto de control de masas por partida en ${facts.ccMachine.matches} partidas. ¡Nadie se mueve!`,
+      color: 'purple',
+      imageId: null // No hay imagen específica
+    },
+    facts.speedrunner && {
+      title: '⏱️ Speedrunner',
+      icon: '⏱️',
+      winner: facts.speedrunner.name,
+      value: `${formatPercent(facts.speedrunner.winRate)} WR (≤15m)`,
+      description: `Mejor winrate en partidas cortas (≤15 min) con ${facts.speedrunner.matches} partidas. ¡Eficiencia máxima!`,
+      color: 'cyan',
+      imageId: 'speedrun'
+    },
+    facts.tiltProof && {
+      title: '🧯 Tilt-Proof',
+      icon: '🧯',
+      winner: facts.tiltProof.name,
+      value: `${formatPercent(facts.tiltProof.winRate)} WR (Deaths ≥ 8)`,
+      description: `Mejor winrate en partidas con muchas muertes (≥8) con ${facts.tiltProof.matches} partidas. ¡Nada lo detiene!`,
+      color: 'red',
+      imageId: null // No hay imagen específica
+    },
+    facts.longestMatch && {
+      title: '⌛ Longest Match',
+      icon: '⌛',
+      winner: `${facts.longestMatch.playerName} con ${facts.longestMatch.heroName}`,
+      value: formatDuration(facts.longestMatch.valueSeconds),
+      description: `La partida más larga en ${facts.longestMatch.map}. ¡Una épica batalla!`,
+      color: 'purple',
+      replayName: facts.longestMatch.replayName,
+      isWinner: facts.longestMatch.winner,
+      imageId: null // No hay imagen específica
+    },
+    facts.shortestWin && {
+      title: '⚡ Shortest Win',
+      icon: '⚡',
+      winner: `${facts.shortestWin.playerName} con ${facts.shortestWin.heroName}`,
+      value: formatDuration(facts.shortestWin.valueSeconds),
+      description: `La victoria más rápida en ${facts.shortestWin.map}. ¡Dominación total!`,
+      color: 'emerald',
+      replayName: facts.shortestWin.replayName,
+      isWinner: facts.shortestWin.winner,
+      imageId: 'speedrun' // Comparte con speedrunner
+    },
+    facts.kdaKing && {
+      title: '👑 KDA King',
+      icon: '👑',
+      winner: facts.kdaKing.name,
+      value: `${facts.kdaKing.kda.toFixed(2)} KDA`,
+      description: `El mejor ratio KDA con ${facts.kdaKing.matches} partidas. ¡Eficiencia letal!`,
+      color: 'amber',
+      imageId: 'protagonist'
     }
   ].filter(Boolean)
 
@@ -121,11 +270,11 @@ export function FunFacts({ rows }) {
               <ul className="space-y-2 text-slate-400 text-sm">
                 <li className="flex items-start gap-2">
                   <span>🔥</span>
-                  <span><strong>Most On Fire:</strong> Tiempo total "on fire" sumando todas las partidas.</span>
+                  <span><strong>Most On Fire:</strong> Promedio más alto de tiempo "on fire" por partida (mínimo 10 partidas).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span>💀</span>
-                  <span><strong>Most Time Dead:</strong> Tiempo total muerto (SpentDead) sumado.</span>
+                  <span><strong>Most Time Dead:</strong> Promedio más alto de tiempo muerto por partida (mínimo 10 partidas).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span>💣</span>
@@ -142,6 +291,46 @@ export function FunFacts({ rows }) {
                 <li className="flex items-start gap-2">
                   <span>🗺️</span>
                   <span><strong>Cursed Map:</strong> Mapa con peor winrate (mínimo 10 partidas).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>🏥</span>
+                  <span><strong>Medic of the Year:</strong> Promedio más alto de healing/shielding por partida (mínimo 10 partidas).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>🧠</span>
+                  <span><strong>XP Sponge:</strong> Promedio más alto de experiencia por partida (mínimo 10 partidas).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>🏰</span>
+                  <span><strong>Siege Lord:</strong> Promedio más alto de daño a estructuras por partida (mínimo 10 partidas).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>🐗</span>
+                  <span><strong>Mercenary Union:</strong> Promedio más alto de capturas de campamentos por partida (mínimo 10 partidas).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>🧊</span>
+                  <span><strong>CC Machine:</strong> Promedio más alto de control de masas por partida (mínimo 10 partidas).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>⏱️</span>
+                  <span><strong>Speedrunner:</strong> Mejor WR en partidas ≤15 min (mínimo 5 partidas, WR ≥60%).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>🧯</span>
+                  <span><strong>Tilt-Proof:</strong> Mejor WR en partidas con ≥8 muertes (mínimo 5 partidas, WR ≥55%).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>⌛</span>
+                  <span><strong>Longest Match:</strong> La partida individual más larga registrada.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>⚡</span>
+                  <span><strong>Shortest Win:</strong> La victoria más rápida registrada.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span>👑</span>
+                  <span><strong>KDA King:</strong> Mayor KDA total (Takedowns+Assists/Deaths, mínimo 10 partidas).</span>
                 </li>
               </ul>
             </div>

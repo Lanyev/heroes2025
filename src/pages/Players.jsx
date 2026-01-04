@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { ChartCard } from '../components/ChartCard'
 import { SectionShell } from '../app/layout/SectionShell'
 import { EmptyState } from '../components/EmptyState'
@@ -79,6 +79,26 @@ export function Players({ rows }) {
   const topByMatches = useMemo(() => getTopPlayersByMatches(rows, 10), [rows])
   const topByWinRate = useMemo(() => getTopPlayersByWinRate(rows, 10, 10), [rows])
   const playerStats = useMemo(() => getPlayerStats(rows), [rows])
+  
+  // Calculate max values for opacity calculation
+  const maxMatches = useMemo(() => {
+    return topByMatches.length > 0 ? Math.max(...topByMatches.map(p => p.matches)) : 1
+  }, [topByMatches])
+  
+  const maxWinRate = useMemo(() => {
+    return topByWinRate.length > 0 ? Math.max(...topByWinRate.map(p => p.winRate)) : 1
+  }, [topByWinRate])
+  
+  // Function to calculate fill color with opacity based on value
+  const getMatchesFill = useCallback((entry) => {
+    const opacity = Math.max(0.3, entry.matches / maxMatches) // Minimum opacity 0.3, max 1.0
+    return `rgba(139, 92, 246, ${opacity})` // #8b5cf6 with opacity
+  }, [maxMatches])
+  
+  const getWinRateFill = useCallback((entry) => {
+    const opacity = Math.max(0.3, entry.winRate / maxWinRate) // Minimum opacity 0.3, max 1.0
+    return `rgba(245, 158, 11, ${opacity})` // #f59e0b with opacity
+  }, [maxWinRate])
   
   // Sort player stats
   const sortedPlayerStats = useMemo(() => {
@@ -196,9 +216,12 @@ export function Players({ rows }) {
                 <Bar 
                   dataKey="matches" 
                   name="Partidas"
-                  fill="#8b5cf6"
                   radius={[0, 4, 4, 0]}
-                />
+                >
+                  {topByMatches.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={getMatchesFill(entry)} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -238,9 +261,12 @@ export function Players({ rows }) {
                 <Bar 
                   dataKey="winRate" 
                   name="Win Rate"
-                  fill="#f59e0b"
                   radius={[0, 4, 4, 0]}
-                />
+                >
+                  {topByWinRate.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={getWinRateFill(entry)} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>

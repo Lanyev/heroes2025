@@ -1,7 +1,7 @@
 import { useMemo, useState, useRef, useCallback } from 'react'
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, 
-  ResponsiveContainer, ReferenceLine 
+  ResponsiveContainer, ReferenceLine, Cell 
 } from 'recharts'
 import { ChartCard } from '../components/ChartCard'
 import { SectionShell } from '../app/layout/SectionShell'
@@ -17,6 +17,7 @@ import {
   getHeroStatsTable, 
   getTopHeroesByMetric, 
   getHeroDetails,
+  getTopPlayersByWinrate,
   HERO_METRICS,
   HERO_TABLE_COLUMNS 
 } from '../data/heroMetrics'
@@ -87,6 +88,41 @@ export function Heroes({ rows }) {
   const topByWinRate = useMemo(() => {
     return getTopHeroesByMetric(heroTable, 'winRateWilson', topN, Math.max(minMatches, 10), false)
   }, [heroTable, topN, minMatches])
+
+  // Calculate max values for opacity calculation
+  const maxMetric = useMemo(() => {
+    return topByMetric.length > 0 
+      ? Math.max(...topByMetric.map(h => h[selectedMetric] || 0)) 
+      : 1
+  }, [topByMetric, selectedMetric])
+
+  const maxMatches = useMemo(() => {
+    return topByMetric.length > 0 ? Math.max(...topByMetric.map(h => h.matches)) : 1
+  }, [topByMetric])
+
+  const maxWinRate = useMemo(() => {
+    return topByWinRate.length > 0 ? Math.max(...topByWinRate.map(h => h.winRateWilson)) : 1
+  }, [topByWinRate])
+
+  // Function to calculate fill color with opacity based on value
+  const getMetricFill = useCallback((entry) => {
+    const value = entry[selectedMetric] || 0
+    const opacity = Math.max(0.3, value / maxMetric) // Minimum opacity 0.3, max 1.0
+    if (selectedMetric.includes('Death')) {
+      return `rgba(239, 68, 68, ${opacity})` // #ef4444 with opacity
+    }
+    return `rgba(99, 102, 241, ${opacity})` // #6366f1 with opacity
+  }, [selectedMetric, maxMetric])
+
+  const getMatchesFill = useCallback((entry) => {
+    const opacity = Math.max(0.3, entry.matches / maxMatches) // Minimum opacity 0.3, max 1.0
+    return `rgba(99, 102, 241, ${opacity})` // #6366f1 with opacity
+  }, [maxMatches])
+
+  const getWinRateFill = useCallback((entry) => {
+    const opacity = Math.max(0.3, entry.winRateWilson / maxWinRate) // Minimum opacity 0.3, max 1.0
+    return `rgba(16, 185, 129, ${opacity})` // #10b981 with opacity
+  }, [maxWinRate])
   
   // Handle sort column click
   const handleSort = useCallback((key) => {
@@ -184,9 +220,12 @@ export function Heroes({ rows }) {
                   />
                   <Bar 
                     dataKey="matches" 
-                    fill="#6366f1"
                     radius={[0, 4, 4, 0]}
-                  />
+                  >
+                    {topByMetric.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={getMatchesFill(entry)} />
+                    ))}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -233,9 +272,12 @@ export function Heroes({ rows }) {
                   <ReferenceLine x={0.5} stroke="#f59e0b" strokeDasharray="5 5" />
                   <Bar 
                     dataKey="winRateWilson" 
-                    fill="#10b981"
                     radius={[0, 4, 4, 0]}
-                  />
+                  >
+                    {topByWinRate.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={getWinRateFill(entry)} />
+                    ))}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -281,9 +323,12 @@ export function Heroes({ rows }) {
                 )}
                 <Bar 
                   dataKey={selectedMetric}
-                  fill={selectedMetric.includes('Death') ? '#ef4444' : '#6366f1'}
                   radius={[0, 4, 4, 0]}
-                />
+                >
+                  {topByMetric.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={getMetricFill(entry)} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -315,6 +360,8 @@ export function Heroes({ rows }) {
               onRowClick={handleRowClick}
               showHeroAvatar={true}
               emptyMessage="No hay héroes que coincidan con los filtros"
+              allRows={rows}
+              getTopPlayersForHero={getTopPlayersByWinrate}
             />
           </div>
         </div>
