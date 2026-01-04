@@ -139,70 +139,113 @@ export function HeroFunnyBlocks({ blocks }) {
           const titleText = getTitleWithoutEmoji(block.title || '')
           const accent = block.accent || 'slate'
           
+          const hasImage = block.id
+          const imageUrl = hasImage ? `/highlight-images/${block.id}.jpg` : null
+          
           return (
             <div
               key={block.id || index}
-              className="rounded-xl p-4 border relative overflow-hidden bg-slate-800/50"
+              className={`rounded-xl border overflow-hidden ${
+                hasImage ? '' : getGradientClasses(accent)
+              }`}
             >
-              {/* Contenedor de imagen con gradiente de máscara para difuminar lado izquierdo */}
-              <div className="absolute right-0 top-0 h-full w-auto overflow-hidden pointer-events-none">
-                <img 
-                  src={`/highlight-images/${block.id}.jpg`}
-                  alt=""
-                  className="h-full w-auto object-contain object-right opacity-75"
-                  onError={(e) => {
-                    // Fallback si la imagen no existe: mostrar gradiente de fondo
-                    e.target.style.display = 'none'
-                    const parent = e.target.closest('.rounded-xl')
-                    if (parent) {
-                      parent.className = `${getGradientClasses(accent)} rounded-xl p-4 border relative overflow-hidden`
-                    }
-                  }}
-                />
-                {/* Gradiente overlay sobre la imagen para difuminar lado izquierdo */}
-                <div 
-                  className="absolute inset-0 w-full h-full pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(to left, transparent 0%, rgba(15, 23, 42, 0.3) 30%, rgba(15, 23, 42, 0.7) 60%, rgba(15, 23, 42, 0.95) 100%)'
-                  }}
-                />
-              </div>
-              {/* Overlay oscuro general sutil para mejorar legibilidad del texto */}
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-l from-slate-900/50 via-slate-900/20 to-transparent pointer-events-none" />
-              {/* Overlay oscuro general sutil para mejorar legibilidad del texto */}
-              <div className="absolute inset-0 w-full h-full bg-slate-900/20" />
-              {/* Gradiente de acento sutil por encima */}
-              <div className={`absolute inset-0 w-full h-full ${getGradientClasses(accent)} opacity-15`} />
-              {/* Contenido de texto por encima */}
-              <div className="flex items-start gap-4 relative z-10">
-                <div className="text-4xl shrink-0">
-                  {emoji}
+              {hasImage ? (
+                /* Layout con imagen: panel texto + panel imagen */
+                <div className="flex flex-col md:flex-row min-h-[200px]">
+                  {/* Panel de texto: fondo negro sólido */}
+                  <div className="flex-1 md:w-[60%] bg-black p-4 flex items-start gap-4 relative z-10">
+                    <div className="text-4xl shrink-0">
+                      {emoji}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wide">
+                        {titleText || block.title || 'Highlight'}
+                      </p>
+                      {/* Número principal: más grande y pesado para dominar */}
+                      <p className="text-3xl md:text-4xl font-extrabold text-white mb-1 leading-tight">
+                        {block.mainValue || 'N/A'}
+                      </p>
+                      {block.subValue && (
+                        <p className="text-slate-300/80 text-sm mb-2 opacity-90">
+                          {block.subValue}
+                        </p>
+                      )}
+                      {block.footer && (
+                        <p className="text-slate-400/70 text-sm mb-1 opacity-80">
+                          {block.footer}
+                        </p>
+                      )}
+                      {block.joke && (
+                        <p className="text-slate-500/60 text-xs italic mt-2 opacity-70">
+                          {block.joke}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Panel de imagen: imagen completa con contain */}
+                  <div 
+                    className="md:w-[40%] relative bg-slate-900"
+                    style={{
+                      backgroundImage: `url(${imageUrl})`,
+                      backgroundPosition: 'center',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      minHeight: hasImage ? '200px' : 'auto'
+                    }}
+                  >
+                    {/* Overlay oscuro sutil sobre la imagen */}
+                    <div 
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.25)'
+                      }}
+                    />
+                    
+                    {/* Degradado de transición desde el panel negro (izquierda) */}
+                    <div 
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background: 'linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0.2) 40%, transparent 60%)'
+                      }}
+                    />
+                    
+                    {/* Gradiente de acento sutil por encima */}
+                    <div className={`absolute inset-0 ${getGradientClasses(accent)} opacity-15 pointer-events-none`} />
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wide">
-                    {titleText || block.title || 'Highlight'}
-                  </p>
-                <p className="text-2xl font-bold text-white mb-1">
-                  {block.mainValue || 'N/A'}
-                </p>
-                {block.subValue && (
-                  <p className="text-slate-300 text-sm mb-2">
-                    {block.subValue}
-                  </p>
-                )}
-                {block.footer && (
-                  <p className="text-slate-400 text-sm mb-1">
-                    {block.footer}
-                  </p>
-                )}
-                {block.joke && (
-                  <p className="text-slate-500 text-xs italic mt-2">
-                    {block.joke}
-                  </p>
-                )}
-              </div>
+              ) : (
+                /* Layout sin imagen: solo gradiente de fondo */
+                <div className="p-4 flex items-start gap-4">
+                  <div className="text-4xl shrink-0">
+                    {emoji}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wide">
+                      {titleText || block.title || 'Highlight'}
+                    </p>
+                    <p className="text-3xl md:text-4xl font-extrabold text-white mb-1 leading-tight">
+                      {block.mainValue || 'N/A'}
+                    </p>
+                    {block.subValue && (
+                      <p className="text-slate-300/80 text-sm mb-2 opacity-90">
+                        {block.subValue}
+                      </p>
+                    )}
+                    {block.footer && (
+                      <p className="text-slate-400/70 text-sm mb-1 opacity-80">
+                        {block.footer}
+                      </p>
+                    )}
+                    {block.joke && (
+                      <p className="text-slate-500/60 text-xs italic mt-2 opacity-70">
+                        {block.joke}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
         )
         })}
       </div>

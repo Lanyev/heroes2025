@@ -59,9 +59,9 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
       />
       
       {/* Drawer */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-2xl bg-slate-900 border-l border-slate-700 z-50 overflow-y-auto animate-fade-in">
-        {/* Header */}
-        <div className="sticky top-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 px-6 py-4 flex items-center justify-between z-10">
+      <div className="fixed right-0 top-0 h-full w-full max-w-2xl bg-slate-900 border-l border-slate-700 z-50 flex flex-col animate-fade-in">
+        {/* Header: altura fija, sticky, z-index alto */}
+        <div className="sticky top-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 px-6 py-4 flex items-center justify-between z-50 shrink-0">
           <div className="flex items-center gap-4">
             <HeroAvatar 
               name={name} 
@@ -84,7 +84,8 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        {/* Body: scroll solo aquí, con padding superior para espaciado */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* KPI Cards */}
           <section>
             <h3 className="text-lg font-semibold text-white mb-3">Estadísticas Clave</h3>
