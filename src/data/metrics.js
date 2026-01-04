@@ -404,3 +404,147 @@ export function calculateFunFacts(rows) {
     cursedMap: getCursedMap(rows)
   }
 }
+
+/**
+ * Get detailed stats for a specific player
+ * @param {Array} rows - All filtered rows
+ * @param {string} playerName - Player to analyze
+ * @returns {Object} - Detailed player analytics
+ */
+export function getPlayerDetails(rows, playerName) {
+  const playerRows = rows.filter(r => r.playerName === playerName)
+  
+  if (playerRows.length === 0) {
+    return null
+  }
+  
+  // Basic aggregation
+  let wins = 0, kills = 0, deaths = 0, assists = 0, takedowns = 0
+  let heroDamage = 0, siegeDamage = 0, damageTaken = 0, healingShielding = 0
+  let spentDeadSeconds = 0, gameTimeSeconds = 0, onFireTotal = 0
+  const heroes = {}
+  const maps = {}
+  const byWeek = {}
+  const matches = []
+  
+  for (const row of playerRows) {
+    if (row.winner) wins++
+    kills += row.heroKills || 0
+    deaths += row.deaths || 0
+    assists += row.assists || 0
+    takedowns += row.takedowns || 0
+    heroDamage += row.heroDamage || 0
+    siegeDamage += row.siegeDamage || 0
+    damageTaken += row.damageTaken || 0
+    healingShielding += row.healingShielding || 0
+    spentDeadSeconds += row.spentDeadSeconds || 0
+    gameTimeSeconds += row.gameTimeSeconds || 0
+    onFireTotal += row.onFire || 0
+    
+    // By hero
+    const hero = row.heroName || 'Unknown'
+    if (!heroes[hero]) {
+      heroes[hero] = { 
+        name: hero, 
+        role: row.role || 'Unknown',
+        matches: 0, 
+        wins: 0 
+      }
+    }
+    heroes[hero].matches++
+    if (row.winner) heroes[hero].wins++
+    
+    // By map
+    const map = row.map || 'Unknown'
+    if (!maps[map]) maps[map] = { name: map, matches: 0, wins: 0 }
+    maps[map].matches++
+    if (row.winner) maps[map].wins++
+    
+    // Time series (by week)
+    if (row.dateObj) {
+      const week = getYearWeek(row.dateObj)
+      if (!byWeek[week]) byWeek[week] = { period: week, matches: 0, wins: 0 }
+      byWeek[week].matches++
+      if (row.winner) byWeek[week].wins++
+    }
+    
+    // Store match record with replay name
+    matches.push({
+      heroName: hero,
+      heroRole: row.role || 'Unknown',
+      map: map,
+      replayName: row.replayName || '',
+      date: row.dateObj,
+      winner: row.winner,
+      kills: row.heroKills || 0,
+      deaths: row.deaths || 0,
+      assists: row.assists || 0,
+      heroDamage: row.heroDamage || 0,
+      siegeDamage: row.siegeDamage || 0,
+      totalDamage: (row.heroDamage || 0) + (row.siegeDamage || 0),
+      gameTimeSeconds: row.gameTimeSeconds || 0
+    })
+  }
+  
+  const totalMatches = playerRows.length
+  const avgGameTimeMinutes = totalMatches > 0 ? (gameTimeSeconds / totalMatches) / 60 : 0
+  
+  // Helper function for safe division
+  const safeDivide = (a, b) => b > 0 ? a / b : 0
+  
+  // KPIs
+  const kpis = {
+    matches: totalMatches,
+    wins,
+    losses: totalMatches - wins,
+    winRate: safeDivide(wins, totalMatches),
+    avgKills: safeDivide(kills, totalMatches),
+    avgDeaths: safeDivide(deaths, totalMatches),
+    avgAssists: safeDivide(assists, totalMatches),
+    kda: safeDivide(kills + assists, Math.max(1, deaths)),
+    avgHeroDamage: safeDivide(heroDamage, totalMatches),
+    avgSiegeDamage: safeDivide(siegeDamage, totalMatches),
+    avgTotalDamage: safeDivide(heroDamage + siegeDamage, totalMatches),
+    dpm: safeDivide(safeDivide(heroDamage + siegeDamage, totalMatches), avgGameTimeMinutes),
+    avgDamageTaken: safeDivide(damageTaken, totalMatches),
+    avgHealingShielding: safeDivide(healingShielding, totalMatches),
+    avgSpentDeadSeconds: safeDivide(spentDeadSeconds, totalMatches),
+    avgGameTimeSeconds: safeDivide(gameTimeSeconds, totalMatches),
+    avgOnFire: safeDivide(onFireTotal, totalMatches),
+    totalKills: kills,
+    totalDeaths: deaths,
+    totalAssists: assists
+  }
+  
+  // Process heroes - sort by matches and compute winrate
+  const heroesList = Object.values(heroes)
+    .map(h => ({ ...h, winRate: safeDivide(h.wins, h.matches) }))
+    .sort((a, b) => b.matches - a.matches)
+  
+  // Process maps - sort by matches and compute winrate
+  const mapsList = Object.values(maps)
+    .map(m => ({ ...m, winRate: safeDivide(m.wins, m.matches) }))
+    .sort((a, b) => b.matches - a.matches)
+  
+  // Process trend - sort chronologically
+  const trend = Object.values(byWeek)
+    .map(t => ({ ...t, winRate: safeDivide(t.wins, t.matches) }))
+    .sort((a, b) => a.period.localeCompare(b.period))
+  
+  // Sort matches by date (most recent first)
+  matches.sort((a, b) => {
+    if (!a.date && !b.date) return 0
+    if (!a.date) return 1
+    if (!b.date) return -1
+    return b.date - a.date
+  })
+  
+  return {
+    name: playerName,
+    kpis,
+    heroes: heroesList,
+    maps: mapsList,
+    trend,
+    matches
+  }
+}

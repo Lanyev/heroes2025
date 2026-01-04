@@ -142,9 +142,14 @@ export function HeroFunnyBlocks({ blocks }) {
           return (
             <div
               key={block.id || index}
-              className={`${getGradientClasses(accent)} rounded-xl p-4 border`}
+              className={`${getGradientClasses(accent)} rounded-xl p-4 border relative overflow-hidden`}
             >
-              <div className="flex items-start gap-4">
+              {/* Placeholder para imagen de fondo */}
+              <div className="absolute inset-0 w-full h-full bg-slate-800/50 flex items-center justify-center">
+                <span className="text-slate-500 text-xs">🖼️ Imagen placeholder</span>
+              </div>
+              {/* Contenido de texto por encima */}
+              <div className="flex items-start gap-4 relative z-10">
                 <div className="text-4xl shrink-0">
                   {emoji}
                 </div>

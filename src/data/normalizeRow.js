@@ -161,11 +161,16 @@ export function normalizeRow(row) {
   const playerName = String(row.PlayerName || '').trim()
   const map = String(row.Map || '').trim()
   
+  // Extract replay name from Name field (format: "-MM-DD HH.MM.SS MapName.StormReplay")
+  // Store the full name string as replay name for searching
+  const replayName = nameStr || String(row.Name || '').trim()
+  
   return {
     // Identifiers
     playerName,
     heroName,
     map,
+    replayName,
     
     // Derived role
     role: getHeroRole(heroName),

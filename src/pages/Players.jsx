@@ -1,10 +1,12 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { ChartCard } from '../components/ChartCard'
 import { SectionShell } from '../app/layout/SectionShell'
 import { EmptyState } from '../components/EmptyState'
 import { Badge } from '../components/Badge'
-import { getTopPlayersByMatches, getTopPlayersByWinRate, getAverage, getTotal } from '../data/metrics'
+import { SortableTable } from '../components/SortableTable'
+import { PlayerDetailsDrawer } from '../components/PlayerDetailsDrawer'
+import { getTopPlayersByMatches, getTopPlayersByWinRate, getAverage, getTotal, getPlayerDetails } from '../data/metrics'
 import { formatNumber, formatPercent, formatCompact } from '../utils/format'
 
 /**
@@ -54,12 +56,109 @@ function getPlayerStats(rows) {
 }
 
 /**
+ * Column definitions for players table
+ */
+const PLAYER_TABLE_COLUMNS = [
+  { key: 'name', label: 'Jugador', sortable: true, type: 'string' },
+  { key: 'matches', label: 'Partidas', sortable: true, type: 'number' },
+  { key: 'winRate', label: 'Win Rate', sortable: true, type: 'percent' },
+  { key: 'avgKills', label: 'Avg K', sortable: true, type: 'decimal' },
+  { key: 'avgDeaths', label: 'Avg D', sortable: true, type: 'decimal' },
+  { key: 'avgAssists', label: 'Avg A', sortable: true, type: 'decimal' },
+  { key: 'kda', label: 'KDA', sortable: true, type: 'decimal' },
+  { key: 'avgDamage', label: 'Avg Daño', sortable: true, type: 'compact' },
+]
+
+/**
  * Players page with player statistics
  */
 export function Players({ rows }) {
+  const [tableSort, setTableSort] = useState({ key: 'matches', direction: 'desc' })
+  const [selectedPlayer, setSelectedPlayer] = useState(null)
+  
   const topByMatches = useMemo(() => getTopPlayersByMatches(rows, 10), [rows])
   const topByWinRate = useMemo(() => getTopPlayersByWinRate(rows, 10, 10), [rows])
   const playerStats = useMemo(() => getPlayerStats(rows), [rows])
+  
+  // Sort player stats
+  const sortedPlayerStats = useMemo(() => {
+    const { key, direction } = tableSort
+    return [...playerStats].sort((a, b) => {
+      const aVal = a[key]
+      const bVal = b[key]
+      
+      // Handle string sorting
+      if (typeof aVal === 'string') {
+        return direction === 'asc' 
+          ? aVal.localeCompare(bVal) 
+          : bVal.localeCompare(aVal)
+      }
+      
+      // Handle numeric sorting
+      return direction === 'asc' ? aVal - bVal : bVal - aVal
+    })
+  }, [playerStats, tableSort])
+  
+  // Handle sort column click
+  const handleSort = useCallback((key) => {
+    setTableSort(prev => ({
+      key,
+      direction: prev.key === key && prev.direction === 'desc' ? 'asc' : 'desc'
+    }))
+  }, [])
+  
+  // Handle row click - open details drawer
+  const handleRowClick = useCallback((row) => {
+    const details = getPlayerDetails(rows, row.name)
+    setSelectedPlayer(details)
+  }, [rows])
+  
+  // Custom cell renderer for players table
+  const renderPlayerCell = useCallback((row, column) => {
+    if (column.key === 'name') {
+      return (
+        <span className="text-white font-medium">{row.name}</span>
+      )
+    }
+    
+    if (column.key === 'winRate') {
+      return (
+        <Badge 
+          variant={row.winRate >= 0.55 ? 'success' : row.winRate <= 0.45 ? 'danger' : 'default'}
+        >
+          {formatPercent(row.winRate)}
+        </Badge>
+      )
+    }
+    
+    if (column.key === 'kda') {
+      return (
+        <Badge variant={row.kda >= 3 ? 'success' : row.kda <= 1.5 ? 'danger' : 'info'}>
+          {row.kda.toFixed(2)}
+        </Badge>
+      )
+    }
+    
+    if (column.key === 'matches') {
+      return (
+        <span className="text-slate-300">{formatNumber(row.matches)}</span>
+      )
+    }
+    
+    if (column.key === 'avgKills' || column.key === 'avgDeaths' || column.key === 'avgAssists') {
+      return (
+        <span className="text-slate-300">{row[column.key].toFixed(1)}</span>
+      )
+    }
+    
+    if (column.key === 'avgDamage') {
+      return (
+        <span className="text-slate-300">{formatCompact(row.avgDamage)}</span>
+      )
+    }
+    
+    return null
+  }, [])
   
   if (rows.length === 0) {
     return <EmptyState />
@@ -149,55 +248,31 @@ export function Players({ rows }) {
       </div>
 
       {/* Players Table */}
-      <SectionShell title="Tabla de Jugadores" description="Estadísticas detalladas por jugador">
+      <SectionShell 
+        title="Tabla de Jugadores" 
+        description={`${sortedPlayerStats.length} jugadores • Click en una fila para ver detalles`}
+      >
         <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-slate-700/30">
-                  <th className="text-left px-4 py-3 text-slate-300 font-medium text-sm">Jugador</th>
-                  <th className="text-right px-4 py-3 text-slate-300 font-medium text-sm">Partidas</th>
-                  <th className="text-right px-4 py-3 text-slate-300 font-medium text-sm">Win Rate</th>
-                  <th className="text-right px-4 py-3 text-slate-300 font-medium text-sm">Avg K</th>
-                  <th className="text-right px-4 py-3 text-slate-300 font-medium text-sm">Avg D</th>
-                  <th className="text-right px-4 py-3 text-slate-300 font-medium text-sm">Avg A</th>
-                  <th className="text-right px-4 py-3 text-slate-300 font-medium text-sm">KDA</th>
-                  <th className="text-right px-4 py-3 text-slate-300 font-medium text-sm">Avg Daño</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-700/50">
-                {playerStats.slice(0, 15).map((player, idx) => (
-                  <tr key={player.name} className="hover:bg-slate-700/20 transition-colors">
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-slate-500 text-sm w-5">{idx + 1}</span>
-                        <span className="text-white font-medium">{player.name}</span>
-                      </div>
-                    </td>
-                    <td className="text-right px-4 py-3 text-slate-300">{formatNumber(player.matches)}</td>
-                    <td className="text-right px-4 py-3">
-                      <Badge 
-                        variant={player.winRate >= 0.55 ? 'success' : player.winRate <= 0.45 ? 'danger' : 'default'}
-                      >
-                        {formatPercent(player.winRate)}
-                      </Badge>
-                    </td>
-                    <td className="text-right px-4 py-3 text-slate-300">{player.avgKills.toFixed(1)}</td>
-                    <td className="text-right px-4 py-3 text-slate-300">{player.avgDeaths.toFixed(1)}</td>
-                    <td className="text-right px-4 py-3 text-slate-300">{player.avgAssists.toFixed(1)}</td>
-                    <td className="text-right px-4 py-3">
-                      <Badge variant={player.kda >= 3 ? 'success' : player.kda <= 1.5 ? 'danger' : 'info'}>
-                        {player.kda.toFixed(2)}
-                      </Badge>
-                    </td>
-                    <td className="text-right px-4 py-3 text-slate-300">{formatCompact(player.avgDamage)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <SortableTable
+            columns={PLAYER_TABLE_COLUMNS}
+            rows={sortedPlayerStats}
+            sort={tableSort}
+            onSort={handleSort}
+            onRowClick={handleRowClick}
+            renderCell={renderPlayerCell}
+            emptyMessage="No hay datos de jugadores"
+          />
         </div>
       </SectionShell>
+
+      {/* Player Details Drawer */}
+      {selectedPlayer && (
+        <PlayerDetailsDrawer
+          player={selectedPlayer}
+          rows={rows}
+          onClose={() => setSelectedPlayer(null)}
+        />
+      )}
     </div>
   )
 }
