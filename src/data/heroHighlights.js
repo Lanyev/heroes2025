@@ -170,7 +170,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
       mainValue: `${formatCompact(totalDmg)} daño total`,
       subValue: `${formatCompact(heroDmg)} héroe + ${formatCompact(siegeDmg)} asedio`,
       footer: footer || 'Partida épica',
-      joke: getRandomJoke('most_violent')
+      joke: getRandomJoke('most_violent'),
+      replayName: mostViolent.replayName || '',
+      winner: mostViolent.winner
     })
   }
 
@@ -203,7 +205,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
       footer: footer || 'En alguna partida',
       joke: getRandomJoke('most_time_dead'),
       score: mostTimeDead.spentDeadSeconds || 0,
-      category: 'time_dead'
+      category: 'time_dead',
+      replayName: mostTimeDead.replayName || '',
+      winner: mostTimeDead.winner
     })
   }
   
@@ -235,7 +239,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
         footer: footer || 'En alguna partida',
         joke: getRandomJoke('most_healing'),
         score: mostHealing.healingShielding || 0,
-        category: 'healing'
+        category: 'healing',
+        replayName: mostHealing.replayName || '',
+        winner: mostHealing.winner
       })
     }
   }
@@ -275,7 +281,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
       footer: footer || 'En alguna partida',
       joke: getRandomJoke('most_deaths'),
       score: mostDeaths.deaths || 0,
-      category: 'deaths'
+      category: 'deaths',
+      replayName: mostDeaths.replayName || '',
+      winner: mostDeaths.winner
     })
   }
   
@@ -321,7 +329,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
         footer: footer || 'Ganaste sin matar',
         joke: getRandomJoke('pacifist_win'),
         score: 1000 - kills, // Inverse: lower kills = higher score
-        category: 'pacifist'
+        category: 'pacifist',
+        replayName: pacifistWin.replayName || '',
+        winner: pacifistWin.winner
       })
     }
   }
@@ -357,7 +367,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
         footer: footer || 'Partida rápida',
         joke: getRandomJoke('speedrun'),
         score: 10000 - (speedrun.gameTimeSeconds || 0), // Inverse: shorter = higher score
-        category: 'speedrun'
+        category: 'speedrun',
+        replayName: speedrun.replayName || '',
+        winner: speedrun.winner
       })
     }
   }
@@ -390,7 +402,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
       footer: footer || 'Y aún así sobreviviste',
       joke: getRandomJoke('raid_boss'),
       score: mostDamageTaken.damageTaken || 0,
-      category: 'damage_taken'
+      category: 'damage_taken',
+      replayName: mostDamageTaken.replayName || '',
+      winner: mostDamageTaken.winner
     })
   }
   
@@ -435,7 +449,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
         footer: footer || 'Partida épica',
         joke: getRandomJoke('protagonist'),
         score: kda * 100, // Scale for comparison
-        category: 'kda'
+        category: 'kda',
+        replayName: protagonist.replayName || '',
+        winner: protagonist.winner
       })
     }
   }
@@ -466,7 +482,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
       footer: footer || 'En alguna partida',
       joke: getRandomJoke('push_enjoyer'),
       score: mostSiege.siegeDamage || 0,
-      category: 'siege'
+      category: 'siege',
+      replayName: mostSiege.replayName || '',
+      winner: mostSiege.winner
     })
   }
   
@@ -502,7 +520,9 @@ export function getHeroFunnyHighlights(rows, heroName) {
       footer: footer || 'En alguna partida',
       joke: getRandomJoke('socializer'),
       score: mostAssists.assists || 0,
-      category: 'assists'
+      category: 'assists',
+      replayName: mostAssists.replayName || '',
+      winner: mostAssists.winner
     })
   }
   
