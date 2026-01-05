@@ -44,6 +44,7 @@ export function Overview({ rows }) {
     'Melee Assassin': '#ec4899',
     'Healer': '#10b981',
     'Support': '#8b5cf6',
+    'Mage': '#a855f7', // Purple color for Mage
     'Unknown': '#6b7280'
   }
 

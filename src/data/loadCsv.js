@@ -5,7 +5,7 @@ import Papa from 'papaparse'
  * @param {string} url - Path to CSV file
  * @returns {Promise<Array>} - Parsed rows
  */
-export async function loadCsv(url = '/geekos2024-2025.csv') {
+export async function loadCsv(url = '/structured_data.csv') {
   // Add cache-busting param to avoid browser cache issues
   const cacheBuster = `?t=${Date.now()}`
   const response = await fetch(url + cacheBuster)

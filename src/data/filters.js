@@ -13,7 +13,8 @@ export function createFilterState(meta) {
     role: 'all',
     player: 'all',
     winner: 'all', // 'all', 'wins', 'losses'
-    search: ''
+    search: '',
+    onlyListedPlayers: false // Filter to only show players from the players.json list
   }
 }
 
@@ -23,7 +24,7 @@ export function createFilterState(meta) {
  * @param {Object} filters - Current filter state
  * @returns {Array} - Filtered rows
  */
-export function applyFilters(rows, filters) {
+export function applyFilters(rows, filters, listedPlayersSet = null) {
   return rows.filter(row => {
     // Date range filter
     if (!isDateInRange(row.dateObj, filters.dateMin, filters.dateMax)) {
@@ -43,6 +44,13 @@ export function applyFilters(rows, filters) {
     // Player filter
     if (filters.player !== 'all' && row.playerName !== filters.player) {
       return false
+    }
+    
+    // Only listed players filter
+    if (filters.onlyListedPlayers && listedPlayersSet) {
+      if (!listedPlayersSet.has(row.playerName)) {
+        return false
+      }
     }
     
     // Winner filter

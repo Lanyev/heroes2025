@@ -391,6 +391,7 @@ export const HERO_METRICS = [
  */
 export const HERO_TABLE_COLUMNS = [
   { key: 'name', label: 'Héroe', sortable: true, type: 'string' },
+  { key: 'role', label: 'Rol', sortable: true, type: 'string' },
   { key: 'matches', label: 'Partidas', sortable: true, type: 'number' },
   { key: 'wins', label: 'Wins', sortable: true, type: 'number' },
   { key: 'winRate', label: 'Win Rate', sortable: true, type: 'percent' },

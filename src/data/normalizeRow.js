@@ -130,22 +130,34 @@ export function safeNumber(value, defaultValue = 0) {
  * @returns {Object} - Normalized row
  */
 export function normalizeRow(row) {
-  // Parse date from Year + Name fields (contains date info)
-  // Name field format: "-MM-DD HH.MM.SS MapName.StormReplay"
+  // Parse date from FileName field (contains date info)
+  // FileName field format: "YYYY-MM-DD HH.MM.SS MapName.StormReplay"
+  // Also support old format: "-MM-DD HH.MM.SS MapName.StormReplay" with Year field
   const yearStr = String(row.Year || '').trim()
-  const nameStr = String(row.Name || '').trim()
+  const fileNameStr = String(row.FileName || row.Name || '').trim()
   
   let dateObj = null
   let dateISO = ''
   
-  // Try to extract date from Year and Name
-  // Year is like "2024" and Name starts with "-MM-DD"
-  const dateMatch = nameStr.match(/^-(\d{2})-(\d{2})/)
-  if (yearStr && dateMatch) {
-    const [, month, day] = dateMatch
-    dateObj = new Date(parseInt(yearStr), parseInt(month) - 1, parseInt(day))
+  // Try to extract date from FileName (new format: "YYYY-MM-DD HH.MM.SS MapName.StormReplay")
+  const newFormatMatch = fileNameStr.match(/^(\d{4})-(\d{2})-(\d{2})/)
+  if (newFormatMatch) {
+    const [, year, month, day] = newFormatMatch
+    dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
     if (!isNaN(dateObj.getTime())) {
       dateISO = toISODateString(dateObj)
+    }
+  }
+  
+  // Fallback: try old format with Year field (format: "-MM-DD HH.MM.SS MapName.StormReplay")
+  if (!dateObj) {
+    const oldFormatMatch = fileNameStr.match(/^-(\d{2})-(\d{2})/)
+    if (yearStr && oldFormatMatch) {
+      const [, month, day] = oldFormatMatch
+      dateObj = new Date(parseInt(yearStr), parseInt(month) - 1, parseInt(day))
+      if (!isNaN(dateObj.getTime())) {
+        dateISO = toISODateString(dateObj)
+      }
     }
   }
   
@@ -161,9 +173,72 @@ export function normalizeRow(row) {
   const playerName = String(row.PlayerName || '').trim()
   const map = String(row.Map || '').trim()
   
-  // Extract replay name from Name field (format: "-MM-DD HH.MM.SS MapName.StormReplay")
+  // Extract replay name from FileName field
   // Store the full name string as replay name for searching
-  const replayName = nameStr || String(row.Name || '').trim()
+  const replayName = fileNameStr
+  
+  // Get role from CSV - this is the primary source of truth
+  // Normalize role names from CSV to match expected format
+  const normalizeRoleFromCsv = (roleStr) => {
+    if (!roleStr) return null
+    // Clean and normalize the role string
+    const normalized = String(roleStr).trim().replace(/\s+/g, ' ')
+    if (!normalized || normalized === '') return null
+    
+    // Map CSV role formats to expected formats (case-insensitive)
+    // This handles all variations: "Mage", "MAGE", "mage", "Mage ", etc.
+    const normalizedLower = normalized.toLowerCase()
+    const roleMap = {
+      'mage': 'Mage', // Keep Mage as a separate role
+      'melee assasin': 'Melee Assassin',
+      'melee assassin': 'Melee Assassin',
+      'ranged assasin': 'Ranged Assassin', // Fix typo
+      'ranged assassin': 'Ranged Assassin',
+      'tank': 'Tank',
+      'bruiser': 'Bruiser',
+      'support': 'Support',
+      'healer': 'Healer'
+    }
+    
+    // Check lowercase first (this handles "Mage", "MAGE", "mage", etc.)
+    if (roleMap[normalizedLower]) {
+      return roleMap[normalizedLower]
+    }
+    
+    // If it's already in the correct format, return as-is
+    const validRoles = ['Tank', 'Bruiser', 'Ranged Assassin', 'Melee Assassin', 'Healer', 'Support', 'Mage']
+    if (validRoles.includes(normalized)) {
+      return normalized
+    }
+    
+    // Try to capitalize first letter of each word
+    const capitalized = normalized.split(' ').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    ).join(' ')
+    
+    if (validRoles.includes(capitalized)) {
+      return capitalized
+    }
+    
+    // Final check: if it matches a valid role after capitalization, use it
+    const capitalizedLower = capitalized.toLowerCase()
+    if (roleMap[capitalizedLower]) {
+      return roleMap[capitalizedLower]
+    }
+    
+    // If no mapping found but it's a valid role format, return capitalized version
+    // This handles cases where the role is already correct but not in our map
+    if (normalizedLower === 'mage' || normalized === 'Mage') {
+      return 'Mage'
+    }
+    
+    // If no mapping found, return null to use fallback
+    return null
+  }
+  
+  // Always prioritize CSV Role column - only use fallback if CSV is completely empty or invalid
+  const roleFromCsv = normalizeRoleFromCsv(row.Role)
+  const role = roleFromCsv || getHeroRole(heroName)
   
   return {
     // Identifiers
@@ -172,8 +247,8 @@ export function normalizeRow(row) {
     map,
     replayName,
     
-    // Derived role
-    role: getHeroRole(heroName),
+    // Role from CSV or calculated
+    role,
     
     // Game info
     team: String(row.Team || '').trim(),

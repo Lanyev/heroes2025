@@ -40,7 +40,7 @@ export function ErrorState({ error, onRetry, className }) {
       <h3 className="text-xl font-semibold text-white mb-2">Error al cargar datos</h3>
       <p className="text-red-400 max-w-md mb-4">{error}</p>
       <p className="text-slate-500 text-sm max-w-md mb-6">
-        Asegúrate de que el archivo CSV está ubicado en <code className="bg-slate-800 px-2 py-1 rounded">/public/geekos2024-2025.csv</code>
+        Asegúrate de que el archivo CSV está ubicado en <code className="bg-slate-800 px-2 py-1 rounded">/public/structured_data.csv</code>
       </p>
       {onRetry && (
         <button

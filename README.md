@@ -25,7 +25,7 @@ npm run preview
 ```
 proyecto/
 ├── public/
-│   └── geekos2024-2025.csv  ← El CSV debe estar aquí
+│   └── structured_data.csv  ← El CSV debe estar aquí
 ├── src/
 └── ...
 ```
@@ -34,10 +34,10 @@ Si el CSV está en la raíz del proyecto, cópialo a `/public`:
 
 ```bash
 # Windows (PowerShell)
-Copy-Item .\geekos2024-2025.csv .\public\
+Copy-Item .\structured_data.csv .\public\
 
 # Linux/Mac
-cp ./geekos2024-2025.csv ./public/
+cp ./structured_data.csv ./public/
 ```
 
 ## 📊 Formato del CSV
@@ -47,9 +47,10 @@ El CSV debe contener las siguientes columnas (al menos):
 | Columna | Descripción | Ejemplo |
 |---------|-------------|---------|
 | Year | Año de la partida | 2024 |
-| Name | Info del replay (incluye fecha) | -12-03 23.33.20 MapName.StormReplay |
+| FileName | Nombre del archivo replay (incluye fecha) | 2023-12-01 23.18.12 Silver City.StormReplay |
 | PlayerName | Nombre del jugador | WatchdogMan |
 | HeroName | Nombre del héroe | Zul'jin |
+| Role | Rol del héroe | Ranged Assassin, Tank, Bruiser, Healer, Support, Melee Assassin, Mage |
 | Map | Nombre del mapa | Caverna perdida |
 | GameTime | Duración de la partida | 00:30:59 |
 | Winner | Resultado | Yes/No, true/false, 1/0, Win/Loss |
@@ -73,7 +74,7 @@ La aplicación maneja automáticamente:
 - **Winner:** Acepta `Yes/No`, `true/false`, `TRUE/FALSE`, `Win/Loss`, `1/0`, `Sí/No`
 - **GameTime/SpentDead/OnFire:** Acepta `mm:ss`, `hh:mm:ss`, o segundos como número
 - **Números:** Valores vacíos o `NaN` se convierten a 0
-- **Fechas:** Se extraen del campo Year + Name (formato del replay)
+- **Fechas:** Se extraen del campo FileName (formato: "YYYY-MM-DD HH.MM.SS MapName.StormReplay") o del formato antiguo Year + Name
 - **Roles:** Se asignan automáticamente basándose en el nombre del héroe
 
 ## 🎮 Funcionalidades
@@ -178,7 +179,7 @@ Los héroes con menos de 20 partidas se marcan con "?" indicando datos limitados
 Para actualizar los datos:
 
 1. Exporta tu nuevo CSV con el mismo formato
-2. Reemplaza el archivo en `/public/geekos2024-2025.csv`
+2. Reemplaza el archivo en `/public/structured_data.csv`
 3. Recarga la aplicación
 
 ## 🔧 Desarrollo

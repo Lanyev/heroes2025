@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import { loadCsv } from './loadCsv'
 import { normalizeData } from './normalize'
 import { createFilterState, applyFilters, getFilterOptions } from './filters'
+import { loadPlayersList } from './loadPlayersList'
 
 /**
  * Main hook for loading and managing dataset
@@ -13,6 +14,7 @@ export function useDataset() {
   const [rows, setRows] = useState([])
   const [meta, setMeta] = useState(null)
   const [filters, setFilters] = useState(null)
+  const [listedPlayers, setListedPlayers] = useState(null)
   
   // Load and normalize data on mount
   useEffect(() => {
@@ -23,7 +25,11 @@ export function useDataset() {
         setLoading(true)
         setError(null)
         
-        const rawRows = await loadCsv()
+        // Load CSV and players list in parallel
+        const [rawRows, playersSet] = await Promise.all([
+          loadCsv(),
+          loadPlayersList()
+        ])
         
         if (cancelled) return
         
@@ -32,6 +38,7 @@ export function useDataset() {
         setRows(normalizedRows)
         setMeta(dataMeta)
         setFilters(createFilterState(dataMeta))
+        setListedPlayers(playersSet)
         setLoading(false)
       } catch (err) {
         if (cancelled) return
@@ -62,8 +69,8 @@ export function useDataset() {
   // Compute filtered rows
   const filteredRows = useMemo(() => {
     if (!rows.length || !filters) return []
-    return applyFilters(rows, filters)
-  }, [rows, filters])
+    return applyFilters(rows, filters, listedPlayers)
+  }, [rows, filters, listedPlayers])
   
   // Get filter options
   const filterOptions = useMemo(() => {
