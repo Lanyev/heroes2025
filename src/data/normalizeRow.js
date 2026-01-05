@@ -170,8 +170,32 @@ export function normalizeRow(row) {
   }
   
   const heroName = String(row.HeroName || '').trim()
-  const playerName = String(row.PlayerName || '').trim()
+  let playerName = String(row.PlayerName || '').trim()
   const map = String(row.Map || '').trim()
+  
+  // Normalize player names - map aliases to canonical names
+  // Swift and Watchdogman are the same person, use WatchdogMan as canonical name
+  const normalizePlayerName = (name) => {
+    if (!name) return name
+    const normalized = name.trim()
+    
+    // Map aliases to canonical names (case-insensitive)
+    const playerAliases = {
+      'swift': 'WatchdogMan',
+      'watchdogman': 'WatchdogMan',
+      'watchdog': 'WatchdogMan'
+    }
+    
+    const normalizedLower = normalized.toLowerCase()
+    if (playerAliases[normalizedLower]) {
+      return playerAliases[normalizedLower]
+    }
+    
+    return normalized
+  }
+  
+  // Apply player name normalization
+  playerName = normalizePlayerName(playerName)
   
   // Extract replay name from FileName field
   // Store the full name string as replay name for searching

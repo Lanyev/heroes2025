@@ -1,5 +1,5 @@
+import { useState } from 'react'
 import { Select } from '../../components/Select'
-import { SearchInput } from '../../components/SearchInput'
 
 /**
  * Global filter bar component
@@ -11,6 +11,8 @@ import { SearchInput } from '../../components/SearchInput'
  * @param {Function} props.resetFilters - Reset filters handler
  */
 export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFilters }) {
+  const [isCompact, setIsCompact] = useState(true) // Default to compact mode
+  
   if (!filters || !filterOptions) return null
 
   // Generar lista de años disponibles
@@ -72,13 +74,82 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
     }
   }
 
+  // Get active filters count
+  const getActiveFilters = () => {
+    const active = []
+    if (selectedYear && selectedYear !== 'all') active.push({ type: 'year', value: selectedYear, label: `Año: ${selectedYear}` })
+    if (filters.map !== 'all') active.push({ type: 'map', value: filters.map, label: `Mapa: ${filters.map}` })
+    if (filters.role !== 'all') active.push({ type: 'role', value: filters.role, label: `Rol: ${filters.role}` })
+    if (filters.player !== 'all') active.push({ type: 'player', value: filters.player, label: `Jugador: ${filters.player}` })
+    if (filters.winner !== 'all') {
+      const winnerLabel = filters.winner === 'wins' ? 'Victorias' : 'Derrotas'
+      active.push({ type: 'winner', value: filters.winner, label: `Resultado: ${winnerLabel}` })
+    }
+    if (filters.onlyListedPlayers) active.push({ type: 'geekos', value: true, label: 'Geekos' })
+    return active
+  }
+
+  const activeFilters = getActiveFilters()
+
+  // Compact mode - show only active filters
+  if (isCompact) {
+    return (
+      <div className="bg-slate-800/50 border-b border-slate-700/50 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 flex-wrap">
+              {activeFilters.length > 0 ? (
+                activeFilters.map((filter, idx) => (
+                  <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1 bg-indigo-600/20 border border-indigo-500/30 rounded text-xs">
+                    <span className="text-indigo-300 font-medium">
+                      {filter.label}
+                    </span>
+                    <button
+                      onClick={() => {
+                        if (filter.type === 'year') handleYearSelect('all')
+                        else if (filter.type === 'geekos') updateFilter('onlyListedPlayers', false)
+                        else updateFilter(filter.type, 'all')
+                      }}
+                      className="text-indigo-400 hover:text-indigo-200 transition-colors ml-0.5"
+                      title="Eliminar filtro"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <span className="text-slate-400 text-xs">Sin filtros activos</span>
+              )}
+            </div>
+            <button
+              onClick={() => setIsCompact(false)}
+              className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all"
+            >
+              Expandir
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Expanded mode - show all filters
   return (
-    <div className="bg-slate-800/30 border-b border-slate-700/50">
+    <div className="bg-gradient-to-b from-slate-800/60 to-slate-800/40 border-b border-slate-700/70 shadow-lg backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex flex-wrap items-end gap-3">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wide">Filtros</h3>
+          <button
+            onClick={() => setIsCompact(true)}
+            className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all"
+          >
+            Compactar
+          </button>
+        </div>
+        <div className="flex flex-wrap items-end gap-4">
           {/* Year Selector */}
-          <div className="flex flex-col gap-1">
-            <label className="text-slate-400 text-xs font-medium">
+          <div className="flex flex-col gap-1.5">
+            <label className="text-slate-300 text-xs font-semibold uppercase tracking-wide">
               Año {selectedYear && selectedYear !== 'all' && `(${selectedYear})`}
               {selectedYear === 'all' && '(Todos)'}
             </label>
@@ -86,10 +157,10 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
               {/* Botón "Todos los años" */}
               <button
                 onClick={() => handleYearSelect('all')}
-                className={`px-3 py-2 text-sm rounded-lg transition-colors ${
+                className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 shadow-sm ${
                   selectedYear === 'all'
-                    ? 'bg-indigo-600 text-white font-medium'
-                    : 'bg-slate-800 text-slate-300 border border-slate-600 hover:bg-slate-700 hover:border-slate-500'
+                    ? 'bg-indigo-600 text-white font-semibold shadow-indigo-500/50 ring-2 ring-indigo-400/50'
+                    : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white hover:shadow-md'
                 }`}
               >
                 Todos
@@ -99,10 +170,10 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
                 <button
                   key={year}
                   onClick={() => handleYearSelect(year)}
-                  className={`px-3 py-2 text-sm rounded-lg transition-colors ${
+                  className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 shadow-sm ${
                     selectedYear === year
-                      ? 'bg-indigo-600 text-white font-medium'
-                      : 'bg-slate-800 text-slate-300 border border-slate-600 hover:bg-slate-700 hover:border-slate-500'
+                      ? 'bg-indigo-600 text-white font-semibold shadow-indigo-500/50 ring-2 ring-indigo-400/50'
+                      : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white hover:shadow-md'
                   }`}
                 >
                   {year}
@@ -144,35 +215,34 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
           />
 
           {/* Only Listed Players Toggle */}
-          <div className="flex items-center gap-2 px-3 py-2 bg-slate-800 rounded-lg border border-slate-600">
+          <div className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg border transition-all duration-200 shadow-sm ${
+            filters.onlyListedPlayers
+              ? 'bg-indigo-600/20 border-indigo-500/50 ring-2 ring-indigo-400/30'
+              : 'bg-slate-700/80 border-slate-600/80 hover:bg-slate-600/80 hover:border-slate-500'
+          }`}>
             <input
               type="checkbox"
               id="onlyListedPlayers"
               checked={filters.onlyListedPlayers || false}
               onChange={(e) => updateFilter('onlyListedPlayers', e.target.checked)}
-              className="w-4 h-4 text-indigo-600 bg-slate-700 border-slate-600 rounded focus:ring-indigo-500 focus:ring-2"
+              className="w-4 h-4 text-indigo-600 bg-slate-700 border-slate-500 rounded focus:ring-indigo-500 focus:ring-2 cursor-pointer transition-all"
             />
             <label 
               htmlFor="onlyListedPlayers" 
-              className="text-sm text-slate-300 cursor-pointer select-none"
+              className={`text-sm font-medium cursor-pointer select-none transition-colors ${
+                filters.onlyListedPlayers ? 'text-indigo-200' : 'text-slate-300'
+              }`}
             >
-              Solo jugadores de la lista
+              Geekos
             </label>
           </div>
-
-          {/* Search */}
-          <SearchInput
-            value={filters.search}
-            onChange={(v) => updateFilter('search', v)}
-            placeholder="Buscar héroe o jugador..."
-            className="w-48"
-          />
 
           {/* Reset Button */}
           <button
             onClick={resetFilters}
-            className="px-3 py-2 text-sm text-slate-400 hover:text-white 
-              hover:bg-slate-700 rounded-lg transition-colors"
+            className="px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white 
+              hover:bg-slate-700/80 rounded-lg transition-all duration-200 border border-slate-600/80
+              hover:border-slate-500 hover:shadow-md"
           >
             Limpiar
           </button>

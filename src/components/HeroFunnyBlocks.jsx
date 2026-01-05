@@ -116,7 +116,7 @@ export function HeroFunnyBlocks({ blocks }) {
   
   return (
     <section>
-      <h3 className="text-lg font-semibold text-white mb-3">🔥 Highlights Chuscos</h3>
+      <h3 className="text-lg font-semibold text-white mb-3">🔥 Highlights</h3>
       <div className="space-y-3">
         {blocks.map((block, index) => {
           if (!block) return null

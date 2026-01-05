@@ -46,18 +46,22 @@ function App() {
       )}
       
       <main className="flex-1">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          {loading ? (
-            <LoadingState message="Cargando datos del CSV..." />
-          ) : error ? (
-            <ErrorState 
-              error={error} 
-              onRetry={() => window.location.reload()} 
-            />
-          ) : (
-            <PageComponent rows={rows} />
-          )}
-        </div>
+        {activeRoute === 'premios' ? (
+          <PageComponent rows={rows} />
+        ) : (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            {loading ? (
+              <LoadingState message="Cargando datos del CSV..." />
+            ) : error ? (
+              <ErrorState 
+                error={error} 
+                onRetry={() => window.location.reload()} 
+              />
+            ) : (
+              <PageComponent rows={rows} />
+            )}
+          </div>
+        )}
       </main>
 
       {/* Footer */}

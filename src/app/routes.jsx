@@ -1,8 +1,10 @@
 import { Overview } from '../pages/Overview'
 import { Heroes } from '../pages/Heroes'
+import { Stats } from '../pages/Stats'
 import { Players } from '../pages/Players'
 import { Maps } from '../pages/Maps'
 import { FunFacts } from '../pages/FunFacts'
+import { Premios } from '../pages/Premios'
 
 /**
  * Route configuration for the dashboard
@@ -21,6 +23,12 @@ export const routes = [
     component: Heroes
   },
   {
+    id: 'stats',
+    label: 'Estadísticas',
+    icon: '📈',
+    component: Stats
+  },
+  {
     id: 'players',
     label: 'Jugadores',
     icon: '👤',
@@ -37,6 +45,12 @@ export const routes = [
     label: 'Fun Facts',
     icon: '🏆',
     component: FunFacts
+  },
+  {
+    id: 'premios',
+    label: 'Premios',
+    icon: '🎖️',
+    component: Premios
   }
 ]
 

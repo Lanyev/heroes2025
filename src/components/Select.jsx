@@ -11,29 +11,29 @@ import clsx from 'clsx'
  */
 export function Select({ label, value, onChange, options = [], className }) {
   return (
-    <div className={clsx('flex flex-col gap-1', className)}>
+    <div className={clsx('flex flex-col gap-1.5', className)}>
       {label && (
-        <label className="text-slate-400 text-xs font-medium">{label}</label>
+        <label className="text-slate-300 text-xs font-semibold uppercase tracking-wide">{label}</label>
       )}
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={clsx(
-          'bg-slate-800 border border-slate-600 rounded-lg px-3 py-2',
-          'text-white text-sm',
-          'focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent',
-          'cursor-pointer hover:border-slate-500 transition-colors',
-          'appearance-none bg-no-repeat bg-right',
+          'bg-slate-700/80 border border-slate-600/80 rounded-lg px-3.5 py-2.5',
+          'text-white text-sm font-medium',
+          'focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50',
+          'cursor-pointer hover:border-slate-500 hover:bg-slate-700 transition-all duration-200',
+          'appearance-none bg-no-repeat bg-right shadow-sm',
           'pr-8'
         )}
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+          backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
           backgroundPosition: 'right 0.5rem center',
           backgroundSize: '1.5em 1.5em'
         }}
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
+          <option key={opt.value} value={opt.value} className="bg-slate-800">
             {opt.label}
           </option>
         ))}

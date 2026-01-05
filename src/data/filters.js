@@ -6,15 +6,33 @@ import { isDateInRange } from '../utils/date'
  * @returns {Object}
  */
 export function createFilterState(meta) {
+  // Set default to year 2025 if available, otherwise use full range
+  let dateMin = meta.dateMin
+  let dateMax = meta.dateMax
+  
+  // Try to set to 2025
+  const year2025 = new Date(2025, 0, 1)
+  const year2025End = new Date(2025, 11, 31, 23, 59, 59, 999)
+  
+  // Check if 2025 is within the date range
+  if (meta.dateMin <= year2025 && meta.dateMax >= year2025End) {
+    dateMin = year2025
+    dateMax = year2025End
+  } else if (meta.dateMin <= year2025 && meta.dateMax >= year2025) {
+    // If 2025 is partially available, use what's available
+    dateMin = year2025
+    dateMax = meta.dateMax > year2025End ? year2025End : meta.dateMax
+  }
+  
   return {
-    dateMin: meta.dateMin,
-    dateMax: meta.dateMax,
+    dateMin,
+    dateMax,
     map: 'all',
     role: 'all',
     player: 'all',
     winner: 'all', // 'all', 'wins', 'losses'
     search: '',
-    onlyListedPlayers: false // Filter to only show players from the players.json list
+    onlyListedPlayers: true // Default to true (Geekos only)
   }
 }
 

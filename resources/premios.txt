@@ -1,0 +1,22 @@
+Premio	Categoría	¿Qué reconoce exactamente?	Descripción detallada
+Partida más violenta	Partida	La partida con mayor número total de asesinatos	Se otorga a la partida específica donde, sumando ambos equipos, se consiguió el mayor número total de kills, reflejando un enfrentamiento extremadamente agresivo y constante.
+Asesino en Serie	Jugador	Jugador con mayor promedio de asesinatos por partida	Reconoce al jugador que mantuvo el promedio más alto de kills por partida a lo largo del año, sin importar victorias o derrotas.
+Lluvia de Daño	Partida	La partida con mayor daño total realizado	Se otorga a la partida donde, sumando ambos equipos, se alcanzó la mayor cantidad total de daño infligido a héroes, estructuras y unidades.
+Daño Crónico	Jugador	Jugador con mayor promedio de daño a héroes por partida	Premio al jugador que mantuvo el promedio más alto de daño a héroes por partida durante el año, independientemente del resultado de las partidas.
+Ángel de la Guarda	Jugador	Mayor curación realizada en una sola partida siendo healer	Reconoce al jugador que, usando un héroe healer, logró la mayor cantidad de curación total en una sola partida.
+Sanador Supremo	Anual	Mayor curación promedio anual siendo healer	Premio al jugador que, jugando como healer, mantuvo el promedio más alto de curación por partida a lo largo del año.
+El healer que no es healer	Jugador	Mayor curación realizada sin usar héroes healer	Reconoce al jugador que logró una cantidad excepcional de curación utilizando héroes que no pertenecen al rol de healer.
+Protagonista del Respawn	Partida	Mayor tiempo muerto en una partida	Se otorga a la partida donde un jugador pasó más tiempo total muerto, observando la pantalla de respawn más que el propio mapa.
+Esponja Humana	Partida	Mayor daño recibido en una partida siendo tank	Reconoce la partida donde un jugador, usando un héroe tank, recibió la mayor cantidad de daño, absorbiendo golpes de forma heroica.
+Tank menos tankeador	Partida	Menor daño recibido en una partida siendo tank	Premio a la partida donde un jugador tank recibió una cantidad inusualmente baja de daño, evitando peleas o jugando de forma extremadamente cautelosa.
+Fake Damage	Jugador	Alto daño promedio con bajo impacto promedio	Reconoce al jugador que mantuvo un promedio alto de daño por partida, pero con poco impacto promedio real en objetivos, asesinatos o victorias.
+Carry del Año	Anual	Jugador con mayor número de MVPs	Premio al jugador que obtuvo la mayor cantidad de reconocimientos MVP a lo largo de todas las partidas del año.
+Vicioso del Año	Anual	Jugador con más partidas jugadas	Reconoce al jugador que participó en la mayor cantidad total de partidas durante el año, demostrando constancia (o adicción).
+Healer más violento	Jugador	Mayor promedio de daño por partida siendo healer	Premio al jugador que, usando héroes healer, mantuvo el promedio más alto de daño a héroes enemigos por partida.
+Healer asesino	Jugador	Mayor promedio de kills por partida siendo healer	Reconoce al healer que mantuvo el promedio más alto de asesinatos por partida, rompiendo con el estereotipo del rol.
+Autocuración	Jugador	Mayor promedio de autocuración por partida	Premio al jugador que mantuvo el promedio más alto de curación aplicada a sí mismo por partida durante el año.
+Adicto a los globos	Jugador	Mayor cantidad de globos de regeneración recolectados	Reconoce al jugador que obtuvo la mayor cantidad de globos de regeneración en todas sus partidas.
+Asistente	Jugador	Mayor promedio de asistencias por partida	Premio al jugador que mantuvo el promedio más alto de asistencias en kills por partida, demostrando gran participación constante en peleas de equipo.
+Top se murió más veces	Jugador	Mayor promedio de muertes por partida	Premio al jugador que mantuvo el promedio más alto de muertes propias por partida durante el año.
+Top daño a estructuras	Jugador	Mayor promedio de daño a estructuras por partida	Reconoce al jugador que mantuvo el promedio más alto de daño a torres, fuertes, keeps y core por partida.
+Top daño TOTAL	Jugador	Mayor promedio de daño total combinado por partida	Premio al jugador que mantuvo el promedio más alto de daño total por partida, sumando daño a héroes, estructuras, mercenarios y minions.

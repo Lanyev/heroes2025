@@ -81,3 +81,14 @@ body {
 .recharts-tooltip-item {
   color: var(--text-secondary) !important;
 }
+
+/* Scroll snap for Premios page */
+#premios-container {
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+#premios-container section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}

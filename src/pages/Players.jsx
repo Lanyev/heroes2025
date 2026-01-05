@@ -5,7 +5,7 @@ import { SectionShell } from '../app/layout/SectionShell'
 import { EmptyState } from '../components/EmptyState'
 import { Badge } from '../components/Badge'
 import { SortableTable } from '../components/SortableTable'
-import { PlayerDetailsDrawer } from '../components/PlayerDetailsDrawer'
+import { PlayerModal } from '../components/PlayerModal'
 import { getTopPlayersByMatches, getTopPlayersByWinRate, getAverage, getTotal, getPlayerDetails } from '../data/metrics'
 import { formatNumber, formatPercent, formatCompact } from '../utils/format'
 
@@ -291,9 +291,9 @@ export function Players({ rows }) {
         </div>
       </SectionShell>
 
-      {/* Player Details Drawer */}
+      {/* Player Modal */}
       {selectedPlayer && (
-        <PlayerDetailsDrawer
+        <PlayerModal
           player={selectedPlayer}
           rows={rows}
           onClose={() => setSelectedPlayer(null)}
