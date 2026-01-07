@@ -3,7 +3,6 @@ import { Heroes } from '../pages/Heroes'
 import { Stats } from '../pages/Stats'
 import { Players } from '../pages/Players'
 import { Maps } from '../pages/Maps'
-import { FunFacts } from '../pages/FunFacts'
 import { Premios } from '../pages/Premios'
 
 /**
@@ -39,12 +38,6 @@ export const routes = [
     label: 'Mapas',
     icon: '🗺️',
     component: Maps
-  },
-  {
-    id: 'funfacts',
-    label: 'Fun Facts',
-    icon: '🏆',
-    component: FunFacts
   },
   {
     id: 'premios',

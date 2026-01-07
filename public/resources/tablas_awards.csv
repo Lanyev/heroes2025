@@ -1,0 +1,82 @@
+,,,,,,,,,,,,,,,,,,,,,,
+Top Kills,,,,,,Top Hero Damage,,,,,,Top Time Death,,,,,,,Partida mas Corta,,,
+PlayerName,HeroName,HeroKills,GameTime,Winner,,PlayerName,HeroName,HeroDamage,GameTime,Winner,,PlayerName,HeroName,SpentDead,GameTime,Winner,,,GameTime,PlayerName,HeroName,Winner
+Ticoman,Kerrigan,25,00:26:20,Yes,,Raizenser,Falstad,351575,00:31:21,Yes,,Raizenser,Malthael,00:09:43,00:32:09,No,,,00:04:18,Ticoman,Sonya,No
+Raizenser,Valla,22,00:25:26,Yes,,Raizenser,Nazeebo,286810,00:29:53,No,,Deathmask,Malthael,00:07:54,00:29:57,No,,,00:04:18,WatchdogMan,Mei,No
+Deathmask,Valla,20,00:24:50,No,,Malenfant,Valla,282728,00:24:48,No,,Raizenser,Falstad,00:07:37,00:30:10,No,,,00:04:18,Deathmask,Gazlowe,No
+Raizenser,Falstad,19,00:25:31,No,,Raizenser,Hanzo,278393,00:28:43,No,,Raizenser,Muradin,00:07:33,00:32:05,No,,,00:04:18,Indigente,Mephisto,No
+Raizenser,Fenix,19,00:22:19,Yes,,WatchdogMan,Malthael,274975,00:26:04,Yes,,Malenfant,Qhira,00:07:24,00:21:42,Yes,,,00:04:18,Raizenser,Li Li,No
+,,,,,,,,,,,,,,,,,,,00:05:41,Swift,Varian,Yes
+,,,,,,,,,,,,,,,,,,,00:05:41,Ticoman,Valla,Yes
+Top Assists,,,,,,Top Siege Damage,,,,,,Top Time OnFire,,,,,,,00:05:41,Deathmask,Li Li,Yes
+PlayerName,HeroName,Assists,GameTime,Winner,,PlayerName,HeroName,TotalSiegeDamage,GameTime,Winner,,PlayerName,HeroName,OnFire,GameTime,Winner,,,00:06:21,WatchdogMan,Leoric,No
+Ticoman,Tyrande,49,00:32:09,No,,WatchdogMan,Nazeebo,359210,00:29:49,Yes,,Deathmask,Azmodan,00:17:30,00:24:27,Yes,,,00:06:21,Ticoman,Leoric,No
+Ticoman,Malfurion,47,00:22:38,Yes,,Raizenser,Gazlowe,321602,00:40:20,Yes,,Raizenser,Greymane,00:15:19,00:21:22,Yes,,,00:06:21,Raizenser,Leoric,No
+Raizenser,Alarak,46,00:22:38,Yes,,Raizenser,Nazeebo,301347,00:24:17,No,,Raizenser,Li-Ming,00:13:19,00:24:08,Yes,,,00:06:34,Raizenser,Deathwing,No
+Ticoman,Garrosh,45,00:27:11,No,,Raizenser,Nazeebo,283324,00:29:53,No,,Raizenser,Nazeebo,00:13:16,00:23:43,Yes,,,00:06:34,ChapelHots,Murky,No
+WatchdogMan,Malfurion,45,00:13:17,Yes,,WatchdogMan,Nazeebo,281318,00:28:16,Yes,,WatchdogMan,Fenix,00:12:36,00:21:23,No,,,00:06:34,WatchdogMan,Mal'Ganis,No
+,,,,,,,,,,,,,,,,,,,00:06:34,Malenfant,Diablo,No
+,,,,,,,,,,,,,,,,,,,00:06:40,Raizenser,Zarya,Yes
+Top Deaths,,,,,,Top Tank Damage,,,,,,Top Capturas Mercenarios,,,,,,,00:06:40,WatchdogMan,Tyrande,Yes
+PlayerName,HeroName,Deaths,GameTime,Winner,,PlayerName,HeroName,DamageTaken,GameTime,Winner,,PlayerName,HeroName,MercCampCaptures,GameTime,Winner,,,,,,
+Raizenser,Malthael,18,00:32:09,No,,Indigente,Diablo,515971,00:33:22,No,,Indigente,Nova,9,00:19:00,No,,,,,,
+Malenfant,Qhira,17,00:21:42,Yes,,Indigente,Diablo,418554,00:31:21,Yes,,Raizenser,Zarya,7,00:22:48,No,,,Partida mas Larga,,,
+Indigente,Illidan,15,00:24:02,Yes,,Indigente,Imperius,366616,00:25:59,Yes,,Deathmask,Johanna,7,00:22:48,No,,,GameTime,PlayerName,HeroName,Winner
+Ticoman,Diablo,15,00:27:10,No,,Raizenser,Stitches,349819,00:29:59,No,,Raizenser,Gul'dan,6,00:26:32,Yes,,,00:40:20,Raizenser,Gazlowe,Yes
+Malenfant,Malthael,15,00:21:28,No,,Indigente,Anub'arak,320208,00:31:12,Yes,,Ticoman,Brightwing,6,00:26:32,Yes,,,00:40:20,Swift,Deckard,Yes
+,,,,,,,,,,,,,,,,,,,00:35:47,Ticoman,Imperius,No
+,,,,,,,,,,,,,,,,,,,00:35:47,WatchdogMan,Stukov,No
+Top Kills W/Healer,,,,,,Less Tank Damage,,,,,,Top Globitos,,,,,,,00:35:47,Deathmask,Blaze,No
+PlayerName,HeroName,HeroKills,GameTime,Winner,,PlayerName,HeroName,DamageTaken,GameTime,Winner,,PlayerName,HeroName,RegenGlobes,GameTime,Winner,GperMin,,00:34:35,WatchdogMan,Thrall,Yes
+Indigente,Kharazim,19,00:14:56,Yes,,WatchdogMan,Mei,3878,00:04:18,No,,Indigente,Rexxar,113,00:26:25,Yes,4.28,,00:34:35,Raizenser,Cassia,Yes
+Raizenser,Malfurion,11,00:24:15,Yes,,Swift,Varian,5495,00:05:41,Yes,,WatchdogMan,Rexxar,111,00:19:51,Yes,5.59,,00:34:35,Indigente,Malfurion,Yes
+Indigente,Auriel,11,00:23:01,No,,Ticoman,Mei,17390,00:07:46,Yes,,Raizenser,Rexxar,110,00:29:23,Yes,3.74,,00:34:35,Ticoman,E.T.C.,Yes
+Ticoman,Malfurion,11,00:22:38,Yes,,Deathmask,Anub'arak,19623,00:07:46,Yes,,Raizenser,Alexstrasza,110,00:22:35,Yes,4.87,,00:33:22,Ticoman,Anduin,No
+Indigente,Kharazim,11,00:16:13,No,,Malenfant,Garrosh,20756,00:07:36,No,,Ticoman,Stitches,108,00:22:35,Yes,4.78,,00:33:22,Deathmask,Genji,No
+,,,,,,Ticoman,Mei,20897,00:08:48,Yes,,ChapelHots,Kael'thas,106,00:22:35,Yes,4.69,,00:33:22,Raizenser,Fenix,No
+,,,,,,,,,,,,Raizenser,Stitches,101,00:23:11,No,4.36,,00:33:22,Indigente,Diablo,No
+Top Damage W/Healer,,,,,,,,,,,,,,,,,,,00:32:09,Ticoman,Tyrande,No
+PlayerName,HeroName,HeroDamage,GameTime,Winner,,Top Healing,,,,,,,,,,,,,00:32:09,Raizenser,Malthael,No
+WatchdogMan,Stukov,130588,00:35:47,No,,PlayerName,HeroName,HealingShielding,GameTime,Winner,,,,,,,,,,,,
+Indigente,Malfurion,123433,00:34:35,Yes,,WatchdogMan,Deckard,537252,00:40:20,Yes,,,,,,,,,,,,
+Ticoman,Deckard,121494,00:22:40,No,,Indigente,Malfurion,366572,00:34:35,Yes,,,,,,,,,,,,
+WatchdogMan,Tyrande,112229,00:22:47,Yes,,WatchdogMan,Stukov,351696,00:29:59,No,,,,,,,,,,,,
+WatchdogMan,Deckard,110169,00:31:21,Yes,,Ticoman,Lucio,345080,00:29:57,No,,,,,,,,,,,,
+,,,,,,Raizenser,Lucio,315653,00:24:58,Yes,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,Less Healing,,,,,,,,,,,,,,,,
+,,,,,,PlayerName,HeroName,HealingShielding,GameTime,Winner,,,,,,,,,,,,
+,,,,,,Raizenser,Li Li,7538,00:04:18,No,,,,,,,,,,,,
+,,,,,,Deathmask,Li Li,9888,00:05:41,Yes,,,,,,,,,,,,
+,,,,,,WatchdogMan,Tyrande,16573,00:06:40,Yes,,,,,,,,,,,,
+,,,,,,Ticoman,Uther,19464,00:09:31,No,,,,,,,,,,,,
+,,,,,,Ticoman,Lt. Morales,21249,00:07:45,Yes,,,,,,,,,,,,
+,,,,,,Ticoman,Tyrande,21457,00:16:10,Yes,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,Top Self Healing,,,,,,,,,,,,,,,,
+,,,,,,PlayerName,HeroName,SelfHealing,GameTime,Winner,,,,,,,,,,,,
+,,,,,,Indigente,Chen,132123,00:24:14,No,,,,,,,,,,,,
+,,,,,,Raizenser,Stitches,130718,00:29:59,No,,,,,,,,,,,,
+,,,,,,Raizenser,Chen,125518,00:24:32,No,,,,,,,,,,,,
+,,,,,,Indigente,Anub'arak,120594,00:31:12,Yes,,,,,,,,,,,,
+,,,,,,Indigente,Johanna,113987,00:25:02,No,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,Top Exp,,,,,,,,,,,,,,,,
+,,,,,,PlayerName,HeroName,Experience,GameTime,Winner,,,,,,,,,,,,
+,,,,,,WatchdogMan,Nazeebo,68818,00:29:49,Yes,,,,,,,,,,,,
+,,,,,,Raizenser,Gazlowe,56793,00:40:20,Yes,,,,,,,,,,,,
+,,,,,,WatchdogMan,Nazeebo,55329,00:30:10,No,,,,,,,,,,,,
+,,,,,,Raizenser,Azmodan,46468,00:24:15,Yes,,,,,,,,,,,,
+,,,,,,WatchdogMan,Gazlowe,46126,00:32:05,No,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,Top Minion Killer,,,,,,,,,,,,,,,,
+,,,,,,PlayerName,HeroName,Experience,GameTime,Winner,,,,,,,,,,,,
+,,,,,,WatchdogMan,Nazeebo,278535,00:29:49,Yes,,,,,,,,,,,,
+,,,,,,Raizenser,Gazlowe,227467,00:40:20,Yes,,,,,,,,,,,,
+,,,,,,WatchdogMan,Nazeebo,206385,00:30:10,No,,,,,,,,,,,,
+,,,,,,Raizenser,Nazeebo,199696,00:24:17,No,,,,,,,,,,,,
+,,,,,,WatchdogMan,Gazlowe,189722,00:32:05,No,,,,,,,,,,,,

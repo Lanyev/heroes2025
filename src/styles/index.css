@@ -259,3 +259,121 @@ body {
   background-size: 200% 200%;
   animation: gradient-shift 3s ease infinite;
 }
+
+/* ============================================
+   PRESENTATION MODE ANIMATIONS
+   ============================================ */
+
+/* Intro slide animations */
+@keyframes intro-icon {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes intro-title {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes intro-line {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+  100% {
+    opacity: 1;
+    width: 8rem;
+  }
+}
+
+@keyframes intro-desc {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-hint {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-intro-icon {
+  animation: intro-icon 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-intro-title {
+  animation: intro-title 0.7s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-intro-line {
+  animation: intro-line 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-intro-desc {
+  animation: intro-desc 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-intro-hint {
+  animation: intro-hint 0.5s ease-out forwards;
+  animation-delay: 0.7s;
+  opacity: 0;
+}
+
+/* Podium card entrance animation */
+@keyframes podium-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-podium-reveal {
+  animation: podium-reveal 0.5s ease-out forwards;
+}
+
+/* Background gradient radial for presentation */
+.bg-gradient-radial {
+  background: radial-gradient(circle, currentColor 0%, transparent 70%);
+}
+
+/* Presentation fullscreen fixes */
+.presentation-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+}

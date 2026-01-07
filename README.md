@@ -182,6 +182,22 @@ Para actualizar los datos:
 2. Reemplaza el archivo en `/public/structured_data.csv`
 3. Recarga la aplicación
 
+## 🏅 Premios (Hall of Fame) y presentación
+
+- El tablero de premios lee `tablas_awards.csv` desde `public/resources/`. Deja el archivo final allí (hay un ejemplo en `resources/tablas_awards.csv`).
+- El CSV contiene varias tablas lado a lado. Cada tabla empieza con el nombre del premio (por ejemplo `Top Kills`, `Top Hero Damage`, `Partida mas Corta`, etc.), la fila siguiente son los headers y debajo las filas de datos. Las tablas se separan dejando una columna vacía.
+- Los nombres de premio reconocidos están definidos en `src/data/loadAwardsCSV.js`. Si el nombre no coincide, la tabla no se muestra.
+
+### Modo presentación cinematográfica
+
+- En la página `Premios`, haz clic en el título “HALL OF FAME” para abrir la presentación fullscreen. Ideal para ceremonia/stream.
+- Controles: `→` o `espacio` avanza, `←` retrocede, `R` reinicia, `Esc` cierra. Si un premio tiene video, primero se muestra el clip y luego el podio animado.
+- Videos opcionales: colócalos en `public/video/` con estos nombres para que se vinculen automáticamente:
+  - `top_kills.mp4`, `top_damage.mp4`, `top_deaths.mp4`, `top_siege.mp4`, `top_assists.mp4`
+  - `top_time_death.mp4`, `short_match.mp4`, `longest_match.mp4`, `top_tank.mp4`, `top_mercenaries.mp4`
+  - `top_kills_whealer.mp4`, `top_damage_whealer.mp4`, `less_tank.mp4`, `top_globes.mp4`, `top_onfire.mp4`, `top_healing.mp4`
+- Si falta el video para un premio, se mostrará sólo la intro/podio en modo texto sin romper la presentación.
+
 ## 🔧 Desarrollo
 
 Estructura del proyecto:

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { loadAwardsCSV, formatAwardValue, getAwardColorClasses } from '../data/loadAwardsCSV'
 import { LoadingState } from '../components/LoadingState'
+import { Presentation } from './Presentation'
 
 /**
  * Award Card Component - Shows a single award table
@@ -180,6 +181,7 @@ export function Premios() {
   const [tables, setTables] = useState({})
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
+  const [showPresentation, setShowPresentation] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -206,6 +208,11 @@ export function Premios() {
         </div>
       </div>
     )
+  }
+
+  // Mostrar presentación fullscreen
+  if (showPresentation) {
+    return <Presentation onExit={() => setShowPresentation(false)} />
   }
 
   // Organize tables by category
@@ -316,70 +323,72 @@ export function Premios() {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Header */}
-      <div className="relative overflow-hidden py-8 mb-8">
-        {/* Animated Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-float-delayed" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-indigo-500/5 to-transparent rounded-full" />
-        </div>
-        
-        {/* Grid pattern overlay */}
-        <div 
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(99, 102, 241, 0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99, 102, 241, 0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px'
-          }}
-        />
-        
-        <div className="relative text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-4">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-sm text-indigo-300 font-medium">Temporada Activa</span>
+    <div id="premios-container" className="min-h-screen overflow-y-auto">
+      {/* Sección 1: Hero HALL OF FAME ocupando todo el alto de la pantalla */}
+      <section className="relative overflow-hidden min-h-screen flex items-center">
+        {/* Hero Header */}
+        <div className="relative w-full">
+          {/* Animated Background */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float" />
+            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-float-delayed" />
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-black mb-3 tracking-tight">
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              HALL OF FAME
-            </span>
-          </h1>
+          {/* Grid pattern overlay with glow */}
+          <div 
+            className="absolute inset-0 opacity-10"
+            style={{
+              color: 'rgba(38, 71, 105, 1)',
+              backgroundImage: `
+                linear-gradient(rgba(99, 102, 241, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.4) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px',
+              boxShadow: `
+                inset 0 0 100px rgba(99, 102, 241, 0.1),
+                inset 0 0 200px rgba(99, 102, 241, 0.05)
+              `
+            }}
+          />
           
-          <p className="text-slate-400 max-w-xl mx-auto text-sm md:text-base">
-            Rankings y records de los mejores jugadores
-          </p>
-          
-          {/* Stats Summary */}
-          <div className="flex justify-center gap-6 mt-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">{tableArray.length}</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider">Categorías</div>
-            </div>
-            <div className="w-px h-12 bg-slate-700" />
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">
-                {tableArray.reduce((acc, t) => acc + t.entries.length, 0)}
+          <div className="relative max-w-7xl mx-auto px-4 py-8 flex flex-col items-center justify-center text-center min-h-screen">
+            {/* Clickable Hall of Fame title */}
+            <div 
+              className="group cursor-pointer inline-block"
+              onClick={() => setShowPresentation(true)}
+              title="Iniciar presentación cinematográfica"
+            >
+              <h1 className="text-5xl md:text-6xl font-black mb-1 tracking-tight transition-all duration-300 group-hover:scale-110">
+                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent relative inline-block transition-all duration-300 group-hover:drop-shadow-[0_0_25px_rgba(129,140,248,0.5)]">
+                  HALL OF FAME
+                  {/* Underline animado */}
+                  <span className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 rounded-full transition-all duration-300 ease-out group-hover:w-full" />
+                </span>
+              </h1>
+              
+              {/* Play hint */}
+              <div className="flex items-center justify-center gap-2 text-indigo-400/60 text-sm mt-3 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                </svg>
+                <span>Click para iniciar presentación</span>
               </div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider">Entries</div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Filter Tabs */}
-      <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50 mb-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-1 py-3 overflow-x-auto scrollbar-hide">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setFilter(cat.id)}
-                className={`
+      {/* Sección 2: Filtros y premios, visibles al hacer scroll una pantalla */}
+      <section className="min-h-screen">
+        {/* Filter Tabs */}
+        <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50 mb-8">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex items-center gap-1 py-3 overflow-x-auto scrollbar-hide">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setFilter(cat.id)}
+                  className={`
                   flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
                   transition-all duration-300 whitespace-nowrap
                   ${filter === cat.id
@@ -387,19 +396,20 @@ export function Premios() {
                     : 'text-slate-400 hover:text-white hover:bg-slate-800'
                   }
                 `}
-              >
-                <span>{cat.icon}</span>
-                <span>{cat.label}</span>
-              </button>
-            ))}
+                >
+                  <span>{cat.icon}</span>
+                  <span>{cat.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 pb-12">
-        {getFilteredContent()}
-      </div>
+        {/* Content */}
+        <div className="max-w-7xl mx-auto px-4 pb-12">
+          {getFilteredContent()}
+        </div>
+      </section>
     </div>
   )
 }
