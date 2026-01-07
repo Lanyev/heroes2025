@@ -1,382 +1,404 @@
-import { useState, useEffect, useMemo } from 'react'
-import { loadPremios } from '../data/loadPremios'
-import { calculatePremiosWinners } from '../data/premiosCalculations'
+import { useState, useEffect } from 'react'
+import { loadAwardsCSV, formatAwardValue, getAwardColorClasses } from '../data/loadAwardsCSV'
 import { LoadingState } from '../components/LoadingState'
-import { formatNumber } from '../utils/format'
 
 /**
- * Get category icon and color
+ * Award Card Component - Shows a single award table
  */
-function getCategoryStyle(categoria) {
-  const styles = {
-    'Partida': { icon: '🎮', color: 'from-blue-600 to-cyan-500', bgColor: 'bg-blue-500/10', borderColor: 'border-blue-500/30' },
-    'Jugador': { icon: '👤', color: 'from-purple-600 to-pink-500', bgColor: 'bg-purple-500/10', borderColor: 'border-purple-500/30' },
-    'Anual': { icon: '🏆', color: 'from-amber-600 to-orange-500', bgColor: 'bg-amber-500/10', borderColor: 'border-amber-500/30' }
-  }
-  return styles[categoria] || { icon: '🏅', color: 'from-indigo-600 to-purple-500', bgColor: 'bg-indigo-500/10', borderColor: 'border-indigo-500/30' }
+function AwardCard({ table, index }) {
+  const [isHovered, setIsHovered] = useState(false)
+  const colors = getAwardColorClasses(table.color)
+  
+  // Stagger animation delay based on index
+  const animationDelay = `${index * 0.1}s`
+  
+  return (
+    <div
+      className={`
+        relative overflow-hidden rounded-xl border backdrop-blur-sm
+        bg-gradient-to-br ${colors.bg} ${colors.border}
+        transform transition-all duration-500 ease-out
+        hover:scale-[1.02] hover:shadow-2xl hover:${colors.glow}
+        animate-card-enter
+      `}
+      style={{ animationDelay }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Animated background glow */}
+      <div 
+        className={`
+          absolute inset-0 opacity-0 transition-opacity duration-500
+          ${isHovered ? 'opacity-100' : ''}
+        `}
+      >
+        <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-radial ${colors.accent} opacity-10 blur-3xl`} />
+        <div className={`absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-radial ${colors.accent} opacity-10 blur-3xl`} />
+      </div>
+      
+      {/* Scan line effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div 
+          className={`
+            absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent
+            transform -translate-y-full animate-scan-line
+          `}
+          style={{ animationDelay }}
+        />
+      </div>
+      
+      {/* Header */}
+      <div className="relative p-4 border-b border-white/10">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl filter drop-shadow-lg">{table.icon}</span>
+          <div className="flex-1 min-w-0">
+            <h3 className={`font-bold text-lg ${colors.accent} truncate tracking-wide`}>
+              {table.name}
+            </h3>
+            <p className="text-xs text-slate-400 mt-0.5">
+              {table.valueLabel}
+            </p>
+          </div>
+          <div className={`px-2 py-1 rounded-md text-xs font-mono ${colors.badge}`}>
+            TOP {table.entries.length}
+          </div>
+        </div>
+      </div>
+      
+      {/* Table Content */}
+      <div className="relative p-3">
+        <div className="space-y-1">
+          {table.entries.map((entry, i) => {
+            const isFirst = i === 0
+            const value = entry[table.valueColumn]
+            
+            return (
+              <div
+                key={i}
+                className={`
+                  relative flex items-center gap-3 p-2 rounded-lg
+                  transition-all duration-300
+                  ${isFirst 
+                    ? `bg-gradient-to-r ${colors.bg} border ${colors.border} shadow-lg` 
+                    : 'hover:bg-white/5'
+                  }
+                `}
+              >
+                {/* Rank */}
+                <div className={`
+                  w-7 h-7 flex items-center justify-center rounded-md font-bold text-sm
+                  ${isFirst 
+                    ? `bg-gradient-to-br from-amber-400 to-amber-600 text-black shadow-lg shadow-amber-500/30` 
+                    : i === 1 
+                      ? 'bg-slate-400/20 text-slate-300' 
+                      : i === 2 
+                        ? 'bg-amber-900/30 text-amber-600' 
+                        : 'bg-slate-700/30 text-slate-500'
+                  }
+                `}>
+                  {i + 1}
+                </div>
+                
+                {/* Player & Hero Info */}
+                <div className="flex-1 min-w-0">
+                  <div className={`font-semibold truncate ${isFirst ? 'text-white' : 'text-slate-200'}`}>
+                    {entry.PlayerName || '-'}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-slate-400">
+                    <span className="truncate">{entry.HeroName || '-'}</span>
+                    {entry.Winner === 'Yes' && (
+                      <span className="text-green-400 font-medium">W</span>
+                    )}
+                    {entry.Winner === 'No' && (
+                      <span className="text-red-400/60 font-medium">L</span>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Value */}
+                <div className="text-right">
+                  <div className={`
+                    font-mono font-bold text-sm
+                    ${isFirst ? colors.accent : 'text-slate-300'}
+                  `}>
+                    {formatAwardValue(value, table.isTime)}
+                  </div>
+                  <div className="text-xs text-slate-500 font-mono">
+                    {entry.GameTime || ''}
+                  </div>
+                </div>
+                
+                {/* First place glow */}
+                {isFirst && (
+                  <div className="absolute inset-0 rounded-lg animate-pulse-subtle opacity-50 pointer-events-none">
+                    <div className={`absolute inset-0 rounded-lg border-2 ${colors.border}`} />
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+      
+      {/* Extra info for Globitos */}
+      {table.name === 'Top Globitos' && table.entries[0]?.GperMin && (
+        <div className="px-4 pb-3 text-xs text-slate-500">
+          Top rate: {table.entries[0].GperMin} globos/min
+        </div>
+      )}
+    </div>
+  )
 }
 
 /**
- * Premios page with scroll snap design
+ * Category Section Component
  */
-export function Premios({ rows = [] }) {
-  const [premios, setPremios] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [showProgressIndicator, setShowProgressIndicator] = useState(true)
+function CategorySection({ title, tables, startIndex }) {
+  return (
+    <div className="mb-12">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+        <h2 className="text-xl font-bold text-slate-200 tracking-wider uppercase px-4">
+          {title}
+        </h2>
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {tables.map((table, i) => (
+          <AwardCard key={table.name} table={table} index={startIndex + i} />
+        ))}
+      </div>
+    </div>
+  )
+}
 
-  // Calculate winners for each premio
-  const winners = useMemo(() => {
-    if (rows.length === 0) return new Map()
-    return calculatePremiosWinners(rows)
-  }, [rows])
+/**
+ * Premios Page - Gamer Style Awards Dashboard
+ */
+export function Premios() {
+  const [tables, setTables] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState('all')
 
   useEffect(() => {
-    async function fetchPremios() {
+    async function fetchData() {
       setLoading(true)
-      const data = await loadPremios()
-      setPremios(data)
+      const data = await loadAwardsCSV()
+      setTables(data)
       setLoading(false)
     }
-    fetchPremios()
+    fetchData()
   }, [])
 
-  // Handle scroll to update current index and show progress indicator
-  useEffect(() => {
-    const container = document.getElementById('premios-container')
-    if (!container) return
-
-    let inactivityTimer
-
-    const handleScroll = () => {
-      const scrollPosition = container.scrollTop
-      const sectionHeight = container.clientHeight
-      const index = Math.round(scrollPosition / sectionHeight)
-      setCurrentIndex(Math.min(index, premios.length - 1))
-      
-      // Show indicator and reset timer
-      setShowProgressIndicator(true)
-      clearTimeout(inactivityTimer)
-      inactivityTimer = setTimeout(() => {
-        setShowProgressIndicator(false)
-      }, 3000) // Hide after 3 seconds of inactivity
-    }
-
-    // Initial calculation
-    handleScroll()
-    
-    container.addEventListener('scroll', handleScroll)
-    
-    // Set initial timer
-    inactivityTimer = setTimeout(() => {
-      setShowProgressIndicator(false)
-    }, 3000)
-    
-    return () => {
-      container.removeEventListener('scroll', handleScroll)
-      clearTimeout(inactivityTimer)
-    }
-  }, [premios])
-
   if (loading) {
-    return <LoadingState message="Cargando premios..." />
+    return <LoadingState message="Cargando rankings..." />
   }
 
-  if (premios.length === 0) {
+  const tableArray = Object.values(tables)
+
+  if (tableArray.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <p className="text-slate-400 text-lg">No se encontraron premios</p>
+          <div className="text-6xl mb-4 opacity-50">🏆</div>
+          <p className="text-slate-400 text-lg">No se encontraron datos de awards</p>
         </div>
       </div>
     )
   }
 
+  // Organize tables by category
+  const combatTables = tableArray.filter(t => 
+    ['Top Kills', 'Top Hero Damage', 'Top Deaths', 'Top Time Death', 'Top Assists'].includes(t.name)
+  )
+  
+  const healerTables = tableArray.filter(t => 
+    ['Top Healing', 'Less Healing', 'Top Self Healing', 'Top Kills W/Healer', 'Top Damage W/Healer'].includes(t.name)
+  )
+  
+  const tankTables = tableArray.filter(t => 
+    ['Top Tank Damage', 'Less Tank Damage'].includes(t.name)
+  )
+  
+  const pveAwardTables = tableArray.filter(t => 
+    ['Top Siege Damage', 'Top Capturas Mercenarios', 'Top Exp', 'Top Minion Killer', 'Top Globitos'].includes(t.name)
+  )
+  
+  const matchTables = tableArray.filter(t => 
+    ['Partida mas Corta', 'Partida mas Larga', 'Top Time OnFire'].includes(t.name)
+  )
+
+  // Filter categories
+  const categories = [
+    { id: 'all', label: 'Todos', icon: '🎮' },
+    { id: 'combat', label: 'Combate', icon: '⚔️' },
+    { id: 'healer', label: 'Healers', icon: '💚' },
+    { id: 'tank', label: 'Tanks', icon: '🛡️' },
+    { id: 'pve', label: 'PvE', icon: '🏰' },
+    { id: 'match', label: 'Partidas', icon: '⏱️' }
+  ]
+
+  const getFilteredContent = () => {
+    let index = 0
+    const content = []
+
+    if (filter === 'all' || filter === 'combat') {
+      if (combatTables.length > 0) {
+        content.push(
+          <CategorySection 
+            key="combat" 
+            title="Estadísticas de Combate" 
+            tables={combatTables} 
+            startIndex={index}
+          />
+        )
+        index += combatTables.length
+      }
+    }
+
+    if (filter === 'all' || filter === 'healer') {
+      if (healerTables.length > 0) {
+        content.push(
+          <CategorySection 
+            key="healer" 
+            title="Estadísticas de Healers" 
+            tables={healerTables} 
+            startIndex={index}
+          />
+        )
+        index += healerTables.length
+      }
+    }
+
+    if (filter === 'all' || filter === 'tank') {
+      if (tankTables.length > 0) {
+        content.push(
+          <CategorySection 
+            key="tank" 
+            title="Estadísticas de Tanks" 
+            tables={tankTables} 
+            startIndex={index}
+          />
+        )
+        index += tankTables.length
+      }
+    }
+
+    if (filter === 'all' || filter === 'pve') {
+      if (pveAwardTables.length > 0) {
+        content.push(
+          <CategorySection 
+            key="pve" 
+            title="Estadísticas PvE y Recursos" 
+            tables={pveAwardTables} 
+            startIndex={index}
+          />
+        )
+        index += pveAwardTables.length
+      }
+    }
+
+    if (filter === 'all' || filter === 'match') {
+      if (matchTables.length > 0) {
+        content.push(
+          <CategorySection 
+            key="match" 
+            title="Records de Partidas" 
+            tables={matchTables} 
+            startIndex={index}
+          />
+        )
+      }
+    }
+
+    return content
+  }
+
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      {/* Progress indicator */}
-      <div className={`fixed top-1/2 -translate-y-1/2 right-2 sm:right-4 z-50 hidden lg:block transition-opacity duration-500 ${showProgressIndicator ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="bg-slate-800/90 backdrop-blur-sm rounded-lg p-1.5 border border-slate-700/50 shadow-xl">
-          <div className="text-[10px] text-slate-400 mb-1 text-center font-semibold">
-            {currentIndex + 1} / {premios.length}
+    <div className="min-h-screen">
+      {/* Hero Header */}
+      <div className="relative overflow-hidden py-8 mb-8">
+        {/* Animated Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-float-delayed" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-indigo-500/5 to-transparent rounded-full" />
+        </div>
+        
+        {/* Grid pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(99, 102, 241, 0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(99, 102, 241, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}
+        />
+        
+        <div className="relative text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-4">
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="text-sm text-indigo-300 font-medium">Temporada Activa</span>
           </div>
-          <div className="flex flex-col gap-0.5">
-            {premios.map((_, index) => (
-              <div
-                key={index}
-                className={`w-1.5 h-4 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-indigo-500 scale-110 shadow-lg shadow-indigo-500/50'
-                    : 'bg-slate-600/50 hover:bg-slate-500/50'
-                }`}
-              />
+          
+          <h1 className="text-4xl md:text-5xl font-black mb-3 tracking-tight">
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              HALL OF FAME
+            </span>
+          </h1>
+          
+          <p className="text-slate-400 max-w-xl mx-auto text-sm md:text-base">
+            Rankings y records de los mejores jugadores
+          </p>
+          
+          {/* Stats Summary */}
+          <div className="flex justify-center gap-6 mt-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">{tableArray.length}</div>
+              <div className="text-xs text-slate-500 uppercase tracking-wider">Categorías</div>
+            </div>
+            <div className="w-px h-12 bg-slate-700" />
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">
+                {tableArray.reduce((acc, t) => acc + t.entries.length, 0)}
+              </div>
+              <div className="text-xs text-slate-500 uppercase tracking-wider">Entries</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filter Tabs */}
+      <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50 mb-8">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center gap-1 py-3 overflow-x-auto scrollbar-hide">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setFilter(cat.id)}
+                className={`
+                  flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+                  transition-all duration-300 whitespace-nowrap
+                  ${filter === cat.id
+                    ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/30'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  }
+                `}
+              >
+                <span>{cat.icon}</span>
+                <span>{cat.label}</span>
+              </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator - Aligned with progress bar */}
-      {currentIndex < premios.length - 1 && (
-        <div className={`fixed top-1/2 -translate-y-1/2 right-12 sm:right-16 z-50 hidden lg:block transition-opacity duration-500 ${showProgressIndicator ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <div className="flex flex-col items-center gap-1 text-slate-400 animate-bounce">
-            <span className="text-xs font-medium">↓ Ver siguiente premio</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
-        </div>
-      )}
-
-      {/* Scroll container with snap */}
-      <div
-        id="premios-container"
-        className="overflow-y-scroll snap-y snap-mandatory h-full"
-        style={{ 
-          scrollBehavior: 'smooth',
-          scrollSnapType: 'y mandatory'
-        }}
-      >
-        {premios.map((premio, index) => {
-          const categoryStyle = getCategoryStyle(premio.categoria)
-          
-          return (
-            <section
-              key={index}
-              className="snap-start snap-always flex items-center justify-center px-3 sm:px-4 lg:px-6 xl:px-8 relative"
-              style={{ 
-                height: '100vh',
-                scrollSnapAlign: 'start',
-                scrollSnapStop: 'always'
-              }}
-            >
-              {/* Background gradient - static, changes only when premio changes */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${categoryStyle.color} opacity-10 transition-colors duration-500`} />
-              
-              {/* Decorative elements - static */}
-              <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-500/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/3 rounded-full blur-3xl" />
-              </div>
-
-              {/* Main content card */}
-              <div className={`relative z-10 w-full max-w-3xl mx-auto ${categoryStyle.bgColor} backdrop-blur-sm rounded-2xl border ${categoryStyle.borderColor} p-3 sm:p-4 md:p-5 lg:p-6 shadow-2xl transform transition-all duration-500 animate-fade-in`}>
-                {/* Category badge */}
-                <div className="flex items-center justify-center mb-3 sm:mb-4">
-                  <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r ${categoryStyle.color} text-white text-xs font-semibold shadow-lg`}>
-                    <span className="text-base">{categoryStyle.icon}</span>
-                    <span>{premio.categoria}</span>
-                  </div>
-                </div>
-
-                {/* Premio title */}
-                <div className="text-center mb-3 sm:mb-4 lg:mb-5">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent drop-shadow-lg leading-tight">
-                    {premio.premio}
-                  </h2>
-                  <div className="mt-1.5 sm:mt-2 lg:mt-2.5 h-0.5 w-16 sm:w-20 mx-auto bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" />
-                </div>
-
-                {/* Winner information */}
-                {(() => {
-                  const winner = winners.get(premio.premio)
-                  if (!winner) {
-                    return (
-                      <div className="border-t border-slate-700/50 pt-3 sm:pt-4">
-                        <div className="text-center py-4 sm:py-5">
-                          <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-700/50 border border-slate-600/50">
-                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span className="text-xs sm:text-sm text-slate-300">No hay datos disponibles aún</span>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  }
-
-                  return (
-                    <div className="border-t border-slate-700/50 pt-3 sm:pt-4 lg:pt-5">
-                      {/* Winner box - Premium design */}
-                      <div className="relative bg-gradient-to-br from-amber-600/30 via-orange-500/25 to-amber-500/30 rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 border-2 border-amber-400/40 shadow-[0_0_30px_rgba(251,191,36,0.3),0_0_60px_rgba(251,191,36,0.15)] backdrop-blur-sm">
-                        {/* Decorative glow effect */}
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-400/10 to-orange-500/10 blur-xl -z-10" />
-                        
-                        {/* Title block - Épico */}
-                        <div className="text-center mb-3 sm:mb-4 lg:mb-5">
-                          <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-300 bg-clip-text text-transparent drop-shadow-lg tracking-wide">
-                            🏆 Campeón Absoluto 🏆
-                          </h3>
-                        </div>
-
-                        {/* Player block - HERO */}
-                        {winner.player && (
-                          <div className="text-center mb-3 sm:mb-4 lg:mb-5">
-                            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white mb-1.5 sm:mb-2 drop-shadow-[0_2px_8px_rgba(251,191,36,0.5)] tracking-tight">
-                              {winner.player}
-                            </div>
-                            {(winner.hero || winner.role) && (
-                              <div className="flex flex-col items-center gap-0.5 mt-1.5 sm:mt-2">
-                                {winner.hero && (
-                                  <div className="text-sm sm:text-base md:text-lg lg:text-xl text-amber-200/90 font-semibold">
-                                    {winner.hero}
-                                  </div>
-                                )}
-                                {winner.role && (
-                                  <div className="text-xs sm:text-sm text-amber-300/70 italic">
-                                    {winner.role}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                            {/* Match info - Secondary */}
-                            {winner.match && (
-                              <div className="mt-2 sm:mt-3 lg:mt-4 pt-2 sm:pt-3 border-t border-amber-400/30">
-                                <div className="text-xs text-amber-200/70">
-                                  Partida: {winner.match.map || 'N/A'}
-                                </div>
-                                {winner.match.date && (
-                                  <div className="text-xs text-amber-200/60 mt-0.5">
-                                    {(() => {
-                                      try {
-                                        const date = new Date(winner.match.date)
-                                        if (!isNaN(date.getTime())) {
-                                          return date.toLocaleDateString('es-ES', { 
-                                            year: 'numeric', 
-                                            month: 'long', 
-                                            day: 'numeric' 
-                                          })
-                                        }
-                                        return winner.match.date
-                                      } catch {
-                                        return winner.match.date
-                                      }
-                                    })()}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Match winner (for partida-based premios without specific player) */}
-                        {winner.match && !winner.player && (
-                          <div className="text-center mb-3 sm:mb-4 lg:mb-5">
-                            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black text-white mb-1.5 sm:mb-2 drop-shadow-[0_2px_8px_rgba(251,191,36,0.5)]">
-                              {winner.match.map || 'Partida'}
-                            </div>
-                            {winner.match.date && (
-                              <div className="text-xs sm:text-sm md:text-base text-amber-200/90 mb-1.5 sm:mb-2">
-                                {(() => {
-                                  try {
-                                    const date = new Date(winner.match.date)
-                                    if (!isNaN(date.getTime())) {
-                                      return date.toLocaleDateString('es-ES', { 
-                                        year: 'numeric', 
-                                        month: 'long', 
-                                        day: 'numeric' 
-                                      })
-                                    }
-                                    return winner.match.date
-                                  } catch {
-                                    return winner.match.date
-                                  }
-                                })()}
-                              </div>
-                            )}
-                            {winner.match.players && winner.match.players.length > 0 && (
-                              <div className="text-xs sm:text-sm text-amber-200/70 mt-2 sm:mt-3">
-                                <div className="font-semibold mb-1">Jugadores participantes:</div>
-                                <div className="flex flex-wrap justify-center gap-1 sm:gap-1.5">
-                                  {winner.match.players.map((player, idx) => (
-                                    <span key={idx} className="px-1.5 sm:px-2 py-0.5 bg-amber-500/20 rounded-lg border border-amber-500/30 text-xs">
-                                      {player}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Metric block - Semántico */}
-                        <div className="text-center mt-3 sm:mt-4 lg:mt-5 pt-3 sm:pt-4 lg:pt-5 border-t-2 border-amber-400/40">
-                          <div className="mb-1.5 sm:mb-2">
-                            <span className="text-xs sm:text-sm text-amber-200/80 font-semibold uppercase tracking-wider">
-                              {winner.matches ? 'Promedio por partida' : 'Total registrado'}
-                            </span>
-                          </div>
-                          <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-2 sm:mb-3 drop-shadow-[0_2px_12px_rgba(251,191,36,0.4)]">
-                            {winner.formattedValue}
-                          </div>
-                          
-                          {/* Secondary metrics */}
-                          <div className="flex flex-col gap-1 sm:gap-1.5 mt-3 sm:mt-4 text-xs">
-                            {winner.matches && (
-                              <div className="text-slate-300/80">
-                                Basado en {winner.matches} partida{winner.matches !== 1 ? 's' : ''}
-                              </div>
-                            )}
-                            {winner.impact !== undefined && (
-                              <div className="text-slate-300/80">
-                                Impacto promedio: {formatNumber(winner.impact)} (Kills + Asistencias por partida)
-                              </div>
-                            )}
-                            {winner.ratio && (
-                              <div className="text-slate-400/70">
-                                Ratio daño/impacto: {formatNumber(winner.ratio)}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })()}
-
-                {/* What it recognizes - Moved to bottom, smaller */}
-                <div className="mt-3 sm:mt-4 lg:mt-5 pt-3 sm:pt-4 border-t border-slate-700/50">
-                  <div className="flex items-start gap-1 sm:gap-1.5">
-                    <div className="mt-0.5 shrink-0">
-                      <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-indigo-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-xs font-medium text-indigo-300/80 mb-0.5">¿Qué reconoce exactamente?</h3>
-                      <p className="text-xs text-slate-300/70 leading-snug">
-                        {premio.queReconoce}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Detailed description - Moved to bottom, smaller */}
-                <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-700/40">
-                  <div className="flex items-start gap-1 sm:gap-1.5">
-                    <div className="mt-0.5 shrink-0">
-                      <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-xs font-medium text-purple-300/80 mb-0.5">Descripción detallada</h3>
-                      <p className="text-xs text-slate-300/70 leading-snug">
-                        {premio.descripcion}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Page number */}
-              <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 right-4 sm:right-6 lg:right-8 text-slate-500 text-xs sm:text-sm font-medium z-30 pointer-events-none">
-                {index + 1} / {premios.length}
-              </div>
-            </section>
-          )
-        })}
+      {/* Content */}
+      <div className="max-w-7xl mx-auto px-4 pb-12">
+        {getFilteredContent()}
       </div>
     </div>
   )
