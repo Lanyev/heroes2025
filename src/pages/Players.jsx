@@ -185,7 +185,7 @@ export function Players({ rows }) {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 relative z-10">
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Players by Matches */}
@@ -193,7 +193,7 @@ export function Players({ rows }) {
           <div className="h-96">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={topByMatches} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
                 <XAxis type="number" stroke="#94a3b8" fontSize={12} />
                 <YAxis 
                   dataKey="name" 
@@ -277,8 +277,9 @@ export function Players({ rows }) {
       <SectionShell 
         title="Tabla de Jugadores" 
         description={`${sortedPlayerStats.length} jugadores • Click en una fila para ver detalles`}
+        isSecondary
       >
-        <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+        <div className="bg-layer-deep/80 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
           <SortableTable
             columns={PLAYER_TABLE_COLUMNS}
             rows={sortedPlayerStats}

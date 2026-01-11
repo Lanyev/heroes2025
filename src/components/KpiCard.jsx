@@ -12,19 +12,28 @@ import clsx from 'clsx'
  * @param {boolean} props.showExplanation - Whether to show explanation (when no data)
  * @param {string} props.className - Additional CSS classes
  */
-export function KpiCard({ title, value, subtitle, icon, trend, explanation, showExplanation, className }) {
+export function KpiCard({ title, value, subtitle, icon, trend, explanation, showExplanation, className, isHighlighted, isSecondary }) {
   return (
     <div className={clsx(
       'bg-layer-mid/60 backdrop-blur-sm rounded-xl p-5 border border-slate-700/50',
       'hover:border-indigo-500/50 transition-all duration-300',
       'shadow-md-custom hover:shadow-lg-custom',
-      'animate-fade-in',
+      'animate-fade-in card-hover-lift',
+      // Jerarquía: cards destacadas más elevadas, secundarias más hundidas
+      isHighlighted && 'bg-surface-1/80 shadow-lg-custom p-6',
+      isSecondary && 'bg-surface-2/60 shadow-sm-custom',
+      // Acento glow para métricas clave
+      isHighlighted && 'accent-glow-hover',
       className
     )}>
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <p className="text-slate-400 text-sm font-medium mb-1">{title}</p>
-          <p className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
+          <p className={clsx(
+            'font-bold text-white tracking-tight',
+            // Tamaño visual aumentado para cards destacadas
+            isHighlighted ? 'text-3xl lg:text-4xl' : 'text-2xl lg:text-3xl'
+          )}>
             {value}
           </p>
           {subtitle && (

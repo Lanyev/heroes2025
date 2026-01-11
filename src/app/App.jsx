@@ -26,7 +26,7 @@ function App() {
   const PageComponent = useMemo(() => getRouteComponent(activeRoute), [activeRoute])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       <Header />
       
       {!loading && !error && (
@@ -45,7 +45,7 @@ function App() {
         </>
       )}
       
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {activeRoute === 'premios' ? (
           <PageComponent rows={rows} />
         ) : (

@@ -49,9 +49,9 @@ export function Overview({ rows }) {
   }
 
   return (
-    <div className="space-y-8">
-      {/* KPI Cards */}
-      <SectionShell title="Resumen General">
+    <div className="space-y-8 relative z-10">
+      {/* KPI Cards - Nivel 1: Resumen General (dominante) */}
+      <SectionShell title="Resumen General" isPrimary>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <KpiCard
             title="Total Partidas"
@@ -62,6 +62,7 @@ export function Overview({ rows }) {
             title="Win Rate"
             value={formatPercent(metrics.winRate)}
             icon="🏆"
+            isHighlighted  // Métrica clave con acento glow
           />
           <KpiCard
             title="Avg Daño Héroe"
@@ -86,31 +87,37 @@ export function Overview({ rows }) {
         </div>
       </SectionShell>
 
-      {/* Combat Stats */}
-      <SectionShell title="Estadísticas de Combate">
+      {/* Combat Stats - Nivel 2: Estadísticas de Combate (secundario) */}
+      <SectionShell title="Estadísticas de Combate" isSecondary>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <KpiCard
             title="Total Kills"
             value={formatNumber(metrics.totalKills)}
             subtitle={`Promedio: ${metrics.avgKills.toFixed(1)}`}
             icon="🗡️"
+            isHighlighted  // Métrica clave con acento glow
+            isSecondary
           />
           <KpiCard
             title="Total Muertes"
             value={formatNumber(metrics.totalDeaths)}
             subtitle={`Promedio: ${metrics.avgDeaths.toFixed(1)}`}
             icon="☠️"
+            isSecondary
           />
           <KpiCard
             title="Total Asistencias"
             value={formatNumber(metrics.totalAssists)}
             subtitle={`Promedio: ${metrics.avgAssists.toFixed(1)}`}
             icon="🤝"
+            isSecondary
           />
           <KpiCard
             title="Avg Takedowns"
             value={metrics.avgTakedowns.toFixed(1)}
             icon="🎯"
+            isHighlighted  // Métrica clave con acento glow
+            isSecondary
           />
         </div>
       </SectionShell>
@@ -122,7 +129,8 @@ export function Overview({ rows }) {
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={matchesOverTime}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                {/* Grid más tenue para menos ruido visual */}
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
                 <XAxis 
                   dataKey="period" 
                   stroke="#94a3b8" 
@@ -141,14 +149,22 @@ export function Overview({ rows }) {
                   labelStyle={{ color: '#f8fafc' }}
                 />
                 <Legend />
+                {/* Fill degradado sutil bajo la línea + puntos más visibles */}
+                <defs>
+                  <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="rgba(99, 102, 241, 0.3)" />
+                    <stop offset="100%" stopColor="rgba(99, 102, 241, 0.05)" />
+                  </linearGradient>
+                </defs>
                 <Line 
                   type="monotone" 
                   dataKey="matches" 
                   name="Partidas"
                   stroke="#6366f1" 
-                  strokeWidth={2}
-                  dot={{ fill: '#6366f1', strokeWidth: 0, r: 3 }}
-                  activeDot={{ r: 5, fill: '#818cf8' }}
+                  strokeWidth={2.5}
+                  fill="url(#lineGradient)"
+                  dot={{ fill: '#6366f1', strokeWidth: 2, stroke: '#818cf8', r: 4 }}
+                  activeDot={{ r: 6, fill: '#818cf8', stroke: '#6366f1', strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -160,7 +176,8 @@ export function Overview({ rows }) {
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={roleDistribution} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                {/* Grid más tenue para menos ruido visual */}
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
                 <XAxis type="number" stroke="#94a3b8" fontSize={12} />
                 <YAxis 
                   dataKey="role" 

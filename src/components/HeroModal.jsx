@@ -219,18 +219,39 @@ export function HeroModal({ hero, rows, onClose }) {
 
   return (
     <>
-      {/* Backdrop */}
+      {/* 
+        Backdrop - Viewport safety: 
+        - items-start: evita que el modal quede debajo del navbar (no centra verticalmente)
+        - padding-top: respeta altura del header + espacio (header z-50, modal z-[60])
+        - z-[60]: por encima del header (z-50) para visibilidad completa
+      */}
       <div 
-        className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/45 z-[60] flex items-start justify-center overflow-y-auto"
         onClick={onClose}
+        style={{
+          paddingTop: 'calc(var(--app-header-h, 80px) + 16px)',
+          paddingLeft: '16px',
+          paddingRight: '16px',
+          paddingBottom: '16px'
+        }}
       >
-        {/* Modal */}
+        {/* 
+          Modal Card - tamaño contenido, no full-screen:
+          - maxWidth: 1100px para mantener aspecto de card premium
+          - maxHeight: calcula altura disponible restando header + padding
+          - overflow: hidden en contenedor para que scroll sea interno del body
+        */}
         <div 
-          className="bg-layer-mid rounded-xl border border-slate-700 w-full max-w-4xl max-h-[90vh] flex flex-col shadow-lg-custom animate-fade-in"
+          className="bg-surface-1 rounded-2xl border border-slate-700/50 flex flex-col shadow-lg-custom animate-modal-enter w-full"
           onClick={(e) => e.stopPropagation()}
+          style={{ 
+            maxWidth: '1100px',
+            maxHeight: 'calc(100vh - var(--app-header-h, 80px) - 32px)',
+            overflow: 'hidden'
+          }}
         >
-          {/* Header */}
-          <div className="sticky top-0 bg-layer-mid/95 backdrop-blur-sm border-b border-slate-700 px-6 py-4 flex items-center justify-between z-50 shrink-0 rounded-t-xl shadow-md-custom">
+          {/* Header - sticky para mantener visible al hacer scroll */}
+          <div className="sticky top-0 bg-surface-1/98 backdrop-blur-sm border-b border-slate-700/50 px-6 py-4 flex items-center justify-between z-10 shrink-0 rounded-t-2xl">
             <div className="flex items-center gap-4">
               <HeroAvatar 
                 name={name} 
@@ -253,8 +274,13 @@ export function HeroModal({ hero, rows, onClose }) {
             </button>
           </div>
 
-          {/* Body: scrollable */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          {/* 
+            Body: scroll interno - el modal no crece, solo el contenido hace scroll:
+            - flex-1: ocupa espacio disponible dentro del modal
+            - overflow-y-auto: scroll vertical cuando contenido excede altura
+            - maxHeight: 100% para respetar límites del contenedor padre
+          */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-6" style={{ maxHeight: '100%' }}>
             {/* KPI Cards */}
             <section>
               <h3 className="text-lg font-semibold text-white mb-3">Estadísticas Clave</h3>
@@ -272,6 +298,7 @@ export function HeroModal({ hero, rows, onClose }) {
                   value={formatPercent(kpis.winRate)}
                   subtitle={`Wilson: ${formatPercent(kpis.winRateWilson)}`}
                   icon="🏆"
+                  isHighlighted
                   explanation="Porcentaje de victorias. Wilson ajusta por tamaño de muestra para mayor confiabilidad"
                   showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.winRate) || kpis.winRate == null}
                 />
@@ -316,7 +343,17 @@ export function HeroModal({ hero, rows, onClose }) {
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={trend}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
+                        <defs>
+                          <linearGradient id="lineGradientMatches" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="rgba(99, 102, 241, 0.3)" />
+                            <stop offset="100%" stopColor="rgba(99, 102, 241, 0.05)" />
+                          </linearGradient>
+                          <linearGradient id="lineGradientWinRate" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="rgba(16, 185, 129, 0.3)" />
+                            <stop offset="100%" stopColor="rgba(16, 185, 129, 0.05)" />
+                          </linearGradient>
+                        </defs>
                         <XAxis 
                           dataKey="period" 
                           stroke="#94a3b8" 
@@ -356,8 +393,10 @@ export function HeroModal({ hero, rows, onClose }) {
                           dataKey="matches" 
                           name="Partidas"
                           stroke="#6366f1" 
-                          strokeWidth={2}
-                          dot={{ fill: '#6366f1', r: 3 }}
+                          strokeWidth={2.5}
+                          fill="url(#lineGradientMatches)"
+                          dot={{ fill: '#6366f1', strokeWidth: 2, stroke: '#818cf8', r: 4 }}
+                          activeDot={{ r: 6, fill: '#818cf8', stroke: '#6366f1', strokeWidth: 2 }}
                         />
                         <Line 
                           yAxisId="right"
@@ -365,8 +404,10 @@ export function HeroModal({ hero, rows, onClose }) {
                           dataKey="winRate" 
                           name="Win Rate"
                           stroke="#10b981" 
-                          strokeWidth={2}
-                          dot={{ fill: '#10b981', r: 3 }}
+                          strokeWidth={2.5}
+                          fill="url(#lineGradientWinRate)"
+                          dot={{ fill: '#10b981', strokeWidth: 2, stroke: '#34d399', r: 4 }}
+                          activeDot={{ r: 6, fill: '#34d399', stroke: '#10b981', strokeWidth: 2 }}
                         />
                         <ReferenceLine yAxisId="right" y={0.5} stroke="#f59e0b" strokeDasharray="5 5" />
                       </LineChart>
@@ -391,7 +432,7 @@ export function HeroModal({ hero, rows, onClose }) {
                     </thead>
                     <tbody className="divide-y divide-slate-700/50">
                       {maps.slice(0, 8).map((map) => (
-                        <tr key={map.name} className="hover:bg-slate-700/20">
+                        <tr key={map.name} className="hover:bg-slate-700/20 transition-colors card-hover-lift">
                           <td className="px-4 py-2 text-white text-sm">{map.name}</td>
                           <td className="px-4 py-2 text-right text-slate-300 text-sm">{map.matches}</td>
                           <td className="px-4 py-2 text-right">

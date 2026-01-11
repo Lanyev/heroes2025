@@ -103,7 +103,7 @@ export function HeroAvatar({
       className={clsx(
         'relative shrink-0 rounded-full overflow-hidden',
         sizeConfig.container,
-        showBorder && 'ring-2 ring-slate-600/50',
+        showBorder && 'ring-2 ring-slate-700/60 ring-offset-1 ring-offset-slate-800/50',
         !showImage && gradient,
         className
       )}
@@ -119,7 +119,8 @@ export function HeroAvatar({
           onError={handleError}
           className={clsx(
             'w-full h-full object-cover transition-opacity duration-200',
-            imageState === 'loaded' ? 'opacity-100' : 'opacity-0'
+            imageState === 'loaded' ? 'opacity-100' : 'opacity-0',
+            'group-hover:brightness-110'
           )}
           loading="lazy"
         />

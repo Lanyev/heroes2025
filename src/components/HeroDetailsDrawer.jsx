@@ -106,6 +106,7 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
                 value={formatPercent(kpis.winRate)}
                 subtitle={`Wilson: ${formatPercent(kpis.winRateWilson)}`}
                 icon="🏆"
+                isHighlighted
                 explanation="Porcentaje de victorias. Wilson ajusta por tamaño de muestra para mayor confiabilidad"
                 showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.winRate) || kpis.winRate == null}
               />
@@ -150,7 +151,17 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={trend}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
+                      <defs>
+                        <linearGradient id="lineGradientMatchesDrawer" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="rgba(99, 102, 241, 0.3)" />
+                          <stop offset="100%" stopColor="rgba(99, 102, 241, 0.05)" />
+                        </linearGradient>
+                        <linearGradient id="lineGradientWinRateDrawer" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="rgba(16, 185, 129, 0.3)" />
+                          <stop offset="100%" stopColor="rgba(16, 185, 129, 0.05)" />
+                        </linearGradient>
+                      </defs>
                       <XAxis 
                         dataKey="period" 
                         stroke="#94a3b8" 
@@ -190,8 +201,10 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
                         dataKey="matches" 
                         name="Partidas"
                         stroke="#6366f1" 
-                        strokeWidth={2}
-                        dot={{ fill: '#6366f1', r: 3 }}
+                        strokeWidth={2.5}
+                        fill="url(#lineGradientMatchesDrawer)"
+                        dot={{ fill: '#6366f1', strokeWidth: 2, stroke: '#818cf8', r: 4 }}
+                        activeDot={{ r: 6, fill: '#818cf8', stroke: '#6366f1', strokeWidth: 2 }}
                       />
                       <Line 
                         yAxisId="right"
@@ -199,8 +212,10 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
                         dataKey="winRate" 
                         name="Win Rate"
                         stroke="#10b981" 
-                        strokeWidth={2}
-                        dot={{ fill: '#10b981', r: 3 }}
+                        strokeWidth={2.5}
+                        fill="url(#lineGradientWinRateDrawer)"
+                        dot={{ fill: '#10b981', strokeWidth: 2, stroke: '#34d399', r: 4 }}
+                        activeDot={{ r: 6, fill: '#34d399', stroke: '#10b981', strokeWidth: 2 }}
                       />
                       <ReferenceLine yAxisId="right" y={0.5} stroke="#f59e0b" strokeDasharray="5 5" />
                     </LineChart>
@@ -214,7 +229,7 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
           {maps && maps.length > 0 && (
             <section>
               <h3 className="text-lg font-semibold text-white mb-3">Rendimiento por Mapa</h3>
-              <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+              <div className="bg-layer-deep/80 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
                 <table className="w-full">
                   <thead>
                     <tr className="bg-slate-700/30">
@@ -225,7 +240,7 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
                   </thead>
                   <tbody className="divide-y divide-slate-700/50">
                     {maps.slice(0, 8).map((map) => (
-                      <tr key={map.name} className="hover:bg-slate-700/20">
+                      <tr key={map.name} className="hover:bg-slate-700/20 transition-colors card-hover-lift">
                         <td className="px-4 py-2 text-white text-sm">{map.name}</td>
                         <td className="px-4 py-2 text-right text-slate-300 text-sm">{map.matches}</td>
                         <td className="px-4 py-2 text-right">
@@ -245,7 +260,7 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
           {players && players.length > 0 && (
             <section>
               <h3 className="text-lg font-semibold text-white mb-3">Jugadores con este Héroe</h3>
-              <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+              <div className="bg-layer-deep/80 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
                 <table className="w-full">
                   <thead>
                     <tr className="bg-slate-700/30">

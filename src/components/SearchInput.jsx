@@ -8,10 +8,12 @@ import clsx from 'clsx'
  * @param {string} props.placeholder - Placeholder text
  * @param {string} props.className - Additional CSS classes
  */
-export function SearchInput({ value, onChange, placeholder = 'Buscar...', className }) {
+export function SearchInput({ value, onChange, placeholder = 'Buscar...', className, showLabel = false }) {
   return (
     <div className={clsx('relative flex flex-col gap-1.5', className)}>
-      <label className="text-slate-300 text-xs font-semibold uppercase tracking-wide">Buscar</label>
+      {showLabel && (
+        <label className="text-slate-300 text-xs font-semibold uppercase tracking-wide">Buscar</label>
+      )}
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <svg 
@@ -34,11 +36,11 @@ export function SearchInput({ value, onChange, placeholder = 'Buscar...', classN
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={clsx(
-            'w-full bg-slate-700/80 border border-slate-600/80 rounded-lg shadow-sm-custom',
+            'w-full bg-surface-1 border-0 rounded-lg shadow-sm',
             'pl-10 pr-10 py-2.5 text-white text-sm font-medium',
             'placeholder-slate-500',
-            'focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50',
-            'hover:border-slate-500 hover:bg-slate-700 transition-all duration-200 hover:shadow-md-custom'
+            'focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:ring-offset-2 focus:ring-offset-surface-1',
+            'hover:bg-surface-2 transition-all duration-200'
           )}
         />
         {value && (

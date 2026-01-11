@@ -11,9 +11,10 @@ import clsx from 'clsx'
 export function ChartCard({ title, subtitle, children, className }) {
   return (
     <div className={clsx(
-      'bg-layer-mid/60 backdrop-blur-sm rounded-xl border border-slate-700/50',
-      'shadow-md-custom',
+      'bg-layer-deep/80 backdrop-blur-sm rounded-xl border border-slate-700/50',
+      'shadow-inset-custom',
       'animate-fade-in',
+      // Panel hundido para gráficas integradas
       className
     )}>
       <div className="p-4 border-b border-slate-700/50 bg-layer-light/20">
@@ -22,7 +23,7 @@ export function ChartCard({ title, subtitle, children, className }) {
           <p className="text-slate-400 text-sm mt-1">{subtitle}</p>
         )}
       </div>
-      <div className="p-4 bg-layer-mid/40">
+      <div className="p-4 bg-layer-deep/60">
         {children}
       </div>
     </div>

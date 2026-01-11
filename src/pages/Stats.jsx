@@ -154,7 +154,7 @@ export function Stats({ rows }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative z-10">
       {/* Controls Section */}
       <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-end justify-between">
         <HeroMetricPicker
@@ -176,10 +176,10 @@ export function Stats({ rows }) {
           
           <button
             onClick={() => setShowClassicCharts(!showClassicCharts)}
-            className={`px-3 py-2 text-sm rounded-lg transition-colors ${
+            className={`px-3 py-2 text-sm rounded-lg transition-all duration-300 focus-ring-accent ${
               showClassicCharts 
-                ? 'bg-indigo-600 text-white' 
-                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                ? 'bg-indigo-600 text-white shadow-elevated' 
+                : 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:shadow-sm-custom'
             }`}
           >
             {showClassicCharts ? 'Ver Métrica' : 'Ver Clásicos'}
@@ -295,7 +295,7 @@ export function Stats({ rows }) {
           <div className="h-96" ref={metricChartRef}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={topByMetric} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
                 <XAxis 
                   type="number" 
                   stroke="#94a3b8" 
@@ -344,7 +344,7 @@ export function Stats({ rows }) {
         description={`${sortedTable.length} héroes • Click en una fila para ver detalles`}
       >
         <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-slate-700/50 bg-slate-800/30">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-slate-700/50 bg-layer-light/20">
             <span className="text-slate-400 text-sm">
               Mostrando {sortedTable.length} de {heroTable.length} héroes
             </span>

@@ -44,7 +44,7 @@ export function Maps({ rows }) {
   }, [maxWinRate])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 relative z-10">
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Maps by Matches */}
@@ -52,7 +52,7 @@ export function Maps({ rows }) {
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={mapsByMatches} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
                 <XAxis type="number" stroke="#94a3b8" fontSize={12} />
                 <YAxis 
                   dataKey="name" 
@@ -135,8 +135,8 @@ export function Maps({ rows }) {
       </div>
 
       {/* Maps Table */}
-      <SectionShell title="Tabla de Mapas" description="Estadísticas completas por mapa">
-        <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+      <SectionShell title="Tabla de Mapas" description="Estadísticas completas por mapa" isSecondary>
+        <div className="bg-layer-deep/80 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -150,7 +150,7 @@ export function Maps({ rows }) {
               </thead>
               <tbody className="divide-y divide-slate-700/50">
                 {mapsData.map((map, idx) => (
-                  <tr key={map.name} className="hover:bg-slate-700/20 transition-colors">
+                  <tr key={map.name} className="hover:bg-slate-700/20 transition-colors card-hover-lift">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <span className="text-slate-500 text-sm w-5">{idx + 1}</span>

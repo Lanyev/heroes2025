@@ -88,6 +88,7 @@ export function PlayerDetailsDrawer({ player, rows, onClose }) {
                 value={formatPercent(kpis.winRate)}
                 subtitle={`${kpis.wins} victorias`}
                 icon="🏆"
+                isHighlighted
               />
               <KpiCard
                 title="KDA"
@@ -123,7 +124,17 @@ export function PlayerDetailsDrawer({ player, rows, onClose }) {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={trend}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
+                      <defs>
+                        <linearGradient id="lineGradientMatchesPlayerDrawer" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="rgba(99, 102, 241, 0.3)" />
+                          <stop offset="100%" stopColor="rgba(99, 102, 241, 0.05)" />
+                        </linearGradient>
+                        <linearGradient id="lineGradientWinRatePlayerDrawer" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="rgba(16, 185, 129, 0.3)" />
+                          <stop offset="100%" stopColor="rgba(16, 185, 129, 0.05)" />
+                        </linearGradient>
+                      </defs>
                       <XAxis 
                         dataKey="period" 
                         stroke="#94a3b8" 
@@ -163,8 +174,10 @@ export function PlayerDetailsDrawer({ player, rows, onClose }) {
                         dataKey="matches" 
                         name="Partidas"
                         stroke="#6366f1" 
-                        strokeWidth={2}
-                        dot={{ fill: '#6366f1', r: 3 }}
+                        strokeWidth={2.5}
+                        fill="url(#lineGradientMatchesPlayerDrawer)"
+                        dot={{ fill: '#6366f1', strokeWidth: 2, stroke: '#818cf8', r: 4 }}
+                        activeDot={{ r: 6, fill: '#818cf8', stroke: '#6366f1', strokeWidth: 2 }}
                       />
                       <Line 
                         yAxisId="right"
@@ -172,8 +185,10 @@ export function PlayerDetailsDrawer({ player, rows, onClose }) {
                         dataKey="winRate" 
                         name="Win Rate"
                         stroke="#10b981" 
-                        strokeWidth={2}
-                        dot={{ fill: '#10b981', r: 3 }}
+                        strokeWidth={2.5}
+                        fill="url(#lineGradientWinRatePlayerDrawer)"
+                        dot={{ fill: '#10b981', strokeWidth: 2, stroke: '#34d399', r: 4 }}
+                        activeDot={{ r: 6, fill: '#34d399', stroke: '#10b981', strokeWidth: 2 }}
                       />
                       <ReferenceLine yAxisId="right" y={0.5} stroke="#f59e0b" strokeDasharray="5 5" />
                     </LineChart>
@@ -187,7 +202,7 @@ export function PlayerDetailsDrawer({ player, rows, onClose }) {
           {heroes && heroes.length > 0 && (
             <section>
               <h3 className="text-lg font-semibold text-white mb-3">Mejores Héroes</h3>
-              <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+              <div className="bg-layer-deep/80 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
                 <table className="w-full">
                   <thead>
                     <tr className="bg-slate-700/30">
@@ -198,7 +213,7 @@ export function PlayerDetailsDrawer({ player, rows, onClose }) {
                   </thead>
                   <tbody className="divide-y divide-slate-700/50">
                     {heroes.slice(0, 10).map((hero) => (
-                      <tr key={hero.name} className="hover:bg-slate-700/20">
+                      <tr key={hero.name} className="hover:bg-slate-700/20 transition-colors card-hover-lift">
                         <td className="px-4 py-2">
                           <div className="flex items-center gap-2">
                             <HeroAvatar 
@@ -228,7 +243,7 @@ export function PlayerDetailsDrawer({ player, rows, onClose }) {
           {maps && maps.length > 0 && (
             <section>
               <h3 className="text-lg font-semibold text-white mb-3">Rendimiento por Mapa</h3>
-              <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+              <div className="bg-layer-deep/80 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
                 <table className="w-full">
                   <thead>
                     <tr className="bg-slate-700/30">

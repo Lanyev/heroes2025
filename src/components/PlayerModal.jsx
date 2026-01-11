@@ -93,6 +93,7 @@ export function PlayerModal({ player, rows, onClose }) {
                   value={formatPercent(kpis.winRate)}
                   subtitle={`${kpis.wins} victorias`}
                   icon="🏆"
+                  isHighlighted
                 />
                 <KpiCard
                   title="KDA"
@@ -128,7 +129,17 @@ export function PlayerModal({ player, rows, onClose }) {
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={trend}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
+                        <defs>
+                          <linearGradient id="lineGradientMatchesModal" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="rgba(99, 102, 241, 0.3)" />
+                            <stop offset="100%" stopColor="rgba(99, 102, 241, 0.05)" />
+                          </linearGradient>
+                          <linearGradient id="lineGradientWinRateModal" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="rgba(16, 185, 129, 0.3)" />
+                            <stop offset="100%" stopColor="rgba(16, 185, 129, 0.05)" />
+                          </linearGradient>
+                        </defs>
                         <XAxis 
                           dataKey="period" 
                           stroke="#94a3b8" 
@@ -203,7 +214,7 @@ export function PlayerModal({ player, rows, onClose }) {
                     </thead>
                     <tbody className="divide-y divide-slate-700/50">
                       {heroes.slice(0, 10).map((hero) => (
-                        <tr key={hero.name} className="hover:bg-slate-700/20">
+                        <tr key={hero.name} className="hover:bg-slate-700/20 transition-colors card-hover-lift">
                           <td className="px-4 py-2">
                             <div className="flex items-center gap-2">
                               <HeroAvatar 
