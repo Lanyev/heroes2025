@@ -43,12 +43,16 @@ function TalentDisplay({ talentName, size = 32, showName = true, className = '' 
           setIsLoading(false)
           
           // Log en desarrollo para debugging
-          if (import.meta.env.DEV && !url) {
-            console.log(`[TalentDisplay] No image found for ${talentName}, showing placeholder`)
+          if (import.meta.env.DEV) {
+            if (url) {
+              console.log(`[TalentDisplay] Loaded image for ${talentName}: ${url}`)
+            } else {
+              console.warn(`[TalentDisplay] No image found for ${talentName}, showing placeholder`)
+            }
           }
         }
       } catch (error) {
-        console.error('Error loading talent info:', error, talentName)
+        console.error('[TalentDisplay] Error loading talent info:', error, { talentName })
         if (!cancelled) {
           setImageUrl(null) // Asegurar que se muestre placeholder en caso de error
           setIsLoading(false)
@@ -63,7 +67,15 @@ function TalentDisplay({ talentName, size = 32, showName = true, className = '' 
     }
   }, [talentName])
 
-  const handleImageError = () => {
+  const handleImageError = (e) => {
+    if (import.meta.env.DEV) {
+      console.error('[TalentDisplay] Image failed to load:', {
+        talentName,
+        imageUrl,
+        src: e.target?.src,
+        error: e
+      })
+    }
     setImageError(true)
   }
 
@@ -252,34 +264,46 @@ export function HeroModal({ hero, rows, onClose }) {
                   value={formatNumber(kpis.matches)}
                   subtitle={kpis.confidenceNote}
                   icon="🎮"
+                  explanation="Número total de partidas jugadas con este héroe"
+                  showExplanation={!kpis.matches || kpis.matches === 0}
                 />
                 <KpiCard
                   title="Win Rate"
                   value={formatPercent(kpis.winRate)}
                   subtitle={`Wilson: ${formatPercent(kpis.winRateWilson)}`}
                   icon="🏆"
+                  explanation="Porcentaje de victorias. Wilson ajusta por tamaño de muestra para mayor confiabilidad"
+                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.winRate) || kpis.winRate == null}
                 />
                 <KpiCard
                   title="Pick Rate"
                   value={formatPercent(kpis.pickRate)}
                   icon="📊"
+                  explanation="Porcentaje de veces que este héroe fue elegido del total de partidas"
+                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.pickRate) || kpis.pickRate == null}
                 />
                 <KpiCard
                   title="KDA"
                   value={formatDecimal(kpis.kda, 2)}
                   subtitle={`${formatDecimal(kpis.avgKills, 1)}/${formatDecimal(kpis.avgDeaths, 1)}/${formatDecimal(kpis.avgAssists, 1)}`}
                   icon="⚔️"
+                  explanation="Ratio de (Kills + Asistencias) / Muertes. Muestra eficiencia en combate"
+                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.kda) || kpis.kda == null}
                 />
                 <KpiCard
                   title="DPM"
                   value={formatCompact(kpis.dpm)}
                   subtitle="Daño por minuto"
                   icon="💥"
+                  explanation="Daño por minuto. Mide la contribución de daño en el tiempo"
+                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.dpm) || kpis.dpm == null}
                 />
                 <KpiCard
                   title="Avg Tiempo Muerto"
                   value={formatDuration(kpis.avgSpentDeadSeconds)}
                   icon="💀"
+                  explanation="Tiempo promedio que el héroe pasó muerto por partida"
+                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.avgSpentDeadSeconds) || kpis.avgSpentDeadSeconds == null}
                 />
               </div>
             </section>
@@ -460,80 +484,87 @@ export function HeroModal({ hero, rows, onClose }) {
             {/* Talent Statistics Section */}
             {(Object.keys(talentStats).length > 0 || bestBuild || mostPickedUltimate || mostPickedL20) && (
               <>
-                {/* Most Picked Ultimate (L10) */}
-                {mostPickedUltimate && (
+                {/* Most Picked Ultimate (L10) and L20 Talent - Grid 2x1 */}
+                {(mostPickedUltimate || mostPickedL20) && (
                   <section>
-                    <h3 className="text-lg font-semibold text-white mb-3">Ultimate (Nivel 10) más tomado</h3>
-                    <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-2xl">⚡</span>
-                        <div className="flex-1">
-                          <TalentDisplay 
-                            talentName={mostPickedUltimate.talent} 
-                            size={40}
-                            showName={true}
-                            className="mb-1"
-                          />
-                          <p className="text-slate-400 text-sm">Ultimate más popular</p>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Most Picked Ultimate (L10) */}
+                      {mostPickedUltimate && (
                         <div>
-                          <p className="text-slate-400 text-xs mb-1">Pick %</p>
-                          <p className="text-white font-semibold">{formatDecimal(mostPickedUltimate.pickPct, 1)}%</p>
+                          <h3 className="text-lg font-semibold text-white mb-3">Ultimate (Nivel 10) más tomado</h3>
+                          <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              <span className="text-2xl">⚡</span>
+                              <div className="flex-1">
+                                <TalentDisplay 
+                                  talentName={mostPickedUltimate.talent} 
+                                  size={40}
+                                  showName={true}
+                                  className="mb-1"
+                                />
+                                <p className="text-slate-400 text-sm">Ultimate más popular</p>
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-3 gap-4 mt-4">
+                              <div>
+                                <p className="text-slate-400 text-xs mb-1">Pick %</p>
+                                <p className="text-white font-semibold">{formatDecimal(mostPickedUltimate.pickPct, 1)}%</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-400 text-xs mb-1">Win %</p>
+                                <p className="text-white font-semibold">
+                                  <Badge variant={mostPickedUltimate.winPct >= 55 ? 'success' : mostPickedUltimate.winPct <= 45 ? 'danger' : 'default'}>
+                                    {formatDecimal(mostPickedUltimate.winPct, 1)}%
+                                  </Badge>
+                                </p>
+                              </div>
+                              <div>
+                                <p className="text-slate-400 text-xs mb-1">Partidas</p>
+                                <p className="text-white font-semibold">{formatNumber(mostPickedUltimate.games)}</p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-slate-400 text-xs mb-1">Win %</p>
-                          <p className="text-white font-semibold">
-                            <Badge variant={mostPickedUltimate.winPct >= 55 ? 'success' : mostPickedUltimate.winPct <= 45 ? 'danger' : 'default'}>
-                              {formatDecimal(mostPickedUltimate.winPct, 1)}%
-                            </Badge>
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-slate-400 text-xs mb-1">Partidas</p>
-                          <p className="text-white font-semibold">{formatNumber(mostPickedUltimate.games)}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                )}
+                      )}
 
-                {/* Most Picked L20 Talent */}
-                {mostPickedL20 && (
-                  <section>
-                    <h3 className="text-lg font-semibold text-white mb-3">Talento Nivel 20 más tomado</h3>
-                    <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-2xl">⭐</span>
-                        <div className="flex-1">
-                          <TalentDisplay 
-                            talentName={mostPickedL20.talent} 
-                            size={40}
-                            showName={true}
-                            className="mb-1"
-                          />
-                          <p className="text-slate-400 text-sm">Talento de nivel 20 más popular</p>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-3 gap-4 mt-4">
+                      {/* Most Picked L20 Talent */}
+                      {mostPickedL20 && (
                         <div>
-                          <p className="text-slate-400 text-xs mb-1">Pick %</p>
-                          <p className="text-white font-semibold">{formatDecimal(mostPickedL20.pickPct, 1)}%</p>
+                          <h3 className="text-lg font-semibold text-white mb-3">Talento Nivel 20 más tomado</h3>
+                          <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              <span className="text-2xl">⭐</span>
+                              <div className="flex-1">
+                                <TalentDisplay 
+                                  talentName={mostPickedL20.talent} 
+                                  size={40}
+                                  showName={true}
+                                  className="mb-1"
+                                />
+                                <p className="text-slate-400 text-sm">Talento de nivel 20 más popular</p>
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-3 gap-4 mt-4">
+                              <div>
+                                <p className="text-slate-400 text-xs mb-1">Pick %</p>
+                                <p className="text-white font-semibold">{formatDecimal(mostPickedL20.pickPct, 1)}%</p>
+                              </div>
+                              <div>
+                                <p className="text-slate-400 text-xs mb-1">Win %</p>
+                                <p className="text-white font-semibold">
+                                  <Badge variant={mostPickedL20.winPct >= 55 ? 'success' : mostPickedL20.winPct <= 45 ? 'danger' : 'default'}>
+                                    {formatDecimal(mostPickedL20.winPct, 1)}%
+                                  </Badge>
+                                </p>
+                              </div>
+                              <div>
+                                <p className="text-slate-400 text-xs mb-1">Partidas</p>
+                                <p className="text-white font-semibold">{formatNumber(mostPickedL20.games)}</p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-slate-400 text-xs mb-1">Win %</p>
-                          <p className="text-white font-semibold">
-                            <Badge variant={mostPickedL20.winPct >= 55 ? 'success' : mostPickedL20.winPct <= 45 ? 'danger' : 'default'}>
-                              {formatDecimal(mostPickedL20.winPct, 1)}%
-                            </Badge>
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-slate-400 text-xs mb-1">Partidas</p>
-                          <p className="text-white font-semibold">{formatNumber(mostPickedL20.games)}</p>
-                        </div>
-                      </div>
+                      )}
                     </div>
                   </section>
                 )}
@@ -543,13 +574,23 @@ export function HeroModal({ hero, rows, onClose }) {
                   <section>
                     <h3 className="text-lg font-semibold text-white mb-3">Mejor build según estadísticas</h3>
                     <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
-                      <div className="space-y-2 mb-4">
-                        {[1, 4, 7, 10, 13, 16, 20].map(level => (
-                          <div key={level} className="flex items-center gap-3">
-                            <span className="text-slate-400 text-sm w-16">Nivel {level}:</span>
-                            <span className="text-white font-medium">{bestBuild.talents[level]}</span>
-                          </div>
-                        ))}
+                      <div className="space-y-3 mb-4">
+                        {[1, 4, 7, 10, 13, 16, 20].map(level => {
+                          const talentName = bestBuild.talents[level]
+                          if (!talentName) return null
+                          
+                          return (
+                            <div key={level} className="flex items-center gap-3">
+                              <span className="text-slate-400 text-sm w-16 shrink-0">Nivel {level}:</span>
+                              <TalentDisplay 
+                                talentName={talentName} 
+                                size={32}
+                                showName={true}
+                                className="flex-1"
+                              />
+                            </div>
+                          )
+                        })}
                       </div>
                       <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-700/50">
                         <div>

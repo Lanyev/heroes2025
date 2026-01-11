@@ -28,7 +28,10 @@ const AWARD_VIDEO_MAP = {
   'Top Globitos': '/video/top_globes.mp4',
   'Top Time OnFire': '/video/top_onfire.mp4',
   'Top Damage W/Healer': '/video/top_damage_whealer.mp4',
-  'Top Healing': '/video/top_healing.mp4'
+  'Top Healing': '/video/top_healing.mp4',
+  'Top Self Healing': '/video/top_selfhealing.mp4',
+  'Top Exp': '/video/top_exp.mp4',
+  'Top Minion Killer': '/video/top_minion.mp4'
 }
 
 /**
@@ -74,7 +77,10 @@ function getVideoSrc(award) {
     { match: ['less tank damage', 'less-tank-damage'], video: '/video/less_tank.mp4' },
     { match: ['top globitos', 'top-globitos'], video: '/video/top_globes.mp4' },
     { match: ['top time onfire', 'top-time-onfire'], video: '/video/top_onfire.mp4' },
-    { match: ['top healing', 'top-healing'], video: '/video/top_healing.mp4' }
+    { match: ['top healing', 'top-healing'], video: '/video/top_healing.mp4' },
+    { match: ['top self healing', 'top-self-healing'], video: '/video/top_selfhealing.mp4' },
+    { match: ['top exp', 'top-exp'], video: '/video/top_exp.mp4' },
+    { match: ['top minion killer', 'top-minion-killer'], video: '/video/top_minion.mp4' }
   ]
   
   for (const pattern of patterns) {

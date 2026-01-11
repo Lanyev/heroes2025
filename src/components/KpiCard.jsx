@@ -8,9 +8,11 @@ import clsx from 'clsx'
  * @param {string} props.subtitle - Optional subtitle/description
  * @param {string} props.icon - Optional emoji icon
  * @param {string} props.trend - Optional trend indicator ('up', 'down', 'neutral')
+ * @param {string} props.explanation - Optional explanation shown when there's no data
+ * @param {boolean} props.showExplanation - Whether to show explanation (when no data)
  * @param {string} props.className - Additional CSS classes
  */
-export function KpiCard({ title, value, subtitle, icon, trend, className }) {
+export function KpiCard({ title, value, subtitle, icon, trend, explanation, showExplanation, className }) {
   return (
     <div className={clsx(
       'bg-slate-800/50 backdrop-blur-sm rounded-xl p-5 border border-slate-700/50',
@@ -26,6 +28,9 @@ export function KpiCard({ title, value, subtitle, icon, trend, className }) {
           </p>
           {subtitle && (
             <p className="text-slate-500 text-sm mt-1">{subtitle}</p>
+          )}
+          {showExplanation && explanation && (
+            <p className="text-slate-500 text-xs mt-2 italic">{explanation}</p>
           )}
         </div>
         {icon && (

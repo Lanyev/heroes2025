@@ -1,11 +1,14 @@
 /**
  * Utilidades para obtener imágenes y nombres legibles de talentos
- * Usa /public/talents/talents-index.json como fuente de verdad
+ * Usa /public/talent-dict-optimized.json como fuente principal
+ * y /public/talents-index.json como fallback
  */
 
-// Cache del diccionario de talentos
+// Cache del diccionario optimizado
+let talentDict = null
 let talentsIndex = null
 let loadingPromise = null
+let indexLoadingPromise = null
 
 /**
  * Normaliza un nombre de talento para búsqueda en el índice
@@ -20,13 +23,13 @@ function normalizeTalentName(name) {
 }
 
 /**
- * Carga el índice de talentos desde talents-index.json
- * @returns {Promise<Object>} Índice de talentos
+ * Carga el diccionario optimizado de talentos
+ * @returns {Promise<Object>} Diccionario optimizado
  */
-async function loadTalentsIndex() {
+async function loadTalentDict() {
   // Si ya está cargado, retornar
-  if (talentsIndex !== null) {
-    return talentsIndex
+  if (talentDict !== null) {
+    return talentDict
   }
 
   // Si ya hay una carga en progreso, esperar a que termine
@@ -37,27 +40,75 @@ async function loadTalentsIndex() {
   // Iniciar carga
   loadingPromise = (async () => {
     try {
-      const response = await fetch('/talents-index.json')
+      const response = await fetch('/talent-dict-optimized.json')
       if (!response.ok) {
-        console.warn('No se pudo cargar talents-index.json', response.status, response.statusText)
-        talentsIndex = {}
-        return talentsIndex
+        console.warn('[TalentImage] No se pudo cargar talent-dict-optimized.json, usando índice como fallback')
+        return await loadTalentsIndex()
       }
-      talentsIndex = await response.json()
+      const data = await response.json()
+      talentDict = data.dict || data // Compatibilidad con ambos formatos
       if (import.meta.env.DEV) {
-        console.log('[TalentImage] Índice cargado:', Object.keys(talentsIndex).length, 'talentos')
+        console.log('[TalentImage] Diccionario optimizado cargado:', Object.keys(talentDict).length, 'talentos mapeados')
+        if (data.metadata) {
+          console.log('[TalentImage] Metadatos:', data.metadata)
+        }
       }
-      return talentsIndex
+      return talentDict
     } catch (error) {
-      console.error('Error al cargar talents-index.json:', error)
-      talentsIndex = {}
-      return talentsIndex
+      console.error('[TalentImage] Error al cargar talent-dict-optimized.json:', error)
+      // Fallback al índice antiguo
+      return await loadTalentsIndex()
     } finally {
       loadingPromise = null
     }
   })()
 
   return loadingPromise
+}
+
+/**
+ * Carga el índice de talentos desde talents-index.json (fallback)
+ * @returns {Promise<Object>} Índice de talentos
+ */
+export async function loadTalentsIndex() {
+  // Si ya está cargado, retornar
+  if (talentsIndex !== null) {
+    return talentsIndex
+  }
+
+  // Si ya hay una carga en progreso, esperar a que termine
+  if (indexLoadingPromise) {
+    return indexLoadingPromise
+  }
+
+  // Iniciar carga
+  indexLoadingPromise = (async () => {
+    try {
+      const response = await fetch('/talents-index.json')
+      if (!response.ok) {
+        console.error('[TalentImage] No se pudo cargar talents-index.json', {
+          status: response.status,
+          statusText: response.statusText,
+          url: response.url
+        })
+        talentsIndex = {}
+        return talentsIndex
+      }
+      talentsIndex = await response.json()
+      if (import.meta.env.DEV) {
+        console.log('[TalentImage] Índice cargado exitosamente:', Object.keys(talentsIndex).length, 'talentos')
+      }
+      return talentsIndex
+    } catch (error) {
+      console.error('[TalentImage] Error al cargar talents-index.json:', error)
+      talentsIndex = {}
+      return talentsIndex
+    } finally {
+      indexLoadingPromise = null
+    }
+  })()
+
+  return indexLoadingPromise
 }
 
 /**
@@ -89,21 +140,34 @@ function findTalentInIndex(talentName, index) {
   if (camelCaseWords.length > 1) {
     // Intentar remover 1, 2, 3 palabras del inicio
     for (let i = 1; i <= Math.min(3, camelCaseWords.length - 1); i++) {
-      // Remover las primeras i palabras
-      const withoutHero = talentName.substring(
-        camelCaseWords.slice(0, i).join('').length
-      )
-      const normalizedWithoutHero = normalizeTalentName(withoutHero)
-      
-      if (index[normalizedWithoutHero]) {
-        return index[normalizedWithoutHero]
-      }
-      
-      // También intentar unir todas las palabras después de las i primeras
+      // Primero intentar unir todas las palabras después de las i primeras (más confiable)
       const talentWords = camelCaseWords.slice(i).join('')
       const normalizedTalentWords = normalizeTalentName(talentWords)
       if (index[normalizedTalentWords]) {
+        if (import.meta.env.DEV) {
+          console.log(`[TalentImage] Found ${talentName} as ${normalizedTalentWords} (removed ${i} words)`)
+        }
         return index[normalizedTalentWords]
+      }
+      
+      // También intentar remover las primeras i palabras del string original
+      // Encontrar la posición donde termina la i-ésima palabra
+      let charIndex = 0
+      for (let j = 0; j < i; j++) {
+        const word = camelCaseWords[j]
+        const wordIndex = talentName.indexOf(word, charIndex)
+        if (wordIndex !== -1) {
+          charIndex = wordIndex + word.length
+        }
+      }
+      const withoutHero = talentName.substring(charIndex)
+      const normalizedWithoutHero = normalizeTalentName(withoutHero)
+      
+      if (index[normalizedWithoutHero]) {
+        if (import.meta.env.DEV) {
+          console.log(`[TalentImage] Found ${talentName} as ${normalizedWithoutHero} (substring method)`)
+        }
+        return index[normalizedWithoutHero]
       }
     }
   }
@@ -320,11 +384,27 @@ export async function getTalentInfo(talentName) {
     return { imageUrl: null, displayName: 'Talento Desconocido' }
   }
 
+  // Primero intentar con el diccionario optimizado
+  const dict = await loadTalentDict()
+  
+  // Si el diccionario tiene el talento directamente, usarlo (más rápido)
+  if (dict && dict[talentName]) {
+    const imageUrl = dict[talentName]
+    const displayName = formatTalentDisplayName(null, talentName)
+    
+    if (import.meta.env.DEV) {
+      console.log(`[TalentImage] Found in optimized dict: ${talentName} -> ${imageUrl}`)
+    }
+    
+    return { imageUrl, displayName }
+  }
+
+  // Fallback: usar el índice antiguo con búsqueda inteligente
   const index = await loadTalentsIndex()
   
   if (!index || Object.keys(index).length === 0) {
     if (import.meta.env.DEV) {
-      console.error('[TalentImage] Índice no cargado o vacío')
+      console.warn('[TalentImage] Índice no cargado o vacío, talento no encontrado:', talentName)
     }
     return { 
       imageUrl: null, 
@@ -338,6 +418,19 @@ export async function getTalentInfo(talentName) {
   const displayName = entry && entry.originalName
     ? formatTalentDisplayName(entry.originalName, talentName)
     : formatTalentDisplayName(null, talentName)
+
+  // Log en desarrollo para debugging
+  if (import.meta.env.DEV) {
+    if (entry) {
+      console.log(`[TalentImage] Found talent: ${talentName} -> ${entry.path}`, { entry })
+    } else {
+      console.warn(`[TalentImage] Talent not found: ${talentName}`, {
+        normalized: normalizeTalentName(talentName),
+        indexSize: Object.keys(index).length,
+        sampleKeys: Object.keys(index).slice(0, 5)
+      })
+    }
+  }
 
   // Log en desarrollo si no se encuentra imagen
   if (!imageUrl && import.meta.env.DEV) {

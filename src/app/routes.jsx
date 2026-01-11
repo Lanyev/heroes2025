@@ -4,6 +4,7 @@ import { Stats } from '../pages/Stats'
 import { Players } from '../pages/Players'
 import { Maps } from '../pages/Maps'
 import { Premios } from '../pages/Premios'
+import { TalentImagesTest } from '../pages/TalentImagesTest'
 
 /**
  * Route configuration for the dashboard
@@ -44,6 +45,12 @@ export const routes = [
     label: 'Premios',
     icon: '🎖️',
     component: Premios
+  },
+  {
+    id: 'talent-images-test',
+    label: 'Test Talentos',
+    icon: '🧪',
+    component: TalentImagesTest
   }
 ]
 

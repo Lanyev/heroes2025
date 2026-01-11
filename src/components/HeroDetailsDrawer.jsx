@@ -98,34 +98,46 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
                 value={formatNumber(kpis.matches)}
                 subtitle={kpis.confidenceNote}
                 icon="🎮"
+                explanation="Número total de partidas jugadas con este héroe"
+                showExplanation={!kpis.matches || kpis.matches === 0}
               />
               <KpiCard
                 title="Win Rate"
                 value={formatPercent(kpis.winRate)}
                 subtitle={`Wilson: ${formatPercent(kpis.winRateWilson)}`}
                 icon="🏆"
+                explanation="Porcentaje de victorias. Wilson ajusta por tamaño de muestra para mayor confiabilidad"
+                showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.winRate) || kpis.winRate == null}
               />
               <KpiCard
                 title="Pick Rate"
                 value={formatPercent(kpis.pickRate)}
                 icon="📊"
+                explanation="Porcentaje de veces que este héroe fue elegido del total de partidas"
+                showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.pickRate) || kpis.pickRate == null}
               />
               <KpiCard
                 title="KDA"
                 value={formatDecimal(kpis.kda, 2)}
                 subtitle={`${formatDecimal(kpis.avgKills, 1)}/${formatDecimal(kpis.avgDeaths, 1)}/${formatDecimal(kpis.avgAssists, 1)}`}
                 icon="⚔️"
+                explanation="Ratio de (Kills + Asistencias) / Muertes. Muestra eficiencia en combate"
+                showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.kda) || kpis.kda == null}
               />
               <KpiCard
                 title="DPM"
                 value={formatCompact(kpis.dpm)}
                 subtitle="Daño por minuto"
                 icon="💥"
+                explanation="Daño por minuto. Mide la contribución de daño en el tiempo"
+                showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.dpm) || kpis.dpm == null}
               />
               <KpiCard
                 title="Avg Tiempo Muerto"
                 value={formatDuration(kpis.avgSpentDeadSeconds)}
                 icon="💀"
+                explanation="Tiempo promedio que el héroe pasó muerto por partida"
+                showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.avgSpentDeadSeconds) || kpis.avgSpentDeadSeconds == null}
               />
             </div>
           </section>

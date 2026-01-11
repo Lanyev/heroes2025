@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 export function AwardVideoIntro({ videoSrc, isVisible, onVideoStarted }) {
   const videoRef = useRef(null)
   const [playButtonVisible, setPlayButtonVisible] = useState(true)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   // Resetear cuando cambia el video o se oculta
   useEffect(() => {
@@ -17,6 +18,7 @@ export function AwardVideoIntro({ videoSrc, isVisible, onVideoStarted }) {
       videoRef.current.currentTime = 0
       videoRef.current.muted = true
       setPlayButtonVisible(true)
+      setIsPlaying(false)
     }
   }, [isVisible])
 
@@ -27,8 +29,31 @@ export function AwardVideoIntro({ videoSrc, isVisible, onVideoStarted }) {
       videoRef.current.currentTime = 0
       videoRef.current.muted = true
       setPlayButtonVisible(true)
+      setIsPlaying(false)
     }
   }, [videoSrc])
+
+  // Detectar cuando el video comienza a reproducirse
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const handlePlay = () => {
+      setIsPlaying(true)
+    }
+
+    const handlePause = () => {
+      setIsPlaying(false)
+    }
+
+    video.addEventListener('play', handlePlay)
+    video.addEventListener('pause', handlePause)
+
+    return () => {
+      video.removeEventListener('play', handlePlay)
+      video.removeEventListener('pause', handlePause)
+    }
+  }, [])
 
   const handlePlay = () => {
     if (!videoRef.current) return
@@ -65,22 +90,37 @@ export function AwardVideoIntro({ videoSrc, isVisible, onVideoStarted }) {
         ${isVisible ? '' : 'pointer-events-none'}
       `}
     >
-      {/* Video container */}
-      <div className="absolute inset-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          playsInline
-          preload="metadata"
-          muted={true}
-          controls={false}
-          className="w-full h-full object-cover"
-          style={{ objectFit: 'cover' }}
-        />
+      {/* Video container - fondo negro fullscreen */}
+      <div className="absolute inset-0 bg-black" />
+      
+      {/* Video container - limitado a 900px máximo y centrado */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative w-full h-full max-w-[900px] max-h-[900px] flex items-center justify-center">
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            playsInline
+            preload="none"
+            muted={true}
+            controls={false}
+            className={`w-full h-full object-contain transition-opacity duration-500 ${
+              isPlaying ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        </div>
       </div>
 
-      {/* Overlay oscuro con gradiente cinematográfico */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
+      {/* Overlay negro que se oculta cuando el video se reproduce */}
+      <AnimatePresence>
+        {!isPlaying && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 bg-black z-[5]"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Botón Play centrado */}
       <AnimatePresence>
