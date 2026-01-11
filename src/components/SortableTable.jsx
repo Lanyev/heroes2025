@@ -180,10 +180,10 @@ export function SortableTable({
   }
 
   return (
-    <div className={clsx('overflow-x-auto relative', className)} ref={tableRef}>
+    <div className={clsx('overflow-x-auto relative bg-layer-deep/60 rounded-xl border border-slate-700/50 shadow-inset-custom p-2', className)} ref={tableRef}>
       <table className="w-full">
         <thead className="sticky top-0 z-10">
-          <tr className="bg-slate-700/50 backdrop-blur-sm">
+          <tr className="bg-layer-light/40 backdrop-blur-sm shadow-sm-custom">
             {columns.map((col) => (
               <th
                 key={col.key}
@@ -241,7 +241,7 @@ export function SortableTable({
       {tooltip && (
         <div
           ref={tooltipRef}
-          className="fixed z-50 bg-slate-800 border border-slate-600 rounded-lg shadow-xl p-3 min-w-[240px] pointer-events-none"
+          className="fixed z-50 bg-layer-mid border border-slate-600 rounded-lg shadow-lg-custom p-3 min-w-[240px] pointer-events-none"
         >
           {/* Header with hero name */}
           <div className="mb-3 pb-2 border-b border-slate-700">

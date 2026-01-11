@@ -11,17 +11,18 @@ import clsx from 'clsx'
 export function ChartCard({ title, subtitle, children, className }) {
   return (
     <div className={clsx(
-      'bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50',
+      'bg-layer-mid/60 backdrop-blur-sm rounded-xl border border-slate-700/50',
+      'shadow-md-custom',
       'animate-fade-in',
       className
     )}>
-      <div className="p-4 border-b border-slate-700/50">
+      <div className="p-4 border-b border-slate-700/50 bg-layer-light/20">
         <h3 className="text-lg font-semibold text-white">{title}</h3>
         {subtitle && (
           <p className="text-slate-400 text-sm mt-1">{subtitle}</p>
         )}
       </div>
-      <div className="p-4">
+      <div className="p-4 bg-layer-mid/40">
         {children}
       </div>
     </div>

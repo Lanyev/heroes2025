@@ -23,7 +23,7 @@ export function Select({ label, value, onChange, options = [], className }) {
           'text-white text-sm font-medium',
           'focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50',
           'cursor-pointer hover:border-slate-500 hover:bg-slate-700 transition-all duration-200',
-          'appearance-none bg-no-repeat bg-right shadow-sm',
+          'appearance-none bg-no-repeat bg-right shadow-sm-custom hover:shadow-md-custom',
           'pr-8'
         )}
         style={{

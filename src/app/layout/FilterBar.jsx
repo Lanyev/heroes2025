@@ -94,13 +94,13 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
   // Compact mode - show only active filters
   if (isCompact) {
     return (
-      <div className="bg-slate-800/50 border-b border-slate-700/50 backdrop-blur-sm">
+      <div className="bg-layer-mid/50 border-b border-slate-700/50 backdrop-blur-sm shadow-sm-custom">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 flex-wrap">
               {activeFilters.length > 0 ? (
                 activeFilters.map((filter, idx) => (
-                  <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1 bg-indigo-600/20 border border-indigo-500/30 rounded text-xs">
+                  <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1 bg-indigo-600/20 border border-indigo-500/30 rounded text-xs shadow-sm-custom">
                     <span className="text-indigo-300 font-medium">
                       {filter.label}
                     </span>
@@ -123,7 +123,7 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
             </div>
             <button
               onClick={() => setIsCompact(false)}
-              className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all"
+              className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all shadow-sm-custom hover:shadow-md-custom"
             >
               Expandir
             </button>
@@ -135,13 +135,13 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
 
   // Expanded mode - show all filters
   return (
-    <div className="bg-gradient-to-b from-slate-800/60 to-slate-800/40 border-b border-slate-700/70 shadow-lg backdrop-blur-sm">
+    <div className="bg-gradient-to-b from-slate-800/60 to-slate-800/40 border-b border-slate-700/70 shadow-md-custom backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wide">Filtros</h3>
           <button
             onClick={() => setIsCompact(true)}
-            className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all"
+            className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all shadow-sm-custom hover:shadow-md-custom"
           >
             Compactar
           </button>
@@ -157,10 +157,10 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
               {/* Botón "Todos los años" */}
               <button
                 onClick={() => handleYearSelect('all')}
-                className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 shadow-sm ${
+                className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                   selectedYear === 'all'
-                    ? 'bg-indigo-600 text-white font-semibold shadow-indigo-500/50 ring-2 ring-indigo-400/50'
-                    : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white hover:shadow-md'
+                    ? 'bg-indigo-600 text-white font-semibold shadow-elevated ring-2 ring-indigo-400/50'
+                    : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white shadow-sm-custom hover:shadow-md-custom'
                 }`}
               >
                 Todos
@@ -170,10 +170,10 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
                 <button
                   key={year}
                   onClick={() => handleYearSelect(year)}
-                  className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 shadow-sm ${
+                  className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                     selectedYear === year
-                      ? 'bg-indigo-600 text-white font-semibold shadow-indigo-500/50 ring-2 ring-indigo-400/50'
-                      : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white hover:shadow-md'
+                      ? 'bg-indigo-600 text-white font-semibold shadow-elevated ring-2 ring-indigo-400/50'
+                      : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white shadow-sm-custom hover:shadow-md-custom'
                   }`}
                 >
                   {year}
@@ -215,10 +215,10 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
           />
 
           {/* Only Listed Players Toggle */}
-          <div className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg border transition-all duration-200 shadow-sm ${
+          <div className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg border transition-all duration-200 ${
             filters.onlyListedPlayers
-              ? 'bg-indigo-600/20 border-indigo-500/50 ring-2 ring-indigo-400/30'
-              : 'bg-slate-700/80 border-slate-600/80 hover:bg-slate-600/80 hover:border-slate-500'
+              ? 'bg-indigo-600/20 border-indigo-500/50 ring-2 ring-indigo-400/30 shadow-sm-custom'
+              : 'bg-slate-700/80 border-slate-600/80 hover:bg-slate-600/80 hover:border-slate-500 shadow-sm-custom hover:shadow-md-custom'
           }`}>
             <input
               type="checkbox"
@@ -242,7 +242,7 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
             onClick={resetFilters}
             className="px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white 
               hover:bg-slate-700/80 rounded-lg transition-all duration-200 border border-slate-600/80
-              hover:border-slate-500 hover:shadow-md"
+              hover:border-slate-500 shadow-sm-custom hover:shadow-md-custom"
           >
             Limpiar
           </button>

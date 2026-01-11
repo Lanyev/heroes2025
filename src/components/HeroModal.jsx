@@ -226,11 +226,11 @@ export function HeroModal({ hero, rows, onClose }) {
       >
         {/* Modal */}
         <div 
-          className="bg-slate-900 rounded-xl border border-slate-700 w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl animate-fade-in"
+          className="bg-layer-mid rounded-xl border border-slate-700 w-full max-w-4xl max-h-[90vh] flex flex-col shadow-lg-custom animate-fade-in"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="sticky top-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 px-6 py-4 flex items-center justify-between z-50 shrink-0 rounded-t-xl">
+          <div className="sticky top-0 bg-layer-mid/95 backdrop-blur-sm border-b border-slate-700 px-6 py-4 flex items-center justify-between z-50 shrink-0 rounded-t-xl shadow-md-custom">
             <div className="flex items-center gap-4">
               <HeroAvatar 
                 name={name} 
@@ -245,7 +245,7 @@ export function HeroModal({ hero, rows, onClose }) {
             </div>
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors shrink-0"
+              className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors shrink-0 shadow-sm-custom hover:shadow-md-custom"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -312,7 +312,7 @@ export function HeroModal({ hero, rows, onClose }) {
             {trend && trend.length > 0 && (
               <section>
                 <h3 className="text-lg font-semibold text-white mb-3">Tendencia en el Tiempo</h3>
-                <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
+                <div className="bg-layer-mid/60 rounded-xl p-4 border border-slate-700/50 shadow-md-custom">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={trend}>
@@ -380,10 +380,10 @@ export function HeroModal({ hero, rows, onClose }) {
             {maps && maps.length > 0 && (
               <section>
                 <h3 className="text-lg font-semibold text-white mb-3">Rendimiento por Mapa</h3>
-                <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+                <div className="bg-layer-deep/60 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-slate-700/30">
+                      <tr className="bg-layer-light/40 shadow-sm-custom">
                         <th className="text-left px-4 py-2 text-slate-300 text-sm">Mapa</th>
                         <th className="text-right px-4 py-2 text-slate-300 text-sm">Partidas</th>
                         <th className="text-right px-4 py-2 text-slate-300 text-sm">Win Rate</th>
@@ -411,10 +411,10 @@ export function HeroModal({ hero, rows, onClose }) {
             {players && players.length > 0 && (
               <section>
                 <h3 className="text-lg font-semibold text-white mb-3">Jugadores con este Héroe</h3>
-                <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+                <div className="bg-layer-deep/60 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-slate-700/30">
+                      <tr className="bg-layer-light/40 shadow-sm-custom">
                         <th className="text-left px-4 py-2 text-slate-300 text-sm">Jugador</th>
                         <th 
                           className="text-right px-4 py-2 text-slate-300 text-sm cursor-pointer hover:bg-slate-700/50 transition-colors select-none"
@@ -531,7 +531,7 @@ export function HeroModal({ hero, rows, onClose }) {
                       {mostPickedL20 && (
                         <div>
                           <h3 className="text-lg font-semibold text-white mb-3">Talento Nivel 20 más tomado</h3>
-                          <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
+                          <div className="bg-layer-mid/60 rounded-xl border border-slate-700/50 p-4 shadow-md-custom">
                             <div className="flex items-center gap-3 mb-3">
                               <span className="text-2xl">⭐</span>
                               <div className="flex-1">
@@ -573,7 +573,7 @@ export function HeroModal({ hero, rows, onClose }) {
                 {bestBuild ? (
                   <section>
                     <h3 className="text-lg font-semibold text-white mb-3">Mejor build según estadísticas</h3>
-                    <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
+                    <div className="bg-layer-mid/60 rounded-xl border border-slate-700/50 p-4 shadow-md-custom">
                       <div className="space-y-3 mb-4">
                         {[1, 4, 7, 10, 13, 16, 20].map(level => {
                           const talentName = bestBuild.talents[level]
@@ -615,7 +615,7 @@ export function HeroModal({ hero, rows, onClose }) {
                   Object.keys(talentStats).length > 0 && (
                     <section>
                       <h3 className="text-lg font-semibold text-white mb-3">Mejor build según estadísticas</h3>
-                      <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
+                      <div className="bg-layer-mid/60 rounded-xl border border-slate-700/50 p-4 shadow-md-custom">
                         <p className="text-slate-400 text-sm">
                           No hay suficientes datos para determinar la mejor build (mínimo 5 partidas requeridas)
                         </p>
@@ -628,9 +628,9 @@ export function HeroModal({ hero, rows, onClose }) {
                 {Object.keys(talentStats).length > 0 && (
                   <section>
                     <h3 className="text-lg font-semibold text-white mb-3">Talentos más tomados</h3>
-                    <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+                    <div className="bg-layer-deep/60 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
                       {/* Level Tabs */}
-                      <div className="flex flex-wrap gap-2 p-4 border-b border-slate-700/50 bg-slate-700/20">
+                      <div className="flex flex-wrap gap-2 p-4 border-b border-slate-700/50 bg-layer-light/20">
                         {[1, 4, 7, 10, 13, 16, 20].map(level => {
                           const hasData = talentStats[level] && talentStats[level].length > 0
                           if (!hasData) return null
@@ -640,8 +640,8 @@ export function HeroModal({ hero, rows, onClose }) {
                               onClick={() => setSelectedTalentLevel(level)}
                               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                                 selectedTalentLevel === level
-                                  ? 'bg-indigo-600 text-white'
-                                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                                  ? 'bg-indigo-600 text-white shadow-elevated'
+                                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600 shadow-sm-custom hover:shadow-md-custom'
                               }`}
                             >
                               Nivel {level}
@@ -655,7 +655,7 @@ export function HeroModal({ hero, rows, onClose }) {
                         <div className="overflow-x-auto">
                           <table className="w-full">
                             <thead>
-                              <tr className="bg-slate-700/30">
+                              <tr className="bg-layer-light/40 shadow-sm-custom">
                                 <th className="text-left px-4 py-2 text-slate-300 text-sm">Talento</th>
                                 <th className="text-right px-4 py-2 text-slate-300 text-sm">Pick %</th>
                                 <th className="text-right px-4 py-2 text-slate-300 text-sm">Win %</th>

@@ -7,19 +7,97 @@
   --accent: #f59e0b;
   --success: #10b981;
   --danger: #ef4444;
-  --bg-dark: #0f172a;
-  --bg-card: #1e293b;
-  --bg-card-hover: #334155;
+  
+  /* Sistema de capas de color - profundidad incremental */
+  --bg-base: #0f172a;        /* Fondo de página (más oscuro) */
+  --bg-mid: #1e293b;         /* Secciones y cards principales */
+  --bg-light: #334155;       /* Elementos interactivos y hover */
+  --bg-deep: #0a0f1a;        /* Áreas hundidas (tablas, paneles) */
+  
+  /* Variables legacy para compatibilidad */
+  --bg-dark: var(--bg-base);
+  --bg-card: var(--bg-mid);
+  --bg-card-hover: var(--bg-light);
+  
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --border: #334155;
+  
+  /* Sistema de sombras - combinaciones suaves para profundidad */
+  /* Sombras pequeñas: botones, chips, badges */
+  --shadow-sm: 
+    0 1px 2px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 -1px 1px 0 rgba(0, 0, 0, 0.4);
+  
+  /* Sombras medianas: cards, secciones */
+  --shadow-md: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 -2px 4px -1px rgba(0, 0, 0, 0.5);
+  
+  /* Sombras grandes: contenedores principales */
+  --shadow-lg: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 -4px 6px -2px rgba(0, 0, 0, 0.6);
+  
+  /* Sombras internas: elementos hundidos (tablas, paneles) */
+  --shadow-inset: 
+    0 2px 4px 0 rgba(0, 0, 0, 0.5) inset,
+    0 1px 2px 0 rgba(0, 0, 0, 0.3) inset;
+  
+  /* Sombras para elementos elevados (tabs activos, cards en hover) */
+  --shadow-elevated: 
+    0 8px 12px -2px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(99, 102, 241, 0.2) inset,
+    0 -2px 4px -1px rgba(0, 0, 0, 0.5),
+    0 0 20px -5px rgba(99, 102, 241, 0.15);
 }
 
 body {
-  background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+  background: linear-gradient(135deg, var(--bg-base) 0%, #1a1a2e 100%);
   min-height: 100vh;
   color: var(--text-primary);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Utilidades de sombras - sistema reutilizable */
+.shadow-sm-custom {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md-custom {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg-custom {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-inset-custom {
+  box-shadow: var(--shadow-inset);
+}
+
+.shadow-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Utilidades de capas de fondo */
+.bg-layer-base {
+  background-color: var(--bg-base);
+}
+
+.bg-layer-mid {
+  background-color: var(--bg-mid);
+}
+
+.bg-layer-light {
+  background-color: var(--bg-light);
+}
+
+.bg-layer-deep {
+  background-color: var(--bg-deep);
 }
 
 /* Scrollbar styling */

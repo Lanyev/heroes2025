@@ -65,7 +65,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900/50 border-t border-slate-700/50 py-4">
+      <footer className="bg-layer-mid/50 border-t border-slate-700/50 py-4 shadow-sm-custom">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-slate-500 text-sm">
             Geekos HotS Dashboard 2024-2025 • Datos de {meta?.totalRows || 0} registros

@@ -52,13 +52,13 @@ export function PlayerModal({ player, rows, onClose }) {
       >
         {/* Modal */}
         <div 
-          className="bg-slate-900 rounded-xl border border-slate-700 w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl animate-fade-in"
+          className="bg-layer-mid rounded-xl border border-slate-700 w-full max-w-4xl max-h-[90vh] flex flex-col shadow-lg-custom animate-fade-in"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="sticky top-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 px-6 py-4 flex items-center justify-between z-50 shrink-0 rounded-t-xl">
+          <div className="sticky top-0 bg-layer-mid/95 backdrop-blur-sm border-b border-slate-700 px-6 py-4 flex items-center justify-between z-50 shrink-0 rounded-t-xl shadow-md-custom">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-bold text-white shrink-0">
+              <div className="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-bold text-white shrink-0 shadow-sm-custom">
                 {name?.charAt(0)?.toUpperCase() || '?'}
               </div>
               <div>
@@ -68,7 +68,7 @@ export function PlayerModal({ player, rows, onClose }) {
             </div>
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors shrink-0"
+              className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors shrink-0 shadow-sm-custom hover:shadow-md-custom"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -124,7 +124,7 @@ export function PlayerModal({ player, rows, onClose }) {
             {trend && trend.length > 0 && (
               <section>
                 <h3 className="text-lg font-semibold text-white mb-3">Tendencia en el Tiempo</h3>
-                <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
+                <div className="bg-layer-mid/60 rounded-xl p-4 border border-slate-700/50 shadow-md-custom">
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={trend}>
@@ -233,10 +233,10 @@ export function PlayerModal({ player, rows, onClose }) {
             {maps && maps.length > 0 && (
               <section>
                 <h3 className="text-lg font-semibold text-white mb-3">Rendimiento por Mapa</h3>
-                <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+                <div className="bg-layer-deep/60 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-slate-700/30">
+                      <tr className="bg-layer-light/40 shadow-sm-custom">
                         <th className="text-left px-4 py-2 text-slate-300 text-sm">Mapa</th>
                         <th className="text-right px-4 py-2 text-slate-300 text-sm">Partidas</th>
                         <th className="text-right px-4 py-2 text-slate-300 text-sm">Win Rate</th>

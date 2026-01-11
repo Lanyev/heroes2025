@@ -55,7 +55,7 @@ export const routes = [
  */
 export function TabNav({ activeRoute, onRouteChange }) {
   return (
-    <nav className="bg-slate-800/50 border-b border-slate-700/50">
+    <nav className="bg-layer-mid/60 border-b border-slate-700/50 shadow-sm-custom">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex gap-1 overflow-x-auto py-2">
           {routes.map((route) => (
@@ -66,8 +66,8 @@ export function TabNav({ activeRoute, onRouteChange }) {
                 flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
                 transition-all duration-200 whitespace-nowrap
                 ${activeRoute === route.id
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                  ? 'bg-indigo-600 text-white shadow-elevated font-semibold'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-700/50 hover:shadow-sm-custom'
                 }
               `}
             >

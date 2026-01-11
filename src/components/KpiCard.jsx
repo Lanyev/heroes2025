@@ -15,8 +15,9 @@ import clsx from 'clsx'
 export function KpiCard({ title, value, subtitle, icon, trend, explanation, showExplanation, className }) {
   return (
     <div className={clsx(
-      'bg-slate-800/50 backdrop-blur-sm rounded-xl p-5 border border-slate-700/50',
+      'bg-layer-mid/60 backdrop-blur-sm rounded-xl p-5 border border-slate-700/50',
       'hover:border-indigo-500/50 transition-all duration-300',
+      'shadow-md-custom hover:shadow-lg-custom',
       'animate-fade-in',
       className
     )}>

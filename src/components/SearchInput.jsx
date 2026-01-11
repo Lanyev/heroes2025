@@ -34,11 +34,11 @@ export function SearchInput({ value, onChange, placeholder = 'Buscar...', classN
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={clsx(
-            'w-full bg-slate-700/80 border border-slate-600/80 rounded-lg shadow-sm',
+            'w-full bg-slate-700/80 border border-slate-600/80 rounded-lg shadow-sm-custom',
             'pl-10 pr-10 py-2.5 text-white text-sm font-medium',
             'placeholder-slate-500',
             'focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50',
-            'hover:border-slate-500 hover:bg-slate-700 transition-all duration-200'
+            'hover:border-slate-500 hover:bg-slate-700 transition-all duration-200 hover:shadow-md-custom'
           )}
         />
         {value && (
