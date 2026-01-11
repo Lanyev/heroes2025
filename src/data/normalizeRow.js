@@ -38,7 +38,7 @@ const HERO_ROLES = {
   // Healers
   'Alexstrasza': 'Healer', 'Ana': 'Healer', 'Anduin': 'Healer', 'Auriel': 'Healer',
   'Brightwing': 'Healer', 'Deckard': 'Healer', 'Kharazim': 'Healer', 'Li Li': 'Healer',
-  'Lt. Morales': 'Healer', 'Lúcio': 'Healer', 'Lucio': 'Healer', 'Malfurion': 'Healer',
+  'Lt. Morales': 'Healer', 'Lucio': 'Healer', 'Malfurion': 'Healer',
   'Rehgar': 'Healer', 'Stukov': 'Healer', 'Tyrande': 'Healer', 'Uther': 'Healer',
   'Whitemane': 'Healer',
   
@@ -169,9 +169,28 @@ export function normalizeRow(row) {
     }
   }
   
-  const heroName = String(row.HeroName || '').trim()
+  let heroName = String(row.HeroName || '').trim()
   let playerName = String(row.PlayerName || '').trim()
   const map = String(row.Map || '').trim()
+  
+  // Normalize hero names - map variants to canonical names
+  const normalizeHeroName = (name) => {
+    if (!name) return name
+    const normalized = name.trim()
+    
+    // Map variants to canonical names (case-insensitive)
+    const heroAliases = {
+      'lúcio': 'Lucio',  // Fix accent issue
+      'lucio': 'Lucio'
+    }
+    
+    const normalizedLower = normalized.toLowerCase()
+    if (heroAliases[normalizedLower]) {
+      return heroAliases[normalizedLower]
+    }
+    
+    return normalized
+  }
   
   // Normalize player names - map aliases to canonical names
   // Swift and Watchdogman are the same person, use WatchdogMan as canonical name
@@ -194,7 +213,8 @@ export function normalizeRow(row) {
     return normalized
   }
   
-  // Apply player name normalization
+  // Apply normalizations
+  heroName = normalizeHeroName(heroName)
   playerName = normalizePlayerName(playerName)
   
   // Extract replay name from FileName field
@@ -313,5 +333,14 @@ export function normalizeRow(row) {
     // Additional raw data we might need
     playerLevel: safeNumber(row.PlayerLevel),
     heroLevel: safeNumber(row.HeroLevel),
+    
+    // Talents
+    talentL1: String(row.Talents_L1 || '').trim(),
+    talentL4: String(row.Talents_L4 || '').trim(),
+    talentL7: String(row.Talents_L7 || '').trim(),
+    talentL10: String(row.Talents_L10 || '').trim(),
+    talentL13: String(row.Talents_L13 || '').trim(),
+    talentL16: String(row.Talents_L16 || '').trim(),
+    talentL20: String(row.Talents_L20 || '').trim(),
   }
 }

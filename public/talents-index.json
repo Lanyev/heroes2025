@@ -1,0 +1,3811 @@
+{
+  "64kbmarathon": {
+    "filename": "64-kb-marathon.png",
+    "path": "/talents/64-kb-marathon.png",
+    "originalName": "64-kb-marathon"
+  },
+  "afishydealtalent": {
+    "filename": "a-fishy-deal-talent.png",
+    "path": "/talents/a-fishy-deal-talent.png",
+    "originalName": "a-fishy-deal-talent"
+  },
+  "apropergreeting": {
+    "filename": "a-proper-greeting.png",
+    "path": "/talents/a-proper-greeting.png",
+    "originalName": "a-proper-greeting"
+  },
+  "asurpriseforya": {
+    "filename": "a-surprise-for-ya.png",
+    "path": "/talents/a-surprise-for-ya.png",
+    "originalName": "a-surprise-for-ya"
+  },
+  "atouchofhoney": {
+    "filename": "a-touch-of-honey.png",
+    "path": "/talents/a-touch-of-honey.png",
+    "originalName": "a-touch-of-honey"
+  },
+  "abhorredskull": {
+    "filename": "abhorred-skull.png",
+    "path": "/talents/abhorred-skull.png",
+    "originalName": "abhorred-skull"
+  },
+  "ablativearmor": {
+    "filename": "ablative-armor.png",
+    "path": "/talents/ablative-armor.png",
+    "originalName": "ablative-armor"
+  },
+  "abolishmagictalent": {
+    "filename": "abolish-magic-talent.png",
+    "path": "/talents/abolish-magic-talent.png",
+    "originalName": "abolish-magic-talent"
+  },
+  "absolutezero": {
+    "filename": "absolute-zero.png",
+    "path": "/talents/absolute-zero.png",
+    "originalName": "absolute-zero"
+  },
+  "abyssalsymbiosis": {
+    "filename": "abyssal-symbiosis.png",
+    "path": "/talents/abyssal-symbiosis.png",
+    "originalName": "abyssal-symbiosis"
+  },
+  "accelerando": {
+    "filename": "accelerando.png",
+    "path": "/talents/accelerando.png",
+    "originalName": "accelerando"
+  },
+  "acceleratedcontamination": {
+    "filename": "accelerated-contamination.png",
+    "path": "/talents/accelerated-contamination.png",
+    "originalName": "accelerated-contamination"
+  },
+  "accelerateddecay": {
+    "filename": "accelerated-decay.png",
+    "path": "/talents/accelerated-decay.png",
+    "originalName": "accelerated-decay"
+  },
+  "acclimation": {
+    "filename": "acclimation.png",
+    "path": "/talents/acclimation.png",
+    "originalName": "acclimation"
+  },
+  "accumulatingflame": {
+    "filename": "accumulating-flame.png",
+    "path": "/talents/accumulating-flame.png",
+    "originalName": "accumulating-flame"
+  },
+  "aceinthehole": {
+    "filename": "ace-in-the-hole.png",
+    "path": "/talents/ace-in-the-hole.png",
+    "originalName": "ace-in-the-hole"
+  },
+  "aciddrenchedmandibles": {
+    "filename": "acid-drenched-mandibles.png",
+    "path": "/talents/acid-drenched-mandibles.png",
+    "originalName": "acid-drenched-mandibles"
+  },
+  "acrobat": {
+    "filename": "acrobat.png",
+    "path": "/talents/acrobat.png",
+    "originalName": "acrobat"
+  },
+  "activereloadtalent": {
+    "filename": "active-reload-talent.png",
+    "path": "/talents/active-reload-talent.png",
+    "originalName": "active-reload-talent"
+  },
+  "adaniumshell": {
+    "filename": "adanium-shell.png",
+    "path": "/talents/adanium-shell.png",
+    "originalName": "adanium-shell"
+  },
+  "adaptationtalent": {
+    "filename": "adaptation-talent.png",
+    "path": "/talents/adaptation-talent.png",
+    "originalName": "adaptation-talent"
+  },
+  "adhesivepetroleum": {
+    "filename": "adhesive-petroleum.png",
+    "path": "/talents/adhesive-petroleum.png",
+    "originalName": "adhesive-petroleum"
+  },
+  "adrenaloverload": {
+    "filename": "adrenal-overload.png",
+    "path": "/talents/adrenal-overload.png",
+    "originalName": "adrenal-overload"
+  },
+  "adrenalineboost": {
+    "filename": "adrenaline-boost.png",
+    "path": "/talents/adrenaline-boost.png",
+    "originalName": "adrenaline-boost"
+  },
+  "adrenalinerushtalent": {
+    "filename": "adrenaline-rush-talent.png",
+    "path": "/talents/adrenaline-rush-talent.png",
+    "originalName": "adrenaline-rush-talent"
+  },
+  "adrenalinestimpacktalent": {
+    "filename": "adrenaline-stimpack-talent.png",
+    "path": "/talents/adrenaline-stimpack-talent.png",
+    "originalName": "adrenaline-stimpack-talent"
+  },
+  "advancedartillery": {
+    "filename": "advanced-artillery.png",
+    "path": "/talents/advanced-artillery.png",
+    "originalName": "advanced-artillery"
+  },
+  "advancedcloaking": {
+    "filename": "advanced-cloaking.png",
+    "path": "/talents/advanced-cloaking.png",
+    "originalName": "advanced-cloaking"
+  },
+  "advancedlavastrike": {
+    "filename": "advanced-lava-strike.png",
+    "path": "/talents/advanced-lava-strike.png",
+    "originalName": "advanced-lava-strike"
+  },
+  "advancedtargeting": {
+    "filename": "advanced-targeting.png",
+    "path": "/talents/advanced-targeting.png",
+    "originalName": "advanced-targeting"
+  },
+  "aegisoflight": {
+    "filename": "aegis-of-light.png",
+    "path": "/talents/aegis-of-light.png",
+    "originalName": "aegis-of-light"
+  },
+  "aeriegusts": {
+    "filename": "aerie-gusts.png",
+    "path": "/talents/aerie-gusts.png",
+    "originalName": "aerie-gusts"
+  },
+  "aetherwalker": {
+    "filename": "aether-walker.png",
+    "path": "/talents/aether-walker.png",
+    "originalName": "aether-walker"
+  },
+  "afterburner": {
+    "filename": "afterburner.png",
+    "path": "/talents/afterburner.png",
+    "originalName": "afterburner"
+  },
+  "aggressionmatrix": {
+    "filename": "aggression-matrix.png",
+    "path": "/talents/aggression-matrix.png",
+    "originalName": "aggression-matrix"
+  },
+  "aggressivematrix": {
+    "filename": "aggressive-matrix.png",
+    "path": "/talents/aggressive-matrix.png",
+    "originalName": "aggressive-matrix"
+  },
+  "aggressiveshredding": {
+    "filename": "aggressive-shredding.png",
+    "path": "/talents/aggressive-shredding.png",
+    "originalName": "aggressive-shredding"
+  },
+  "aggrorange": {
+    "filename": "aggro-range.png",
+    "path": "/talents/aggro-range.png",
+    "originalName": "aggro-range"
+  },
+  "agiledismount": {
+    "filename": "agile-dismount.png",
+    "path": "/talents/agile-dismount.png",
+    "originalName": "agile-dismount"
+  },
+  "airallytalent": {
+    "filename": "air-ally-talent.png",
+    "path": "/talents/air-ally-talent.png",
+    "originalName": "air-ally-talent"
+  },
+  "aldorpeacekeeper": {
+    "filename": "aldor-peacekeeper.png",
+    "path": "/talents/aldor-peacekeeper.png",
+    "originalName": "aldor-peacekeeper"
+  },
+  "alltogether": {
+    "filename": "all-together.png",
+    "path": "/talents/all-together.png",
+    "originalName": "all-together"
+  },
+  "allegrissimo": {
+    "filename": "allegrissimo.png",
+    "path": "/talents/allegrissimo.png",
+    "originalName": "allegrissimo"
+  },
+  "aloneinthedark": {
+    "filename": "alone-in-the-dark.png",
+    "path": "/talents/alone-in-the-dark.png",
+    "originalName": "alone-in-the-dark"
+  },
+  "alphakiller": {
+    "filename": "alpha-killer.png",
+    "path": "/talents/alpha-killer.png",
+    "originalName": "alpha-killer"
+  },
+  "alphawolf": {
+    "filename": "alpha-wolf.png",
+    "path": "/talents/alpha-wolf.png",
+    "originalName": "alpha-wolf"
+  },
+  "amanihide": {
+    "filename": "amani-hide.png",
+    "path": "/talents/amani-hide.png",
+    "originalName": "amani-hide"
+  },
+  "amaniragetalent": {
+    "filename": "amani-rage-talent.png",
+    "path": "/talents/amani-rage-talent.png",
+    "originalName": "amani-rage-talent"
+  },
+  "amaniresilience": {
+    "filename": "amani-resilience.png",
+    "path": "/talents/amani-resilience.png",
+    "originalName": "amani-resilience"
+  },
+  "amateuropponent": {
+    "filename": "amateur-opponent.png",
+    "path": "/talents/amateur-opponent.png",
+    "originalName": "amateur-opponent"
+  },
+  "ambush": {
+    "filename": "ambush.png",
+    "path": "/talents/ambush.png",
+    "originalName": "ambush"
+  },
+  "amplifydamage": {
+    "filename": "amplify-damage.png",
+    "path": "/talents/amplify-damage.png",
+    "originalName": "amplify-damage"
+  },
+  "ancestralhealingtalent": {
+    "filename": "ancestral-healing-talent.png",
+    "path": "/talents/ancestral-healing-talent.png",
+    "originalName": "ancestral-healing-talent"
+  },
+  "ancestralstrength": {
+    "filename": "ancestral-strength.png",
+    "path": "/talents/ancestral-strength.png",
+    "originalName": "ancestral-strength"
+  },
+  "ancestralwrathtalent": {
+    "filename": "ancestral-wrath-talent.png",
+    "path": "/talents/ancestral-wrath-talent.png",
+    "originalName": "ancestral-wrath-talent"
+  },
+  "ancientblessings": {
+    "filename": "ancient-blessings.png",
+    "path": "/talents/ancient-blessings.png",
+    "originalName": "ancient-blessings"
+  },
+  "ancientflame": {
+    "filename": "ancient-flame.png",
+    "path": "/talents/ancient-flame.png",
+    "originalName": "ancient-flame"
+  },
+  "andasharktoo": {
+    "filename": "and-a-shark-too.png",
+    "path": "/talents/and-a-shark-too.png",
+    "originalName": "and-a-shark-too"
+  },
+  "andarielsvisage": {
+    "filename": "andariels-visage.png",
+    "path": "/talents/andariels-visage.png",
+    "originalName": "andariels-visage"
+  },
+  "andorhalanomaly": {
+    "filename": "andorhal-anomaly.png",
+    "path": "/talents/andorhal-anomaly.png",
+    "originalName": "andorhal-anomaly"
+  },
+  "angelofdeath": {
+    "filename": "angel-of-death.png",
+    "path": "/talents/angel-of-death.png",
+    "originalName": "angel-of-death"
+  },
+  "angelofjustice": {
+    "filename": "angel-of-justice.png",
+    "path": "/talents/angel-of-justice.png",
+    "originalName": "angel-of-justice"
+  },
+  "angelicarmamentstalent": {
+    "filename": "angelic-armaments-talent.png",
+    "path": "/talents/angelic-armaments-talent.png",
+    "originalName": "angelic-armaments-talent"
+  },
+  "angelicflighttalent": {
+    "filename": "angelic-flight-talent.png",
+    "path": "/talents/angelic-flight-talent.png",
+    "originalName": "angelic-flight-talent"
+  },
+  "angermanagementhoggertalent": {
+    "filename": "anger-management-hogger-talent.png",
+    "path": "/talents/anger-management-hogger-talent.png",
+    "originalName": "anger-management-hogger-talent"
+  },
+  "animalhusbandry": {
+    "filename": "animal-husbandry.png",
+    "path": "/talents/animal-husbandry.png",
+    "originalName": "animal-husbandry"
+  },
+  "animosity": {
+    "filename": "animosity.png",
+    "path": "/talents/animosity.png",
+    "originalName": "animosity"
+  },
+  "annihilatingspirit": {
+    "filename": "annihilating-spirit.png",
+    "path": "/talents/annihilating-spirit.png",
+    "originalName": "annihilating-spirit"
+  },
+  "antiarmorshells": {
+    "filename": "anti-armor-shells.png",
+    "path": "/talents/anti-armor-shells.png",
+    "originalName": "anti-armor-shells"
+  },
+  "antihealer": {
+    "filename": "anti-healer.png",
+    "path": "/talents/anti-healer.png",
+    "originalName": "anti-healer"
+  },
+  "apexpredator": {
+    "filename": "apex-predator.png",
+    "path": "/talents/apex-predator.png",
+    "originalName": "apex-predator"
+  },
+  "apocalypsetalent": {
+    "filename": "apocalypse-talent.png",
+    "path": "/talents/apocalypse-talent.png",
+    "originalName": "apocalypse-talent"
+  },
+  "apollosuit": {
+    "filename": "apollo-suit.png",
+    "path": "/talents/apollo-suit.png",
+    "originalName": "apollo-suit"
+  },
+  "appliedforce": {
+    "filename": "applied-force.png",
+    "path": "/talents/applied-force.png",
+    "originalName": "applied-force"
+  },
+  "arcdischarge": {
+    "filename": "arc-discharge.png",
+    "path": "/talents/arc-discharge.png",
+    "originalName": "arc-discharge"
+  },
+  "arcanebrilliancetalent": {
+    "filename": "arcane-brilliance-talent.png",
+    "path": "/talents/arcane-brilliance-talent.png",
+    "originalName": "arcane-brilliance-talent"
+  },
+  "arcanecharge": {
+    "filename": "arcane-charge.png",
+    "path": "/talents/arcane-charge.png",
+    "originalName": "arcane-charge"
+  },
+  "arcaneechoes": {
+    "filename": "arcane-echoes.png",
+    "path": "/talents/arcane-echoes.png",
+    "originalName": "arcane-echoes"
+  },
+  "arcaneexplosion": {
+    "filename": "arcane-explosion.png",
+    "path": "/talents/arcane-explosion.png",
+    "originalName": "arcane-explosion"
+  },
+  "arcaneintellect": {
+    "filename": "arcane-intellect.png",
+    "path": "/talents/arcane-intellect.png",
+    "originalName": "arcane-intellect"
+  },
+  "arcaneorbit": {
+    "filename": "arcane-orbit.png",
+    "path": "/talents/arcane-orbit.png",
+    "originalName": "arcane-orbit"
+  },
+  "arcaniteaxes": {
+    "filename": "arcanite-axes.png",
+    "path": "/talents/arcanite-axes.png",
+    "originalName": "arcanite-axes"
+  },
+  "archonpurepowertalent": {
+    "filename": "archon-pure-power-talent.png",
+    "path": "/talents/archon-pure-power-talent.png",
+    "originalName": "archon-pure-power-talent"
+  },
+  "archontalent": {
+    "filename": "archon-talent.png",
+    "path": "/talents/archon-talent.png",
+    "originalName": "archon-talent"
+  },
+  "ardentdefendertalent": {
+    "filename": "ardent-defender-talent.png",
+    "path": "/talents/ardent-defender-talent.png",
+    "originalName": "ardent-defender-talent"
+  },
+  "ardentrestoration": {
+    "filename": "ardent-restoration.png",
+    "path": "/talents/ardent-restoration.png",
+    "originalName": "ardent-restoration"
+  },
+  "arkreaktor": {
+    "filename": "ark-reaktor.png",
+    "path": "/talents/ark-reaktor.png",
+    "originalName": "ark-reaktor"
+  },
+  "armageddonbeam": {
+    "filename": "armageddon-beam.png",
+    "path": "/talents/armageddon-beam.png",
+    "originalName": "armageddon-beam"
+  },
+  "armoroffaith": {
+    "filename": "armor-of-faith.png",
+    "path": "/talents/armor-of-faith.png",
+    "originalName": "armor-of-faith"
+  },
+  "armorofthearchlichtalent": {
+    "filename": "armor-of-the-archlich-talent.png",
+    "path": "/talents/armor-of-the-archlich-talent.png",
+    "originalName": "armor-of-the-archlich-talent"
+  },
+  "armorpiercingrounds": {
+    "filename": "armor-piercing-rounds.png",
+    "path": "/talents/armor-piercing-rounds.png",
+    "originalName": "armor-piercing-rounds"
+  },
+  "armoredassault": {
+    "filename": "armored-assault.png",
+    "path": "/talents/armored-assault.png",
+    "originalName": "armored-assault"
+  },
+  "armoredstance": {
+    "filename": "armored-stance.png",
+    "path": "/talents/armored-stance.png",
+    "originalName": "armored-stance"
+  },
+  "armyofhell": {
+    "filename": "army-of-hell.png",
+    "path": "/talents/army-of-hell.png",
+    "originalName": "army-of-hell"
+  },
+  "armyofthedeadtalent": {
+    "filename": "army-of-the-dead-talent.png",
+    "path": "/talents/army-of-the-dead-talent.png",
+    "originalName": "army-of-the-dead-talent"
+  },
+  "arreatcrater": {
+    "filename": "arreat-crater.png",
+    "path": "/talents/arreat-crater.png",
+    "originalName": "arreat-crater"
+  },
+  "arrivalofagod": {
+    "filename": "arrival-of-a-god.png",
+    "path": "/talents/arrival-of-a-god.png",
+    "originalName": "arrival-of-a-god"
+  },
+  "arsenalovercharge": {
+    "filename": "arsenal-overcharge.png",
+    "path": "/talents/arsenal-overcharge.png",
+    "originalName": "arsenal-overcharge"
+  },
+  "arsenalsynergy": {
+    "filename": "arsenal-synergy.png",
+    "path": "/talents/arsenal-synergy.png",
+    "originalName": "arsenal-synergy"
+  },
+  "arsenal": {
+    "filename": "arsenal.png",
+    "path": "/talents/arsenal.png",
+    "originalName": "arsenal"
+  },
+  "artofchaos": {
+    "filename": "art-of-chaos.png",
+    "path": "/talents/art-of-chaos.png",
+    "originalName": "art-of-chaos"
+  },
+  "aspectofthebeast": {
+    "filename": "aspect-of-the-beast.png",
+    "path": "/talents/aspect-of-the-beast.png",
+    "originalName": "aspect-of-the-beast"
+  },
+  "aspectofthehawk": {
+    "filename": "aspect-of-the-hawk.png",
+    "path": "/talents/aspect-of-the-hawk.png",
+    "originalName": "aspect-of-the-hawk"
+  },
+  "assassinate": {
+    "filename": "assassinate.png",
+    "path": "/talents/assassinate.png",
+    "originalName": "assassinate"
+  },
+  "assimilationblades": {
+    "filename": "assimilation-blades.png",
+    "path": "/talents/assimilation-blades.png",
+    "originalName": "assimilation-blades"
+  },
+  "assimilationmastery": {
+    "filename": "assimilation-mastery.png",
+    "path": "/talents/assimilation-mastery.png",
+    "originalName": "assimilation-mastery"
+  },
+  "astralcommunion": {
+    "filename": "astral-communion.png",
+    "path": "/talents/astral-communion.png",
+    "originalName": "astral-communion"
+  },
+  "augmentedguard": {
+    "filename": "augmented-guard.png",
+    "path": "/talents/augmented-guard.png",
+    "originalName": "augmented-guard"
+  },
+  "auxiliaryshields": {
+    "filename": "auxiliary-shields.png",
+    "path": "/talents/auxiliary-shields.png",
+    "originalName": "auxiliary-shields"
+  },
+  "avalanchetalent": {
+    "filename": "avalanche-talent.png",
+    "path": "/talents/avalanche-talent.png",
+    "originalName": "avalanche-talent"
+  },
+  "avatartalent": {
+    "filename": "avatar-talent.png",
+    "path": "/talents/avatar-talent.png",
+    "originalName": "avatar-talent"
+  },
+  "backbiter": {
+    "filename": "Backbiter.png",
+    "path": "/talents/Backbiter.png",
+    "originalName": "Backbiter"
+  },
+  "backdraft": {
+    "filename": "backdraft.png",
+    "path": "/talents/backdraft.png",
+    "originalName": "backdraft"
+  },
+  "backlash": {
+    "filename": "backlash.png",
+    "path": "/talents/backlash.png",
+    "originalName": "backlash"
+  },
+  "backupbattery": {
+    "filename": "backup-battery.png",
+    "path": "/talents/backup-battery.png",
+    "originalName": "backup-battery"
+  },
+  "badmedicinetalent": {
+    "filename": "bad-medicine-talent.png",
+    "path": "/talents/bad-medicine-talent.png",
+    "originalName": "bad-medicine-talent"
+  },
+  "baleogthefierce": {
+    "filename": "baleog-the-fierce.png",
+    "path": "/talents/baleog-the-fierce.png",
+    "originalName": "baleog-the-fierce"
+  },
+  "balllightningtalent": {
+    "filename": "ball-lightning-talent.png",
+    "path": "/talents/ball-lightning-talent.png",
+    "originalName": "ball-lightning-talent"
+  },
+  "banelingmassacre": {
+    "filename": "baneling-massacre.png",
+    "path": "/talents/baneling-massacre.png",
+    "originalName": "baneling-massacre"
+  },
+  "bannerofdalarantalent": {
+    "filename": "banner-of-dalaran-talent.png",
+    "path": "/talents/banner-of-dalaran-talent.png",
+    "originalName": "banner-of-dalaran-talent"
+  },
+  "bannerofironforgetalent": {
+    "filename": "banner-of-ironforge-talent.png",
+    "path": "/talents/banner-of-ironforge-talent.png",
+    "originalName": "banner-of-ironforge-talent"
+  },
+  "bannerofstormwindtalent": {
+    "filename": "banner-of-stormwind-talent.png",
+    "path": "/talents/banner-of-stormwind-talent.png",
+    "originalName": "banner-of-stormwind-talent"
+  },
+  "barbedchains": {
+    "filename": "barbed-chains.png",
+    "path": "/talents/barbed-chains.png",
+    "originalName": "barbed-chains"
+  },
+  "barbedshot": {
+    "filename": "barbed-shot.png",
+    "path": "/talents/barbed-shot.png",
+    "originalName": "barbed-shot"
+  },
+  "barricade": {
+    "filename": "barricade.png",
+    "path": "/talents/barricade.png",
+    "originalName": "barricade"
+  },
+  "batteredassault": {
+    "filename": "battered-assault.png",
+    "path": "/talents/battered-assault.png",
+    "originalName": "battered-assault"
+  },
+  "battlehunger": {
+    "filename": "battle-hunger.png",
+    "path": "/talents/battle-hunger.png",
+    "originalName": "battle-hunger"
+  },
+  "battleragetalent": {
+    "filename": "battle-rage-talent.png",
+    "path": "/talents/battle-rage-talent.png",
+    "originalName": "battle-rage-talent"
+  },
+  "battleborn": {
+    "filename": "battleborn.png",
+    "path": "/talents/battleborn.png",
+    "originalName": "battleborn"
+  },
+  "beaconoflight": {
+    "filename": "beacon-of-light.png",
+    "path": "/talents/beacon-of-light.png",
+    "originalName": "beacon-of-light"
+  },
+  "beamalignment": {
+    "filename": "beam-alignment.png",
+    "path": "/talents/beam-alignment.png",
+    "originalName": "beam-alignment"
+  },
+  "bedofbarbs": {
+    "filename": "bed-of-barbs.png",
+    "path": "/talents/bed-of-barbs.png",
+    "originalName": "bed-of-barbs"
+  },
+  "bedsidemanner": {
+    "filename": "bedside-manner.png",
+    "path": "/talents/bedside-manner.png",
+    "originalName": "bedside-manner"
+  },
+  "beetlejuiced": {
+    "filename": "beetle-juiced.png",
+    "path": "/talents/beetle-juiced.png",
+    "originalName": "beetle-juiced"
+  },
+  "behemotharmor": {
+    "filename": "behemoth-armor.png",
+    "path": "/talents/behemoth-armor.png",
+    "originalName": "behemoth-armor"
+  },
+  "bellowingroartalent": {
+    "filename": "bellowing-roar-talent.png",
+    "path": "/talents/bellowing-roar-talent.png",
+    "originalName": "bellowing-roar-talent"
+  },
+  "benedictiontalent": {
+    "filename": "benediction-talent.png",
+    "path": "/talents/benediction-talent.png",
+    "originalName": "benediction-talent"
+  },
+  "bestialwrathtalent": {
+    "filename": "bestial-wrath-talent.png",
+    "path": "/talents/bestial-wrath-talent.png",
+    "originalName": "bestial-wrath-talent"
+  },
+  "bigas": {
+    "filename": "big-as.png",
+    "path": "/talents/big-as.png",
+    "originalName": "big-as"
+  },
+  "biggamehunter": {
+    "filename": "big-game-hunter.png",
+    "path": "/talents/big-game-hunter.png",
+    "originalName": "big-game-hunter"
+  },
+  "bigredbutton": {
+    "filename": "big-red-button.png",
+    "path": "/talents/big-red-button.png",
+    "originalName": "big-red-button"
+  },
+  "bigshottalent": {
+    "filename": "big-shot-talent.png",
+    "path": "/talents/big-shot-talent.png",
+    "originalName": "big-shot-talent"
+  },
+  "bigtunakahuna": {
+    "filename": "big-tuna-kahuna.png",
+    "path": "/talents/big-tuna-kahuna.png",
+    "originalName": "big-tuna-kahuna"
+  },
+  "bigvoodoo": {
+    "filename": "big-voodoo.png",
+    "path": "/talents/big-voodoo.png",
+    "originalName": "big-voodoo"
+  },
+  "biledrop": {
+    "filename": "bile-drop.png",
+    "path": "/talents/bile-drop.png",
+    "originalName": "bile-drop"
+  },
+  "bioexplosionswitch": {
+    "filename": "bio-explosion-switch.png",
+    "path": "/talents/bio-explosion-switch.png",
+    "originalName": "bio-explosion-switch"
+  },
+  "bioticarmor": {
+    "filename": "biotic-armor.png",
+    "path": "/talents/biotic-armor.png",
+    "originalName": "biotic-armor"
+  },
+  "bioticenhancements": {
+    "filename": "biotic-enhancements.png",
+    "path": "/talents/biotic-enhancements.png",
+    "originalName": "biotic-enhancements"
+  },
+  "birdofprey": {
+    "filename": "bird-of-prey.png",
+    "path": "/talents/bird-of-prey.png",
+    "originalName": "bird-of-prey"
+  },
+  "birdseyeviewtalent": {
+    "filename": "birds-eye-view-talent.png",
+    "path": "/talents/birds-eye-view-talent.png",
+    "originalName": "birds-eye-view-talent"
+  },
+  "bitingcold": {
+    "filename": "biting-cold.png",
+    "path": "/talents/biting-cold.png",
+    "originalName": "biting-cold"
+  },
+  "blackclaws": {
+    "filename": "black-claws.png",
+    "path": "/talents/black-claws.png",
+    "originalName": "black-claws"
+  },
+  "blackharvest": {
+    "filename": "black-harvest.png",
+    "path": "/talents/black-harvest.png",
+    "originalName": "black-harvest"
+  },
+  "blackholetalent": {
+    "filename": "black-hole-talent.png",
+    "path": "/talents/black-hole-talent.png",
+    "originalName": "black-hole-talent"
+  },
+  "blackice": {
+    "filename": "black-ice.png",
+    "path": "/talents/black-ice.png",
+    "originalName": "black-ice"
+  },
+  "blacklagoon": {
+    "filename": "black-lagoon.png",
+    "path": "/talents/black-lagoon.png",
+    "originalName": "black-lagoon"
+  },
+  "blackpool": {
+    "filename": "black-pool.png",
+    "path": "/talents/black-pool.png",
+    "originalName": "black-pool"
+  },
+  "bladedance": {
+    "filename": "blade-dance.png",
+    "path": "/talents/blade-dance.png",
+    "originalName": "blade-dance"
+  },
+  "bladeofthehighlord": {
+    "filename": "blade-of-the-highlord.png",
+    "path": "/talents/blade-of-the-highlord.png",
+    "originalName": "blade-of-the-highlord"
+  },
+  "bladedarmor": {
+    "filename": "bladed-armor.png",
+    "path": "/talents/bladed-armor.png",
+    "originalName": "bladed-armor"
+  },
+  "bladedmomentum": {
+    "filename": "bladed-momentum.png",
+    "path": "/talents/bladed-momentum.png",
+    "originalName": "bladed-momentum"
+  },
+  "blademasterspursuit": {
+    "filename": "blademasters-pursuit.png",
+    "path": "/talents/blademasters-pursuit.png",
+    "originalName": "blademasters-pursuit"
+  },
+  "bladesofatemplar": {
+    "filename": "blades-of-a-templar.png",
+    "path": "/talents/blades-of-a-templar.png",
+    "originalName": "blades-of-a-templar"
+  },
+  "bladesofazzinothtalent": {
+    "filename": "blades-of-azzinoth-talent.png",
+    "path": "/talents/blades-of-azzinoth-talent.png",
+    "originalName": "blades-of-azzinoth-talent"
+  },
+  "bladestormtalent": {
+    "filename": "bladestorm-talent.png",
+    "path": "/talents/bladestorm-talent.png",
+    "originalName": "bladestorm-talent"
+  },
+  "blastecho": {
+    "filename": "blast-echo.png",
+    "path": "/talents/blast-echo.png",
+    "originalName": "blast-echo"
+  },
+  "blastshield": {
+    "filename": "blast-shield.png",
+    "path": "/talents/blast-shield.png",
+    "originalName": "blast-shield"
+  },
+  "blazeofglory": {
+    "filename": "blaze-of-glory.png",
+    "path": "/talents/blaze-of-glory.png",
+    "originalName": "blaze-of-glory"
+  },
+  "blazingfists": {
+    "filename": "blazing-fists.png",
+    "path": "/talents/blazing-fists.png",
+    "originalName": "blazing-fists"
+  },
+  "blessedchampion": {
+    "filename": "blessed-champion.png",
+    "path": "/talents/blessed-champion.png",
+    "originalName": "blessed-champion"
+  },
+  "blessedmomentum": {
+    "filename": "blessed-momentum.png",
+    "path": "/talents/blessed-momentum.png",
+    "originalName": "blessed-momentum"
+  },
+  "blessedshieldtalent": {
+    "filename": "blessed-shield-talent.png",
+    "path": "/talents/blessed-shield-talent.png",
+    "originalName": "blessed-shield-talent"
+  },
+  "blessingofthebronzetalent": {
+    "filename": "blessing-of-the-bronze-talent.png",
+    "path": "/talents/blessing-of-the-bronze-talent.png",
+    "originalName": "blessing-of-the-bronze-talent"
+  },
+  "blessingoftheredtalent": {
+    "filename": "blessing-of-the-red-talent.png",
+    "path": "/talents/blessing-of-the-red-talent.png",
+    "originalName": "blessing-of-the-red-talent"
+  },
+  "blessingsofyulon": {
+    "filename": "blessings-of-yulon.png",
+    "path": "/talents/blessings-of-yulon.png",
+    "originalName": "blessings-of-yulon"
+  },
+  "blight": {
+    "filename": "blight.png",
+    "path": "/talents/blight.png",
+    "originalName": "blight"
+  },
+  "blightedfrost": {
+    "filename": "blighted-frost.png",
+    "path": "/talents/blighted-frost.png",
+    "originalName": "blighted-frost"
+  },
+  "blindasabattalent": {
+    "filename": "blind-as-a-bat-talent.png",
+    "path": "/talents/blind-as-a-bat-talent.png",
+    "originalName": "blind-as-a-bat-talent"
+  },
+  "blind": {
+    "filename": "blind.png",
+    "path": "/talents/blind.png",
+    "originalName": "blind"
+  },
+  "blindedbythelighttalent": {
+    "filename": "blinded-by-the-light-talent.png",
+    "path": "/talents/blinded-by-the-light-talent.png",
+    "originalName": "blinded-by-the-light-talent"
+  },
+  "blindingflash": {
+    "filename": "blinding-flash.png",
+    "path": "/talents/blinding-flash.png",
+    "originalName": "blinding-flash"
+  },
+  "blindingspeed": {
+    "filename": "blinding-speed.png",
+    "path": "/talents/blinding-speed.png",
+    "originalName": "blinding-speed"
+  },
+  "blinkhealtalent": {
+    "filename": "blink-heal-talent.png",
+    "path": "/talents/blink-heal-talent.png",
+    "originalName": "blink-heal-talent"
+  },
+  "blisteringattacks": {
+    "filename": "blistering-attacks.png",
+    "path": "/talents/blistering-attacks.png",
+    "originalName": "blistering-attacks"
+  },
+  "blockparty": {
+    "filename": "block-party.png",
+    "path": "/talents/block-party.png",
+    "originalName": "block-party"
+  },
+  "block": {
+    "filename": "block.png",
+    "path": "/talents/block.png",
+    "originalName": "block"
+  },
+  "bloodandthunder": {
+    "filename": "blood-and-thunder.png",
+    "path": "/talents/blood-and-thunder.png",
+    "originalName": "blood-and-thunder"
+  },
+  "bloodfrenzy": {
+    "filename": "blood-frenzy.png",
+    "path": "/talents/blood-frenzy.png",
+    "originalName": "blood-frenzy"
+  },
+  "bloodritual": {
+    "filename": "blood-ritual.png",
+    "path": "/talents/blood-ritual.png",
+    "originalName": "blood-ritual"
+  },
+  "bloodrush": {
+    "filename": "blood-rush.png",
+    "path": "/talents/blood-rush.png",
+    "originalName": "blood-rush"
+  },
+  "bloodcraze": {
+    "filename": "bloodcraze.png",
+    "path": "/talents/bloodcraze.png",
+    "originalName": "bloodcraze"
+  },
+  "bloodlusttalent": {
+    "filename": "bloodlust-talent.png",
+    "path": "/talents/bloodlust-talent.png",
+    "originalName": "bloodlust-talent"
+  },
+  "bloodthirsthoggertalent": {
+    "filename": "bloodthirst-hogger-talent.png",
+    "path": "/talents/bloodthirst-hogger-talent.png",
+    "originalName": "bloodthirst-hogger-talent"
+  },
+  "blossomswell": {
+    "filename": "blossom-swell.png",
+    "path": "/talents/blossom-swell.png",
+    "originalName": "blossom-swell"
+  },
+  "blowemup": {
+    "filename": "blow-em-up.png",
+    "path": "/talents/blow-em-up.png",
+    "originalName": "blow-em-up"
+  },
+  "bluntforceguntalent": {
+    "filename": "blunt-force-gun-talent.png",
+    "path": "/talents/blunt-force-gun-talent.png",
+    "originalName": "blunt-force-gun-talent"
+  },
+  "bobandweave": {
+    "filename": "bob-and-weave.png",
+    "path": "/talents/bob-and-weave.png",
+    "originalName": "bob-and-weave"
+  },
+  "bodychecktalent": {
+    "filename": "body-check-talent.png",
+    "path": "/talents/body-check-talent.png",
+    "originalName": "body-check-talent"
+  },
+  "boggeddown": {
+    "filename": "bogged-down.png",
+    "path": "/talents/bogged-down.png",
+    "originalName": "bogged-down"
+  },
+  "boltofthestormtalent": {
+    "filename": "bolt-of-the-storm-talent.png",
+    "path": "/talents/bolt-of-the-storm-talent.png",
+    "originalName": "bolt-of-the-storm-talent"
+  },
+  "bombtoss": {
+    "filename": "bomb-toss.png",
+    "path": "/talents/bomb-toss.png",
+    "originalName": "bomb-toss"
+  },
+  "bombardstrain": {
+    "filename": "bombard-strain.png",
+    "path": "/talents/bombard-strain.png",
+    "originalName": "bombard-strain"
+  },
+  "bombardment": {
+    "filename": "bombardment.png",
+    "path": "/talents/bombardment.png",
+    "originalName": "bombardment"
+  },
+  "bombsawayjunkrat": {
+    "filename": "bombs-away-junkrat.png",
+    "path": "/talents/bombs-away-junkrat.png",
+    "originalName": "bombs-away-junkrat"
+  },
+  "bombsaway": {
+    "filename": "bombs-away.png",
+    "path": "/talents/bombs-away.png",
+    "originalName": "bombs-away"
+  },
+  "bondofanguish": {
+    "filename": "bond-of-anguish.png",
+    "path": "/talents/bond-of-anguish.png",
+    "originalName": "bond-of-anguish"
+  },
+  "bondsofcorruption": {
+    "filename": "bonds-of-corruption.png",
+    "path": "/talents/bonds-of-corruption.png",
+    "originalName": "bonds-of-corruption"
+  },
+  "bondsofjustice": {
+    "filename": "bonds-of-justice.png",
+    "path": "/talents/bonds-of-justice.png",
+    "originalName": "bonds-of-justice"
+  },
+  "bonespeartalent": {
+    "filename": "bone-spear-talent.png",
+    "path": "/talents/bone-spear-talent.png",
+    "originalName": "bone-spear-talent"
+  },
+  "bonestognaw": {
+    "filename": "bones-to-gnaw.png",
+    "path": "/talents/bones-to-gnaw.png",
+    "originalName": "bones-to-gnaw"
+  },
+  "boneslicer": {
+    "filename": "boneslicer.png",
+    "path": "/talents/boneslicer.png",
+    "originalName": "boneslicer"
+  },
+  "boompow": {
+    "filename": "boom-pow.png",
+    "path": "/talents/boom-pow.png",
+    "originalName": "boom-pow"
+  },
+  "boomboxtalent": {
+    "filename": "boombox-talent.png",
+    "path": "/talents/boombox-talent.png",
+    "originalName": "boombox-talent"
+  },
+  "boomerang": {
+    "filename": "boomerang.png",
+    "path": "/talents/boomerang.png",
+    "originalName": "boomerang"
+  },
+  "boomingkick": {
+    "filename": "booming-kick.png",
+    "path": "/talents/booming-kick.png",
+    "originalName": "booming-kick"
+  },
+  "borninbattle": {
+    "filename": "born-in-battle.png",
+    "path": "/talents/born-in-battle.png",
+    "originalName": "born-in-battle"
+  },
+  "bossanova": {
+    "filename": "bossa-nova.png",
+    "path": "/talents/bossa-nova.png",
+    "originalName": "bossa-nova"
+  },
+  "bottomlessflask": {
+    "filename": "bottomless-flask.png",
+    "path": "/talents/bottomless-flask.png",
+    "originalName": "bottomless-flask"
+  },
+  "boundbylaw": {
+    "filename": "bound-by-law.png",
+    "path": "/talents/bound-by-law.png",
+    "originalName": "bound-by-law"
+  },
+  "boundbyshadow": {
+    "filename": "bound-by-shadow.png",
+    "path": "/talents/bound-by-shadow.png",
+    "originalName": "bound-by-shadow"
+  },
+  "boundlessfury": {
+    "filename": "boundless-fury.png",
+    "path": "/talents/boundless-fury.png",
+    "originalName": "boundless-fury"
+  },
+  "boundlessstride": {
+    "filename": "boundless-stride.png",
+    "path": "/talents/boundless-stride.png",
+    "originalName": "boundless-stride"
+  },
+  "bountyhuntertalent": {
+    "filename": "bounty-hunter-talent.png",
+    "path": "/talents/bounty-hunter-talent.png",
+    "originalName": "bounty-hunter-talent"
+  },
+  "brandofsolarion": {
+    "filename": "brand-of-solarion.png",
+    "path": "/talents/brand-of-solarion.png",
+    "originalName": "brand-of-solarion"
+  },
+  "brewmastersbalance": {
+    "filename": "brewmasters-balance.png",
+    "path": "/talents/brewmasters-balance.png",
+    "originalName": "brewmasters-balance"
+  },
+  "bronzetalons": {
+    "filename": "bronze-talons.png",
+    "path": "/talents/bronze-talons.png",
+    "originalName": "bronze-talons"
+  },
+  "bronzebeardrage": {
+    "filename": "bronzebeard-rage.png",
+    "path": "/talents/bronzebeard-rage.png",
+    "originalName": "bronzebeard-rage"
+  },
+  "broodmother": {
+    "filename": "broodmother.png",
+    "path": "/talents/broodmother.png",
+    "originalName": "broodmother"
+  },
+  "brutalstrike": {
+    "filename": "brutal-strike.png",
+    "path": "/talents/brutal-strike.png",
+    "originalName": "brutal-strike"
+  },
+  "bruteforcehogger": {
+    "filename": "brute-force-hogger.png",
+    "path": "/talents/brute-force-hogger.png",
+    "originalName": "brute-force-hogger"
+  },
+  "brutishvanguard": {
+    "filename": "brutish-vanguard.png",
+    "path": "/talents/brutish-vanguard.png",
+    "originalName": "brutish-vanguard"
+  },
+  "bubblehearthtalent": {
+    "filename": "bubble-hearth-talent.png",
+    "path": "/talents/bubble-hearth-talent.png",
+    "originalName": "bubble-hearth-talent"
+  },
+  "bulletspray": {
+    "filename": "bullet-spray.png",
+    "path": "/talents/bullet-spray.png",
+    "originalName": "bullet-spray"
+  },
+  "bullettime": {
+    "filename": "bullet-time.png",
+    "path": "/talents/bullet-time.png",
+    "originalName": "bullet-time"
+  },
+  "bullheadmines": {
+    "filename": "bullhead-mines.png",
+    "path": "/talents/bullhead-mines.png",
+    "originalName": "bullhead-mines"
+  },
+  "bullseyetalent": {
+    "filename": "bullseye-talent.png",
+    "path": "/talents/bullseye-talent.png",
+    "originalName": "bullseye-talent"
+  },
+  "bulwarkoflight": {
+    "filename": "bulwark-of-light.png",
+    "path": "/talents/bulwark-of-light.png",
+    "originalName": "bulwark-of-light"
+  },
+  "bunkerdroptalent": {
+    "filename": "bunker-drop-talent.png",
+    "path": "/talents/bunker-drop-talent.png",
+    "originalName": "bunker-drop-talent"
+  },
+  "bunnyhoptalent": {
+    "filename": "bunny-hop-talent.png",
+    "path": "/talents/bunny-hop-talent.png",
+    "originalName": "bunny-hop-talent"
+  },
+  "buriedalive": {
+    "filename": "buried-alive.png",
+    "path": "/talents/buried-alive.png",
+    "originalName": "buried-alive"
+  },
+  "burnbeneathmyshadow": {
+    "filename": "burn-beneath-my-shadow.png",
+    "path": "/talents/burn-beneath-my-shadow.png",
+    "originalName": "burn-beneath-my-shadow"
+  },
+  "burnnotice": {
+    "filename": "burn-notice.png",
+    "path": "/talents/burn-notice.png",
+    "originalName": "burn-notice"
+  },
+  "burntheimpure": {
+    "filename": "burn-the-impure.png",
+    "path": "/talents/burn-the-impure.png",
+    "originalName": "burn-the-impure"
+  },
+  "burnedflesh": {
+    "filename": "burned-flesh.png",
+    "path": "/talents/burned-flesh.png",
+    "originalName": "burned-flesh"
+  },
+  "burningbeetles": {
+    "filename": "burning-beetles.png",
+    "path": "/talents/burning-beetles.png",
+    "originalName": "burning-beetles"
+  },
+  "burningblade": {
+    "filename": "burning-blade.png",
+    "path": "/talents/burning-blade.png",
+    "originalName": "burning-blade"
+  },
+  "burningdespair": {
+    "filename": "burning-despair.png",
+    "path": "/talents/burning-despair.png",
+    "originalName": "burning-despair"
+  },
+  "burninghalo": {
+    "filename": "burning-halo.png",
+    "path": "/talents/burning-halo.png",
+    "originalName": "burning-halo"
+  },
+  "burningrage": {
+    "filename": "burning-rage.png",
+    "path": "/talents/burning-rage.png",
+    "originalName": "burning-rage"
+  },
+  "burstfire": {
+    "filename": "burst-fire.png",
+    "path": "/talents/burst-fire.png",
+    "originalName": "burst-fire"
+  },
+  "buzzsaw": {
+    "filename": "buzzsaw.png",
+    "path": "/talents/buzzsaw.png",
+    "originalName": "buzzsaw"
+  },
+  "caduceusfeedback": {
+    "filename": "caduceus-feedback.png",
+    "path": "/talents/caduceus-feedback.png",
+    "originalName": "caduceus-feedback"
+  },
+  "caduceusreactor20": {
+    "filename": "caduceus-reactor-20.png",
+    "path": "/talents/caduceus-reactor-20.png",
+    "originalName": "caduceus-reactor-20"
+  },
+  "calamity": {
+    "filename": "calamity.png",
+    "path": "/talents/calamity.png",
+    "originalName": "calamity"
+  },
+  "callofthewildhammer": {
+    "filename": "call-of-the-wildhammer.png",
+    "path": "/talents/call-of-the-wildhammer.png",
+    "originalName": "call-of-the-wildhammer"
+  },
+  "calldownmuletalent": {
+    "filename": "calldown-mule-talent.png",
+    "path": "/talents/calldown-mule-talent.png",
+    "originalName": "calldown-mule-talent"
+  },
+  "callousedhide": {
+    "filename": "calloused-hide.png",
+    "path": "/talents/calloused-hide.png",
+    "originalName": "calloused-hide"
+  },
+  "candothisallday": {
+    "filename": "can-do-this-all-day.png",
+    "path": "/talents/can-do-this-all-day.png",
+    "originalName": "can-do-this-all-day"
+  },
+  "cannonball": {
+    "filename": "cannonball.png",
+    "path": "/talents/cannonball.png",
+    "originalName": "cannonball"
+  },
+  "cannoneer": {
+    "filename": "cannoneer.png",
+    "path": "/talents/cannoneer.png",
+    "originalName": "cannoneer"
+  },
+  "carrionswarmtalent": {
+    "filename": "carrion-swarm-talent.png",
+    "path": "/talents/carrion-swarm-talent.png",
+    "originalName": "carrion-swarm-talent"
+  },
+  "cascade": {
+    "filename": "cascade.png",
+    "path": "/talents/cascade.png",
+    "originalName": "cascade"
+  },
+  "catchingfiretalent": {
+    "filename": "catching-fire-talent.png",
+    "path": "/talents/catching-fire-talent.png",
+    "originalName": "catching-fire-talent"
+  },
+  "cauterizewounds": {
+    "filename": "cauterize-wounds.png",
+    "path": "/talents/cauterize-wounds.png",
+    "originalName": "cauterize-wounds"
+  },
+  "cavalrysarrived": {
+    "filename": "cavalrys-arrived.png",
+    "path": "/talents/cavalrys-arrived.png",
+    "originalName": "cavalrys-arrived"
+  },
+  "celerity": {
+    "filename": "celerity.png",
+    "path": "/talents/celerity.png",
+    "originalName": "celerity"
+  },
+  "celestialalignment": {
+    "filename": "celestial-alignment.png",
+    "path": "/talents/celestial-alignment.png",
+    "originalName": "celestial-alignment"
+  },
+  "celestialattunement": {
+    "filename": "celestial-attunement.png",
+    "path": "/talents/celestial-attunement.png",
+    "originalName": "celestial-attunement"
+  },
+  "celestialswiftness": {
+    "filename": "celestial-swiftness.png",
+    "path": "/talents/celestial-swiftness.png",
+    "originalName": "celestial-swiftness"
+  },
+  "celestialwrath": {
+    "filename": "celestial-wrath.png",
+    "path": "/talents/celestial-wrath.png",
+    "originalName": "celestial-wrath"
+  },
+  "censure": {
+    "filename": "censure.png",
+    "path": "/talents/censure.png",
+    "originalName": "censure"
+  },
+  "chaingang": {
+    "filename": "chain-gang.png",
+    "path": "/talents/chain-gang.png",
+    "originalName": "chain-gang"
+  },
+  "chainlink": {
+    "filename": "chain-link.png",
+    "path": "/talents/chain-link.png",
+    "originalName": "chain-link"
+  },
+  "chainofcommand": {
+    "filename": "chain-of-command.png",
+    "path": "/talents/chain-of-command.png",
+    "originalName": "chain-of-command"
+  },
+  "chainsofice": {
+    "filename": "chains-of-ice.png",
+    "path": "/talents/chains-of-ice.png",
+    "originalName": "chains-of-ice"
+  },
+  "chainsaw": {
+    "filename": "chainsaw.png",
+    "path": "/talents/chainsaw.png",
+    "originalName": "chainsaw"
+  },
+  "changeissurvival": {
+    "filename": "change-is-survival.png",
+    "path": "/talents/change-is-survival.png",
+    "originalName": "change-is-survival"
+  },
+  "chaosreigns": {
+    "filename": "chaos-reigns.png",
+    "path": "/talents/chaos-reigns.png",
+    "originalName": "chaos-reigns"
+  },
+  "chaoticassault": {
+    "filename": "chaotic-assault.png",
+    "path": "/talents/chaotic-assault.png",
+    "originalName": "chaotic-assault"
+  },
+  "chaoticenergy": {
+    "filename": "chaotic-energy.png",
+    "path": "/talents/chaotic-energy.png",
+    "originalName": "chaotic-energy"
+  },
+  "chargedblast": {
+    "filename": "charged-blast.png",
+    "path": "/talents/charged-blast.png",
+    "originalName": "charged-blast"
+  },
+  "chargedstrikestalent": {
+    "filename": "charged-strikes-talent.png",
+    "path": "/talents/charged-strikes-talent.png",
+    "originalName": "charged-strikes-talent"
+  },
+  "chargedup": {
+    "filename": "charged-up.png",
+    "path": "/talents/charged-up.png",
+    "originalName": "charged-up"
+  },
+  "chatteringteeth": {
+    "filename": "chattering-teeth.png",
+    "path": "/talents/chattering-teeth.png",
+    "originalName": "chattering-teeth"
+  },
+  "cheapshot": {
+    "filename": "cheap-shot.png",
+    "path": "/talents/cheap-shot.png",
+    "originalName": "cheap-shot"
+  },
+  "checkpointreached": {
+    "filename": "checkpoint-reached.png",
+    "path": "/talents/checkpoint-reached.png",
+    "originalName": "checkpoint-reached"
+  },
+  "chillingtouch": {
+    "filename": "chilling-touch.png",
+    "path": "/talents/chilling-touch.png",
+    "originalName": "chilling-touch"
+  },
+  "chitinousplating": {
+    "filename": "chitinous-plating.png",
+    "path": "/talents/chitinous-plating.png",
+    "originalName": "chitinous-plating"
+  },
+  "chokingpollen": {
+    "filename": "choking-pollen.png",
+    "path": "/talents/choking-pollen.png",
+    "originalName": "choking-pollen"
+  },
+  "chopmeat": {
+    "filename": "chop-meat.png",
+    "path": "/talents/chop-meat.png",
+    "originalName": "chop-meat"
+  },
+  "chronicconditions": {
+    "filename": "chronic-conditions.png",
+    "path": "/talents/chronic-conditions.png",
+    "originalName": "chronic-conditions"
+  },
+  "chronosurge": {
+    "filename": "chrono-surge.png",
+    "path": "/talents/chrono-surge.png",
+    "originalName": "chrono-surge"
+  },
+  "chronotriggers": {
+    "filename": "chrono-triggers.png",
+    "path": "/talents/chrono-triggers.png",
+    "originalName": "chrono-triggers"
+  },
+  "chrysalistalent": {
+    "filename": "chrysalis-talent.png",
+    "path": "/talents/chrysalis-talent.png",
+    "originalName": "chrysalis-talent"
+  },
+  "circleoflifealexstrasza": {
+    "filename": "circle-of-life-alexstrasza.png",
+    "path": "/talents/circle-of-life-alexstrasza.png",
+    "originalName": "circle-of-life-alexstrasza"
+  },
+  "circleofprotection": {
+    "filename": "circle-of-protection.png",
+    "path": "/talents/circle-of-protection.png",
+    "originalName": "circle-of-protection"
+  },
+  "cleansetalent": {
+    "filename": "cleanse-talent.png",
+    "path": "/talents/cleanse-talent.png",
+    "originalName": "cleanse-talent"
+  },
+  "cleansingflametalent": {
+    "filename": "cleansing-flame-talent.png",
+    "path": "/talents/cleansing-flame-talent.png",
+    "originalName": "cleansing-flame-talent"
+  },
+  "cleansingshield": {
+    "filename": "cleansing-shield.png",
+    "path": "/talents/cleansing-shield.png",
+    "originalName": "cleansing-shield"
+  },
+  "cleansingtouch": {
+    "filename": "cleansing-touch.png",
+    "path": "/talents/cleansing-touch.png",
+    "originalName": "cleansing-touch"
+  },
+  "clearout": {
+    "filename": "clear-out.png",
+    "path": "/talents/clear-out.png",
+    "originalName": "clear-out"
+  },
+  "clear": {
+    "filename": "clear.png",
+    "path": "/talents/clear.png",
+    "originalName": "clear"
+  },
+  "cleaver": {
+    "filename": "cleaver.png",
+    "path": "/talents/cleaver.png",
+    "originalName": "cleaver"
+  },
+  "cloakofshadowstalent": {
+    "filename": "cloak-of-shadows-talent.png",
+    "path": "/talents/cloak-of-shadows-talent.png",
+    "originalName": "cloak-of-shadows-talent"
+  },
+  "cocoontalent": {
+    "filename": "cocoon-talent.png",
+    "path": "/talents/cocoon-talent.png",
+    "originalName": "cocoon-talent"
+  },
+  "coldembrace": {
+    "filename": "cold-embrace.png",
+    "path": "/talents/cold-embrace.png",
+    "originalName": "cold-embrace"
+  },
+  "coldfront": {
+    "filename": "cold-front.png",
+    "path": "/talents/cold-front.png",
+    "originalName": "cold-front"
+  },
+  "coldhandofdeath": {
+    "filename": "cold-hand-of-death.png",
+    "path": "/talents/cold-hand-of-death.png",
+    "originalName": "cold-hand-of-death"
+  },
+  "coldhand": {
+    "filename": "cold-hand.png",
+    "path": "/talents/cold-hand.png",
+    "originalName": "cold-hand"
+  },
+  "coldsnap": {
+    "filename": "cold-snap.png",
+    "path": "/talents/cold-snap.png",
+    "originalName": "cold-snap"
+  },
+  "collisioncourse": {
+    "filename": "collision-course.png",
+    "path": "/talents/collision-course.png",
+    "originalName": "collision-course"
+  },
+  "colossaltotem": {
+    "filename": "colossal-totem.png",
+    "path": "/talents/colossal-totem.png",
+    "originalName": "colossal-totem"
+  },
+  "colossussmashtalent": {
+    "filename": "colossus-smash-talent.png",
+    "path": "/talents/colossus-smash-talent.png",
+    "originalName": "colossus-smash-talent"
+  },
+  "combatadvantage": {
+    "filename": "combat-advantage.png",
+    "path": "/talents/combat-advantage.png",
+    "originalName": "combat-advantage"
+  },
+  "combatreadiness": {
+    "filename": "combat-readiness.png",
+    "path": "/talents/combat-readiness.png",
+    "originalName": "combat-readiness"
+  },
+  "combattactician": {
+    "filename": "combat-tactician.png",
+    "path": "/talents/combat-tactician.png",
+    "originalName": "combat-tactician"
+  },
+  "combostrikes": {
+    "filename": "combo-strikes.png",
+    "path": "/talents/combo-strikes.png",
+    "originalName": "combo-strikes"
+  },
+  "combustiontalent": {
+    "filename": "combustion-talent.png",
+    "path": "/talents/combustion-talent.png",
+    "originalName": "combustion-talent"
+  },
+  "commandeerodintalent": {
+    "filename": "commandeer-odin-talent.png",
+    "path": "/talents/commandeer-odin-talent.png",
+    "originalName": "commandeer-odin-talent"
+  },
+  "compositespear": {
+    "filename": "composite-spear.png",
+    "path": "/talents/composite-spear.png",
+    "originalName": "composite-spear"
+  },
+  "compositionb": {
+    "filename": "composition-b.png",
+    "path": "/talents/composition-b.png",
+    "originalName": "composition-b"
+  },
+  "concentrateddoses": {
+    "filename": "concentrated-doses.png",
+    "path": "/talents/concentrated-doses.png",
+    "originalName": "concentrated-doses"
+  },
+  "concussiongrenade": {
+    "filename": "concussion-grenade.png",
+    "path": "/talents/concussion-grenade.png",
+    "originalName": "concussion-grenade"
+  },
+  "concussivepulsetalent": {
+    "filename": "concussive-pulse-talent.png",
+    "path": "/talents/concussive-pulse-talent.png",
+    "originalName": "concussive-pulse-talent"
+  },
+  "conflagration": {
+    "filename": "conflagration.png",
+    "path": "/talents/conflagration.png",
+    "originalName": "conflagration"
+  },
+  "constriction": {
+    "filename": "constriction.png",
+    "path": "/talents/constriction.png",
+    "originalName": "constriction"
+  },
+  "constructadditionalpylons": {
+    "filename": "construct-additional-pylons.png",
+    "path": "/talents/construct-additional-pylons.png",
+    "originalName": "construct-additional-pylons"
+  },
+  "consumesoultalent": {
+    "filename": "consume-soul-talent.png",
+    "path": "/talents/consume-soul-talent.png",
+    "originalName": "consume-soul-talent"
+  },
+  "consumesoulstalent": {
+    "filename": "consume-souls-talent.png",
+    "path": "/talents/consume-souls-talent.png",
+    "originalName": "consume-souls-talent"
+  },
+  "consumevitality": {
+    "filename": "consume-vitality.png",
+    "path": "/talents/consume-vitality.png",
+    "originalName": "consume-vitality"
+  },
+  "consumedbyhatred": {
+    "filename": "consumed-by-hatred.png",
+    "path": "/talents/consumed-by-hatred.png",
+    "originalName": "consumed-by-hatred"
+  },
+  "consumingfire": {
+    "filename": "consuming-fire.png",
+    "path": "/talents/consuming-fire.png",
+    "originalName": "consuming-fire"
+  },
+  "consumingflame": {
+    "filename": "consuming-flame.png",
+    "path": "/talents/consuming-flame.png",
+    "originalName": "consuming-flame"
+  },
+  "contacthealing": {
+    "filename": "contact-healing.png",
+    "path": "/talents/contact-healing.png",
+    "originalName": "contact-healing"
+  },
+  "contagion": {
+    "filename": "contagion.png",
+    "path": "/talents/contagion.png",
+    "originalName": "contagion"
+  },
+  "containmentdisctalent": {
+    "filename": "containment-disc-talent.png",
+    "path": "/talents/containment-disc-talent.png",
+    "originalName": "containment-disc-talent"
+  },
+  "controlledchaos": {
+    "filename": "controlled-chaos.png",
+    "path": "/talents/controlled-chaos.png",
+    "originalName": "controlled-chaos"
+  },
+  "convection": {
+    "filename": "convection.png",
+    "path": "/talents/convection.png",
+    "originalName": "convection"
+  },
+  "convergingforce": {
+    "filename": "converging-force.png",
+    "path": "/talents/converging-force.png",
+    "originalName": "converging-force"
+  },
+  "conviction": {
+    "filename": "conviction.png",
+    "path": "/talents/conviction.png",
+    "originalName": "conviction"
+  },
+  "coolingservos": {
+    "filename": "cooling-servos.png",
+    "path": "/talents/cooling-servos.png",
+    "originalName": "cooling-servos"
+  },
+  "corpsefeeders": {
+    "filename": "corpse-feeders.png",
+    "path": "/talents/corpse-feeders.png",
+    "originalName": "corpse-feeders"
+  },
+  "corrosivesaliva": {
+    "filename": "corrosive-saliva.png",
+    "path": "/talents/corrosive-saliva.png",
+    "originalName": "corrosive-saliva"
+  },
+  "counterstriketalent": {
+    "filename": "counter-strike-talent.png",
+    "path": "/talents/counter-strike-talent.png",
+    "originalName": "counter-strike-talent"
+  },
+  "covertmissiontalent": {
+    "filename": "covert-mission-talent.png",
+    "path": "/talents/covert-mission-talent.png",
+    "originalName": "covert-mission-talent"
+  },
+  "covertops": {
+    "filename": "covert-ops.png",
+    "path": "/talents/covert-ops.png",
+    "originalName": "covert-ops"
+  },
+  "crashlightning": {
+    "filename": "crash-lightning.png",
+    "path": "/talents/crash-lightning.png",
+    "originalName": "crash-lightning"
+  },
+  "creedofthehunter": {
+    "filename": "creed-of-the-hunter.png",
+    "path": "/talents/creed-of-the-hunter.png",
+    "originalName": "creed-of-the-hunter"
+  },
+  "cripplinghammer": {
+    "filename": "crippling-hammer.png",
+    "path": "/talents/crippling-hammer.png",
+    "originalName": "crippling-hammer"
+  },
+  "cripplingpoisontalent": {
+    "filename": "crippling-poison-talent.png",
+    "path": "/talents/crippling-poison-talent.png",
+    "originalName": "crippling-poison-talent"
+  },
+  "cripplingshot": {
+    "filename": "crippling-shot.png",
+    "path": "/talents/crippling-shot.png",
+    "originalName": "crippling-shot"
+  },
+  "cripplingslam": {
+    "filename": "crippling-slam.png",
+    "path": "/talents/crippling-slam.png",
+    "originalName": "crippling-slam"
+  },
+  "cripplingtalons": {
+    "filename": "crippling-talons.png",
+    "path": "/talents/crippling-talons.png",
+    "originalName": "crippling-talons"
+  },
+  "criticalmist": {
+    "filename": "critical-mist.png",
+    "path": "/talents/critical-mist.png",
+    "originalName": "critical-mist"
+  },
+  "critterize": {
+    "filename": "critterize.png",
+    "path": "/talents/critterize.png",
+    "originalName": "critterize"
+  },
+  "crossfire": {
+    "filename": "crossfire.png",
+    "path": "/talents/crossfire.png",
+    "originalName": "crossfire"
+  },
+  "crowdcontrol": {
+    "filename": "crowd-control.png",
+    "path": "/talents/crowd-control.png",
+    "originalName": "crowd-control"
+  },
+  "crowdpleaser": {
+    "filename": "crowd-pleaser.png",
+    "path": "/talents/crowd-pleaser.png",
+    "originalName": "crowd-pleaser"
+  },
+  "crowdsurfer": {
+    "filename": "crowd-surfer.png",
+    "path": "/talents/crowd-surfer.png",
+    "originalName": "crowd-surfer"
+  },
+  "cruelchain": {
+    "filename": "cruel-chain.png",
+    "path": "/talents/cruel-chain.png",
+    "originalName": "cruel-chain"
+  },
+  "cruelty": {
+    "filename": "cruelty.png",
+    "path": "/talents/cruelty.png",
+    "originalName": "cruelty"
+  },
+  "crushingblows": {
+    "filename": "crushing-blows.png",
+    "path": "/talents/crushing-blows.png",
+    "originalName": "crushing-blows"
+  },
+  "crushinghope": {
+    "filename": "crushing-hope.png",
+    "path": "/talents/crushing-hope.png",
+    "originalName": "crushing-hope"
+  },
+  "crushingjawstalent": {
+    "filename": "crushing-jaws-talent.png",
+    "path": "/talents/crushing-jaws-talent.png",
+    "originalName": "crushing-jaws-talent"
+  },
+  "cryptweavetalent": {
+    "filename": "cryptweave-talent.png",
+    "path": "/talents/cryptweave-talent.png",
+    "originalName": "cryptweave-talent"
+  },
+  "crystalaegistalent": {
+    "filename": "crystal-aegis-talent.png",
+    "path": "/talents/crystal-aegis-talent.png",
+    "originalName": "crystal-aegis-talent"
+  },
+  "crystallize": {
+    "filename": "crystallize.png",
+    "path": "/talents/crystallize.png",
+    "originalName": "crystallize"
+  },
+  "cthunsgift": {
+    "filename": "cthuns-gift.png",
+    "path": "/talents/cthuns-gift.png",
+    "originalName": "cthuns-gift"
+  },
+  "cubemastery": {
+    "filename": "cube-mastery.png",
+    "path": "/talents/cube-mastery.png",
+    "originalName": "cube-mastery"
+  },
+  "curseofexhaustion": {
+    "filename": "curse-of-exhaustion.png",
+    "path": "/talents/curse-of-exhaustion.png",
+    "originalName": "curse-of-exhaustion"
+  },
+  "cursedbullettalent": {
+    "filename": "cursed-bullet-talent.png",
+    "path": "/talents/cursed-bullet-talent.png",
+    "originalName": "cursed-bullet-talent"
+  },
+  "cybershield": {
+    "filename": "cyber-shield.png",
+    "path": "/talents/cyber-shield.png",
+    "originalName": "cyber-shield"
+  },
+  "cydaeaskiss": {
+    "filename": "cydaeas-kiss.png",
+    "path": "/talents/cydaeas-kiss.png",
+    "originalName": "cydaeas-kiss"
+  },
+  "dampeningfield": {
+    "filename": "dampening-field.png",
+    "path": "/talents/dampening-field.png",
+    "originalName": "dampening-field"
+  },
+  "danceofdeath": {
+    "filename": "dance-of-death.png",
+    "path": "/talents/dance-of-death.png",
+    "originalName": "dance-of-death"
+  },
+  "darkbargain": {
+    "filename": "dark-bargain.png",
+    "path": "/talents/dark-bargain.png",
+    "originalName": "dark-bargain"
+  },
+  "darkconversiontalent": {
+    "filename": "dark-conversion-talent.png",
+    "path": "/talents/dark-conversion-talent.png",
+    "originalName": "dark-conversion-talent"
+  },
+  "darkladyscall": {
+    "filename": "dark-ladys-call.png",
+    "path": "/talents/dark-ladys-call.png",
+    "originalName": "dark-ladys-call"
+  },
+  "darknessdescendstalent": {
+    "filename": "darkness-descends-talent.png",
+    "path": "/talents/darkness-descends-talent.png",
+    "originalName": "darkness-descends-talent"
+  },
+  "darknesswithin": {
+    "filename": "darkness-within.png",
+    "path": "/talents/darkness-within.png",
+    "originalName": "darkness-within"
+  },
+  "darnassianarchery": {
+    "filename": "darnassian-archery.png",
+    "path": "/talents/darnassian-archery.png",
+    "originalName": "darnassian-archery"
+  },
+  "dash": {
+    "filename": "dash.png",
+    "path": "/talents/dash.png",
+    "originalName": "dash"
+  },
+  "dauntless": {
+    "filename": "dauntless.png",
+    "path": "/talents/dauntless.png",
+    "originalName": "dauntless"
+  },
+  "deadmagic": {
+    "filename": "dead-magic.png",
+    "path": "/talents/dead-magic.png",
+    "originalName": "dead-magic"
+  },
+  "deadrush": {
+    "filename": "dead-rush.png",
+    "path": "/talents/dead-rush.png",
+    "originalName": "dead-rush"
+  },
+  "deadeye": {
+    "filename": "deadeye.png",
+    "path": "/talents/deadeye.png",
+    "originalName": "deadeye"
+  },
+  "deadlycalm": {
+    "filename": "deadly-calm.png",
+    "path": "/talents/deadly-calm.png",
+    "originalName": "deadly-calm"
+  },
+  "deadlychargetalent": {
+    "filename": "deadly-charge-talent.png",
+    "path": "/talents/deadly-charge-talent.png",
+    "originalName": "deadly-charge-talent"
+  },
+  "deadlystrike": {
+    "filename": "deadly-strike.png",
+    "path": "/talents/deadly-strike.png",
+    "originalName": "deadly-strike"
+  },
+  "deafeningblastgall": {
+    "filename": "deafening-blast-gall.png",
+    "path": "/talents/deafening-blast-gall.png",
+    "originalName": "deafening-blast-gall"
+  },
+  "deafeningblastsylvanas": {
+    "filename": "deafening-blast-sylvanas.png",
+    "path": "/talents/deafening-blast-sylvanas.png",
+    "originalName": "deafening-blast-sylvanas"
+  },
+  "deathdealer": {
+    "filename": "death-dealer.png",
+    "path": "/talents/death-dealer.png",
+    "originalName": "death-dealer"
+  },
+  "deathdrop": {
+    "filename": "death-drop.png",
+    "path": "/talents/death-drop.png",
+    "originalName": "death-drop"
+  },
+  "deathfromabove": {
+    "filename": "death-from-above.png",
+    "path": "/talents/death-from-above.png",
+    "originalName": "death-from-above"
+  },
+  "deathmarch": {
+    "filename": "death-march.png",
+    "path": "/talents/death-march.png",
+    "originalName": "death-march"
+  },
+  "deathmetal": {
+    "filename": "death-metal.png",
+    "path": "/talents/death-metal.png",
+    "originalName": "death-metal"
+  },
+  "deathsiphon": {
+    "filename": "death-siphon.png",
+    "path": "/talents/death-siphon.png",
+    "originalName": "death-siphon"
+  },
+  "deathwish": {
+    "filename": "death-wish.png",
+    "path": "/talents/death-wish.png",
+    "originalName": "death-wish"
+  },
+  "deathchill": {
+    "filename": "deathchill.png",
+    "path": "/talents/deathchill.png",
+    "originalName": "deathchill"
+  },
+  "deathlord": {
+    "filename": "deathlord.png",
+    "path": "/talents/deathlord.png",
+    "originalName": "deathlord"
+  },
+  "deathsadvancetalent": {
+    "filename": "deaths-advance-talent.png",
+    "path": "/talents/deaths-advance-talent.png",
+    "originalName": "deaths-advance-talent"
+  },
+  "deathsreach": {
+    "filename": "deaths-reach.png",
+    "path": "/talents/deaths-reach.png",
+    "originalName": "deaths-reach"
+  },
+  "debilitatingdarttalent": {
+    "filename": "debilitating-dart-talent.png",
+    "path": "/talents/debilitating-dart-talent.png",
+    "originalName": "debilitating-dart-talent"
+  },
+  "debilitatingflames": {
+    "filename": "debilitating-flames.png",
+    "path": "/talents/debilitating-flames.png",
+    "originalName": "debilitating-flames"
+  },
+  "debilitation": {
+    "filename": "debilitation.png",
+    "path": "/talents/debilitation.png",
+    "originalName": "debilitation"
+  },
+  "decimatetalent": {
+    "filename": "decimate-talent.png",
+    "path": "/talents/decimate-talent.png",
+    "originalName": "decimate-talent"
+  },
+  "decrepify": {
+    "filename": "decrepify.png",
+    "path": "/talents/decrepify.png",
+    "originalName": "decrepify"
+  },
+  "deepbreathing": {
+    "filename": "deep-breathing.png",
+    "path": "/talents/deep-breathing.png",
+    "originalName": "deep-breathing"
+  },
+  "deepburn": {
+    "filename": "deep-burn.png",
+    "path": "/talents/deep-burn.png",
+    "originalName": "deep-burn"
+  },
+  "deepchill": {
+    "filename": "deep-chill.png",
+    "path": "/talents/deep-chill.png",
+    "originalName": "deep-chill"
+  },
+  "deepimpact": {
+    "filename": "deep-impact.png",
+    "path": "/talents/deep-impact.png",
+    "originalName": "deep-impact"
+  },
+  "deeproots": {
+    "filename": "deep-roots.png",
+    "path": "/talents/deep-roots.png",
+    "originalName": "deep-roots"
+  },
+  "deepsleep": {
+    "filename": "deep-sleep.png",
+    "path": "/talents/deep-sleep.png",
+    "originalName": "deep-sleep"
+  },
+  "defenseoftheangelstalent": {
+    "filename": "defense-of-the-angels-talent.png",
+    "path": "/talents/defense-of-the-angels-talent.png",
+    "originalName": "defense-of-the-angels-talent"
+  },
+  "defensivemeasures": {
+    "filename": "defensive-measures.png",
+    "path": "/talents/defensive-measures.png",
+    "originalName": "defensive-measures"
+  },
+  "defensiveshielding": {
+    "filename": "defensive-shielding.png",
+    "path": "/talents/defensive-shielding.png",
+    "originalName": "defensive-shielding"
+  },
+  "deflection": {
+    "filename": "deflection.png",
+    "path": "/talents/deflection.png",
+    "originalName": "deflection"
+  },
+  "demolitionsexpert": {
+    "filename": "demolitions-expert.png",
+    "path": "/talents/demolitions-expert.png",
+    "originalName": "demolitions-expert"
+  },
+  "demoniccircletalent": {
+    "filename": "demonic-circle-talent.png",
+    "path": "/talents/demonic-circle-talent.png",
+    "originalName": "demonic-circle-talent"
+  },
+  "demonicform": {
+    "filename": "demonic-form.png",
+    "path": "/talents/demonic-form.png",
+    "originalName": "demonic-form"
+  },
+  "demonicinvasiontalent": {
+    "filename": "demonic-invasion-talent.png",
+    "path": "/talents/demonic-invasion-talent.png",
+    "originalName": "demonic-invasion-talent"
+  },
+  "demoralizingshouttalent": {
+    "filename": "demoralizing-shout-talent.png",
+    "path": "/talents/demoralizing-shout-talent.png",
+    "originalName": "demoralizing-shout-talent"
+  },
+  "denseblastingpowder": {
+    "filename": "dense-blasting-powder.png",
+    "path": "/talents/dense-blasting-powder.png",
+    "originalName": "dense-blasting-powder"
+  },
+  "destroyersrampage": {
+    "filename": "destroyers-rampage.png",
+    "path": "/talents/destroyers-rampage.png",
+    "originalName": "destroyers-rampage"
+  },
+  "detachableboxmagazine": {
+    "filename": "detachable-box-magazine.png",
+    "path": "/talents/detachable-box-magazine.png",
+    "originalName": "detachable-box-magazine"
+  },
+  "determination": {
+    "filename": "determination.png",
+    "path": "/talents/determination.png",
+    "originalName": "determination"
+  },
+  "devastatingcharge": {
+    "filename": "devastating-charge.png",
+    "path": "/talents/devastating-charge.png",
+    "originalName": "devastating-charge"
+  },
+  "devilsdue": {
+    "filename": "devils-due.png",
+    "path": "/talents/devils-due.png",
+    "originalName": "devils-due"
+  },
+  "devouringmawtalent": {
+    "filename": "devouring-maw-talent.png",
+    "path": "/talents/devouring-maw-talent.png",
+    "originalName": "devouring-maw-talent"
+  },
+  "diabolicalmomentum": {
+    "filename": "diabolical-momentum.png",
+    "path": "/talents/diabolical-momentum.png",
+    "originalName": "diabolical-momentum"
+  },
+  "diamondresolve": {
+    "filename": "diamond-resolve.png",
+    "path": "/talents/diamond-resolve.png",
+    "originalName": "diamond-resolve"
+  },
+  "diamondskin": {
+    "filename": "diamond-skin.png",
+    "path": "/talents/diamond-skin.png",
+    "originalName": "diamond-skin"
+  },
+  "diealone": {
+    "filename": "die-alone.png",
+    "path": "/talents/die-alone.png",
+    "originalName": "die-alone"
+  },
+  "digestivejuices": {
+    "filename": "digestive-juices.png",
+    "path": "/talents/digestive-juices.png",
+    "originalName": "digestive-juices"
+  },
+  "direbeast": {
+    "filename": "dire-beast.png",
+    "path": "/talents/dire-beast.png",
+    "originalName": "dire-beast"
+  },
+  "dirtytrickster": {
+    "filename": "dirty-trickster.png",
+    "path": "/talents/dirty-trickster.png",
+    "originalName": "dirty-trickster"
+  },
+  "dishonorabledischarge": {
+    "filename": "dishonorable-discharge.png",
+    "path": "/talents/dishonorable-discharge.png",
+    "originalName": "dishonorable-discharge"
+  },
+  "disintegratetalent": {
+    "filename": "disintegrate-talent.png",
+    "path": "/talents/disintegrate-talent.png",
+    "originalName": "disintegrate-talent"
+  },
+  "dissonance": {
+    "filename": "dissonance.png",
+    "path": "/talents/dissonance.png",
+    "originalName": "dissonance"
+  },
+  "diverpowerweaponstalent": {
+    "filename": "diver-power-weapons-talent.png",
+    "path": "/talents/diver-power-weapons-talent.png",
+    "originalName": "diver-power-weapons-talent"
+  },
+  "divertingpower": {
+    "filename": "diverting-power.png",
+    "path": "/talents/diverting-power.png",
+    "originalName": "diverting-power"
+  },
+  "divinefavor": {
+    "filename": "divine-favor.png",
+    "path": "/talents/divine-favor.png",
+    "originalName": "divine-favor"
+  },
+  "divinefortress": {
+    "filename": "divine-fortress.png",
+    "path": "/talents/divine-fortress.png",
+    "originalName": "divine-fortress"
+  },
+  "divinehurricane": {
+    "filename": "divine-hurricane.png",
+    "path": "/talents/divine-hurricane.png",
+    "originalName": "divine-hurricane"
+  },
+  "divinepalmtalent": {
+    "filename": "divine-palm-talent.png",
+    "path": "/talents/divine-palm-talent.png",
+    "originalName": "divine-palm-talent"
+  },
+  "divineprotection": {
+    "filename": "divine-protection.png",
+    "path": "/talents/divine-protection.png",
+    "originalName": "divine-protection"
+  },
+  "divinerage": {
+    "filename": "divine-rage.png",
+    "path": "/talents/divine-rage.png",
+    "originalName": "divine-rage"
+  },
+  "divinereckoningtalent": {
+    "filename": "divine-reckoning-talent.png",
+    "path": "/talents/divine-reckoning-talent.png",
+    "originalName": "divine-reckoning-talent"
+  },
+  "divineshieldtalent": {
+    "filename": "divine-shield-talent.png",
+    "path": "/talents/divine-shield-talent.png",
+    "originalName": "divine-shield-talent"
+  },
+  "divinesteed": {
+    "filename": "divine-steed.png",
+    "path": "/talents/divine-steed.png",
+    "originalName": "divine-steed"
+  },
+  "divinestormtalent": {
+    "filename": "divine-storm-talent.png",
+    "path": "/talents/divine-storm-talent.png",
+    "originalName": "divine-storm-talent"
+  },
+  "divinevigor": {
+    "filename": "divine-vigor.png",
+    "path": "/talents/divine-vigor.png",
+    "originalName": "divine-vigor"
+  },
+  "dodge": {
+    "filename": "dodge.png",
+    "path": "/talents/dodge.png",
+    "originalName": "dodge"
+  },
+  "dominance": {
+    "filename": "dominance.png",
+    "path": "/talents/dominance.png",
+    "originalName": "dominance"
+  },
+  "domination": {
+    "filename": "domination.png",
+    "path": "/talents/domination.png",
+    "originalName": "domination"
+  },
+  "doubledragon": {
+    "filename": "double-dragon.png",
+    "path": "/talents/double-dragon.png",
+    "originalName": "double-dragon"
+  },
+  "doubletap": {
+    "filename": "double-tap.png",
+    "path": "/talents/double-tap.png",
+    "originalName": "double-tap"
+  },
+  "doubletrouble": {
+    "filename": "double-trouble.png",
+    "path": "/talents/double-trouble.png",
+    "originalName": "double-trouble"
+  },
+  "doubleuptalent": {
+    "filename": "double-up-talent.png",
+    "path": "/talents/double-up-talent.png",
+    "originalName": "double-up-talent"
+  },
+  "draconicbarrage": {
+    "filename": "draconic-barrage.png",
+    "path": "/talents/draconic-barrage.png",
+    "originalName": "draconic-barrage"
+  },
+  "draconicdiscipline": {
+    "filename": "draconic-discipline.png",
+    "path": "/talents/draconic-discipline.png",
+    "originalName": "draconic-discipline"
+  },
+  "draconicmight": {
+    "filename": "draconic-might.png",
+    "path": "/talents/draconic-might.png",
+    "originalName": "draconic-might"
+  },
+  "dragonclawtalent": {
+    "filename": "dragon-claw-talent.png",
+    "path": "/talents/dragon-claw-talent.png",
+    "originalName": "dragon-claw-talent"
+  },
+  "dragonscales": {
+    "filename": "dragon-scales.png",
+    "path": "/talents/dragon-scales.png",
+    "originalName": "dragon-scales"
+  },
+  "dragonsoul": {
+    "filename": "dragon-soul.png",
+    "path": "/talents/dragon-soul.png",
+    "originalName": "dragon-soul"
+  },
+  "dragonbladetalent": {
+    "filename": "dragonblade-talent.png",
+    "path": "/talents/dragonblade-talent.png",
+    "originalName": "dragonblade-talent"
+  },
+  "dragonsarrowtalent": {
+    "filename": "dragons-arrow-talent.png",
+    "path": "/talents/dragons-arrow-talent.png",
+    "originalName": "dragons-arrow-talent"
+  },
+  "dragonsire": {
+    "filename": "dragons-ire.png",
+    "path": "/talents/dragons-ire.png",
+    "originalName": "dragons-ire"
+  },
+  "dragonstriketalent": {
+    "filename": "dragonstrike-talent.png",
+    "path": "/talents/dragonstrike-talent.png",
+    "originalName": "dragonstrike-talent"
+  },
+  "drainmomentum": {
+    "filename": "drain-momentum.png",
+    "path": "/talents/drain-momentum.png",
+    "originalName": "drain-momentum"
+  },
+  "drakkenlaserdrilltalent": {
+    "filename": "drakken-laser-drill-talent.png",
+    "path": "/talents/drakken-laser-drill-talent.png",
+    "originalName": "drakken-laser-drill-talent"
+  },
+  "dreamshot": {
+    "filename": "dream-shot.png",
+    "path": "/talents/dream-shot.png",
+    "originalName": "dream-shot"
+  },
+  "duranceofhatetalent": {
+    "filename": "durance-of-hate-talent.png",
+    "path": "/talents/durance-of-hate-talent.png",
+    "originalName": "durance-of-hate-talent"
+  },
+  "duskwing": {
+    "filename": "dusk-wing.png",
+    "path": "/talents/dusk-wing.png",
+    "originalName": "dusk-wing"
+  },
+  "dustdevil": {
+    "filename": "dust-devil.png",
+    "path": "/talents/dust-devil.png",
+    "originalName": "dust-devil"
+  },
+  "dustofappearancetalent": {
+    "filename": "dust-of-appearance-talent.png",
+    "path": "/talents/dust-of-appearance-talent.png",
+    "originalName": "dust-of-appearance-talent"
+  },
+  "dustofdisappearancetalent": {
+    "filename": "dust-of-disappearance-talent.png",
+    "path": "/talents/dust-of-disappearance-talent.png",
+    "originalName": "dust-of-disappearance-talent"
+  },
+  "dwarfblock": {
+    "filename": "dwarf-block.png",
+    "path": "/talents/dwarf-block.png",
+    "originalName": "dwarf-block"
+  },
+  "dwarflaunch": {
+    "filename": "dwarf-launch.png",
+    "path": "/talents/dwarf-launch.png",
+    "originalName": "dwarf-launch"
+  },
+  "dyingbreath": {
+    "filename": "dying-breath.png",
+    "path": "/talents/dying-breath.png",
+    "originalName": "dying-breath"
+  },
+  "dynamicoptics": {
+    "filename": "dynamic-optics.png",
+    "path": "/talents/dynamic-optics.png",
+    "originalName": "dynamic-optics"
+  },
+  "eageradventurer": {
+    "filename": "eager-adventurer.png",
+    "path": "/talents/eager-adventurer.png",
+    "originalName": "eager-adventurer"
+  },
+  "eagerwolf": {
+    "filename": "eager-wolf.png",
+    "path": "/talents/eager-wolf.png",
+    "originalName": "eager-wolf"
+  },
+  "earthallytalent": {
+    "filename": "earth-ally-talent.png",
+    "path": "/talents/earth-ally-talent.png",
+    "originalName": "earth-ally-talent"
+  },
+  "earthshield": {
+    "filename": "earth-shield.png",
+    "path": "/talents/earth-shield.png",
+    "originalName": "earth-shield"
+  },
+  "earthenshields": {
+    "filename": "earthen-shields.png",
+    "path": "/talents/earthen-shields.png",
+    "originalName": "earthen-shields"
+  },
+  "earthgrasptotem": {
+    "filename": "earthgrasp-totem.png",
+    "path": "/talents/earthgrasp-totem.png",
+    "originalName": "earthgrasp-totem"
+  },
+  "earthlivingenchant": {
+    "filename": "earthliving-enchant.png",
+    "path": "/talents/earthliving-enchant.png",
+    "originalName": "earthliving-enchant"
+  },
+  "earthquaketalent": {
+    "filename": "earthquake-talent.png",
+    "path": "/talents/earthquake-talent.png",
+    "originalName": "earthquake-talent"
+  },
+  "earthshaker": {
+    "filename": "earthshaker.png",
+    "path": "/talents/earthshaker.png",
+    "originalName": "earthshaker"
+  },
+  "easyprey": {
+    "filename": "easy-prey.png",
+    "path": "/talents/easy-prey.png",
+    "originalName": "easy-prey"
+  },
+  "echoofdoom": {
+    "filename": "echo-of-doom.png",
+    "path": "/talents/echo-of-doom.png",
+    "originalName": "echo-of-doom"
+  },
+  "echoofheaven": {
+    "filename": "echo-of-heaven.png",
+    "path": "/talents/echo-of-heaven.png",
+    "originalName": "echo-of-heaven"
+  },
+  "echooftheelements": {
+    "filename": "echo-of-the-elements.png",
+    "path": "/talents/echo-of-the-elements.png",
+    "originalName": "echo-of-the-elements"
+  },
+  "echopedal": {
+    "filename": "echo-pedal.png",
+    "path": "/talents/echo-pedal.png",
+    "originalName": "echo-pedal"
+  },
+  "echopulse": {
+    "filename": "echo-pulse.png",
+    "path": "/talents/echo-pulse.png",
+    "originalName": "echo-pulse"
+  },
+  "echoedcorruption": {
+    "filename": "echoed-corruption.png",
+    "path": "/talents/echoed-corruption.png",
+    "originalName": "echoed-corruption"
+  },
+  "echoesofdeath": {
+    "filename": "echoes-of-death.png",
+    "path": "/talents/echoes-of-death.png",
+    "originalName": "echoes-of-death"
+  },
+  "edgeofmadness": {
+    "filename": "edge-of-madness.png",
+    "path": "/talents/edge-of-madness.png",
+    "originalName": "edge-of-madness"
+  },
+  "egghunttalent": {
+    "filename": "egg-hunt-talent.png",
+    "path": "/talents/egg-hunt-talent.png",
+    "originalName": "egg-hunt-talent"
+  },
+  "eggshell": {
+    "filename": "egg-shell.png",
+    "path": "/talents/egg-shell.png",
+    "originalName": "egg-shell"
+  },
+  "eldritchconduit": {
+    "filename": "eldritch-conduit.png",
+    "path": "/talents/eldritch-conduit.png",
+    "originalName": "eldritch-conduit"
+  },
+  "electriccharge": {
+    "filename": "electric-charge.png",
+    "path": "/talents/electric-charge.png",
+    "originalName": "electric-charge"
+  },
+  "electricfence": {
+    "filename": "electric-fence.png",
+    "path": "/talents/electric-fence.png",
+    "originalName": "electric-fence"
+  },
+  "elementalconduittalentrehgar": {
+    "filename": "elemental-conduit-talent-rehgar.png",
+    "path": "/talents/elemental-conduit-talent-rehgar.png",
+    "originalName": "elemental-conduit-talent-rehgar"
+  },
+  "elementalconduit": {
+    "filename": "elemental-conduit.png",
+    "path": "/talents/elemental-conduit.png",
+    "originalName": "elemental-conduit"
+  },
+  "elementalmomentum": {
+    "filename": "elemental-momentum.png",
+    "path": "/talents/elemental-momentum.png",
+    "originalName": "elemental-momentum"
+  },
+  "elementiumplatingtalent": {
+    "filename": "elementium-plating-talent.png",
+    "path": "/talents/elementium-plating-talent.png",
+    "originalName": "elementium-plating-talent"
+  },
+  "elongatedtongue": {
+    "filename": "elongated-tongue.png",
+    "path": "/talents/elongated-tongue.png",
+    "originalName": "elongated-tongue"
+  },
+  "eluneschosentalent": {
+    "filename": "elunes-chosen-talent.png",
+    "path": "/talents/elunes-chosen-talent.png",
+    "originalName": "elunes-chosen-talent"
+  },
+  "elunesgrace": {
+    "filename": "elunes-grace.png",
+    "path": "/talents/elunes-grace.png",
+    "originalName": "elunes-grace"
+  },
+  "eluneswrath": {
+    "filename": "elunes-wrath.png",
+    "path": "/talents/elunes-wrath.png",
+    "originalName": "elunes-wrath"
+  },
+  "elusivestrike": {
+    "filename": "elusive-strike.png",
+    "path": "/talents/elusive-strike.png",
+    "originalName": "elusive-strike"
+  },
+  "elusiveness": {
+    "filename": "elusiveness.png",
+    "path": "/talents/elusiveness.png",
+    "originalName": "elusiveness"
+  },
+  "embracedeath": {
+    "filename": "embrace-death.png",
+    "path": "/talents/embrace-death.png",
+    "originalName": "embrace-death"
+  },
+  "emeralddreams": {
+    "filename": "emerald-dreams.png",
+    "path": "/talents/emerald-dreams.png",
+    "originalName": "emerald-dreams"
+  },
+  "emeraldtalent": {
+    "filename": "emerald-talent.png",
+    "path": "/talents/emerald-talent.png",
+    "originalName": "emerald-talent"
+  },
+  "emeraldwindtalent": {
+    "filename": "emerald-wind-talent.png",
+    "path": "/talents/emerald-wind-talent.png",
+    "originalName": "emerald-wind-talent"
+  },
+  "emergencyprotocol": {
+    "filename": "emergency-protocol.png",
+    "path": "/talents/emergency-protocol.png",
+    "originalName": "emergency-protocol"
+  },
+  "emergencyshielding": {
+    "filename": "emergency-shielding.png",
+    "path": "/talents/emergency-shielding.png",
+    "originalName": "emergency-shielding"
+  },
+  "empgrenade": {
+    "filename": "emp-grenade.png",
+    "path": "/talents/emp-grenade.png",
+    "originalName": "emp-grenade"
+  },
+  "empathiclink": {
+    "filename": "empathic-link.png",
+    "path": "/talents/empathic-link.png",
+    "originalName": "empathic-link"
+  },
+  "empower": {
+    "filename": "empower.png",
+    "path": "/talents/empower.png",
+    "originalName": "empower"
+  },
+  "enpointe": {
+    "filename": "en-pointe.png",
+    "path": "/talents/en-pointe.png",
+    "originalName": "en-pointe"
+  },
+  "encore": {
+    "filename": "encore.png",
+    "path": "/talents/encore.png",
+    "originalName": "encore"
+  },
+  "endlesscreep": {
+    "filename": "endless-creep.png",
+    "path": "/talents/endless-creep.png",
+    "originalName": "endless-creep"
+  },
+  "endlessnades": {
+    "filename": "endless-nades.png",
+    "path": "/talents/endless-nades.png",
+    "originalName": "endless-nades"
+  },
+  "endlessspores": {
+    "filename": "endless-spores.png",
+    "path": "/talents/endless-spores.png",
+    "originalName": "endless-spores"
+  },
+  "endurancestimpacktalent": {
+    "filename": "endurance-stimpack-talent.png",
+    "path": "/talents/endurance-stimpack-talent.png",
+    "originalName": "endurance-stimpack-talent"
+  },
+  "endurancetraining": {
+    "filename": "endurance-training.png",
+    "path": "/talents/endurance-training.png",
+    "originalName": "endurance-training"
+  },
+  "enduringswarm": {
+    "filename": "enduring-swarm.png",
+    "path": "/talents/enduring-swarm.png",
+    "originalName": "enduring-swarm"
+  },
+  "enduringwill": {
+    "filename": "enduring-will.png",
+    "path": "/talents/enduring-will.png",
+    "originalName": "enduring-will"
+  },
+  "energizedcord": {
+    "filename": "energized-cord.png",
+    "path": "/talents/energized-cord.png",
+    "originalName": "energized-cord"
+  },
+  "energizingbrew": {
+    "filename": "energizing-brew.png",
+    "path": "/talents/energizing-brew.png",
+    "originalName": "energizing-brew"
+  },
+  "energyroil": {
+    "filename": "energy-roil.png",
+    "path": "/talents/energy-roil.png",
+    "originalName": "energy-roil"
+  },
+  "engulfingflame": {
+    "filename": "engulfing-flame.png",
+    "path": "/talents/engulfing-flame.png",
+    "originalName": "engulfing-flame"
+  },
+  "engulfingoblivion": {
+    "filename": "engulfing-oblivion.png",
+    "path": "/talents/engulfing-oblivion.png",
+    "originalName": "engulfing-oblivion"
+  },
+  "enhancedagility": {
+    "filename": "enhanced-agility.png",
+    "path": "/talents/enhanced-agility.png",
+    "originalName": "enhanced-agility"
+  },
+  "enoughtoshare": {
+    "filename": "enough-to-share.png",
+    "path": "/talents/enough-to-share.png",
+    "originalName": "enough-to-share"
+  },
+  "enragedregeneration": {
+    "filename": "enraged-regeneration.png",
+    "path": "/talents/enraged-regeneration.png",
+    "originalName": "enraged-regeneration"
+  },
+  "enraged": {
+    "filename": "enraged.png",
+    "path": "/talents/enraged.png",
+    "originalName": "enraged"
+  },
+  "ensnaretalent": {
+    "filename": "ensnare-talent.png",
+    "path": "/talents/ensnare-talent.png",
+    "originalName": "ensnare-talent"
+  },
+  "ensnaringswing": {
+    "filename": "ensnaring-swing.png",
+    "path": "/talents/ensnaring-swing.png",
+    "originalName": "ensnaring-swing"
+  },
+  "entombtalent": {
+    "filename": "entomb-talent.png",
+    "path": "/talents/entomb-talent.png",
+    "originalName": "entomb-talent"
+  },
+  "entrenched": {
+    "filename": "entrenched.png",
+    "path": "/talents/entrenched.png",
+    "originalName": "entrenched"
+  },
+  "envelopingshadows": {
+    "filename": "enveloping-shadows.png",
+    "path": "/talents/enveloping-shadows.png",
+    "originalName": "enveloping-shadows"
+  },
+  "envenomednest": {
+    "filename": "envenomed-nest.png",
+    "path": "/talents/envenomed-nest.png",
+    "originalName": "envenomed-nest"
+  },
+  "envenomedspikes": {
+    "filename": "envenomed-spikes.png",
+    "path": "/talents/envenomed-spikes.png",
+    "originalName": "envenomed-spikes"
+  },
+  "envenomedspinestalent": {
+    "filename": "envenomed-spines-talent.png",
+    "path": "/talents/envenomed-spines-talent.png",
+    "originalName": "envenomed-spines-talent"
+  },
+  "epicmount": {
+    "filename": "epic-mount.png",
+    "path": "/talents/epic-mount.png",
+    "originalName": "epic-mount"
+  },
+  "epicenter": {
+    "filename": "epicenter.png",
+    "path": "/talents/epicenter.png",
+    "originalName": "epicenter"
+  },
+  "epiphanytalent": {
+    "filename": "epiphany-talent.png",
+    "path": "/talents/epiphany-talent.png",
+    "originalName": "epiphany-talent"
+  },
+  "eriktheswift": {
+    "filename": "erik-the-swift.png",
+    "path": "/talents/erik-the-swift.png",
+    "originalName": "erik-the-swift"
+  },
+  "essenceclaws": {
+    "filename": "essence-claws.png",
+    "path": "/talents/essence-claws.png",
+    "originalName": "essence-claws"
+  },
+  "eternalfeasttalent": {
+    "filename": "eternal-feast-talent.png",
+    "path": "/talents/eternal-feast-talent.png",
+    "originalName": "eternal-feast-talent"
+  },
+  "eternalflames": {
+    "filename": "eternal-flames.png",
+    "path": "/talents/eternal-flames.png",
+    "originalName": "eternal-flames"
+  },
+  "eternalhunger": {
+    "filename": "eternal-hunger.png",
+    "path": "/talents/eternal-hunger.png",
+    "originalName": "eternal-hunger"
+  },
+  "eternalretaliation": {
+    "filename": "eternal-retaliation.png",
+    "path": "/talents/eternal-retaliation.png",
+    "originalName": "eternal-retaliation"
+  },
+  "etherealexistence": {
+    "filename": "ethereal-existence.png",
+    "path": "/talents/ethereal-existence.png",
+    "originalName": "ethereal-existence"
+  },
+  "evasivefire": {
+    "filename": "evasive-fire.png",
+    "path": "/talents/evasive-fire.png",
+    "originalName": "evasive-fire"
+  },
+  "everlastinglight": {
+    "filename": "everlasting-light.png",
+    "path": "/talents/everlasting-light.png",
+    "originalName": "everlasting-light"
+  },
+  "evolutioncomplete": {
+    "filename": "evolution-complete.png",
+    "path": "/talents/evolution-complete.png",
+    "originalName": "evolution-complete"
+  },
+  "evolutionarylink": {
+    "filename": "evolutionary-link.png",
+    "path": "/talents/evolutionary-link.png",
+    "originalName": "evolutionary-link"
+  },
+  "evolvemonstrositytalent": {
+    "filename": "evolve-monstrosity-talent.png",
+    "path": "/talents/evolve-monstrosity-talent.png",
+    "originalName": "evolve-monstrosity-talent"
+  },
+  "excessiveforce": {
+    "filename": "excessive-force.png",
+    "path": "/talents/excessive-force.png",
+    "originalName": "excessive-force"
+  },
+  "executioner": {
+    "filename": "executioner.png",
+    "path": "/talents/executioner.png",
+    "originalName": "executioner"
+  },
+  "executorswill": {
+    "filename": "executors-will.png",
+    "path": "/talents/executors-will.png",
+    "originalName": "executors-will"
+  },
+  "explosivearrows": {
+    "filename": "explosive-arrows.png",
+    "path": "/talents/explosive-arrows.png",
+    "originalName": "explosive-arrows"
+  },
+  "explosiveattacks": {
+    "filename": "explosive-attacks.png",
+    "path": "/talents/explosive-attacks.png",
+    "originalName": "explosive-attacks"
+  },
+  "explosivebarrier": {
+    "filename": "explosive-barrier.png",
+    "path": "/talents/explosive-barrier.png",
+    "originalName": "explosive-barrier"
+  },
+  "explosiveround": {
+    "filename": "explosive-round.png",
+    "path": "/talents/explosive-round.png",
+    "originalName": "explosive-round"
+  },
+  "expulsionzonetalent": {
+    "filename": "expulsion-zone-talent.png",
+    "path": "/talents/expulsion-zone-talent.png",
+    "originalName": "expulsion-zone-talent"
+  },
+  "extendedcare": {
+    "filename": "extended-care.png",
+    "path": "/talents/extended-care.png",
+    "originalName": "extended-care"
+  },
+  "extendedlightning": {
+    "filename": "extended-lightning.png",
+    "path": "/talents/extended-lightning.png",
+    "originalName": "extended-lightning"
+  },
+  "exterminator": {
+    "filename": "exterminator.png",
+    "path": "/talents/exterminator.png",
+    "originalName": "exterminator"
+  },
+  "extraoomph": {
+    "filename": "extra-oomph.png",
+    "path": "/talents/extra-oomph.png",
+    "originalName": "extra-oomph"
+  },
+  "extrawoundtimers": {
+    "filename": "extra-wound-timers.png",
+    "path": "/talents/extra-wound-timers.png",
+    "originalName": "extra-wound-timers"
+  },
+  "exuberance": {
+    "filename": "exuberance.png",
+    "path": "/talents/exuberance.png",
+    "originalName": "exuberance"
+  },
+  "eyeofhorustalent": {
+    "filename": "eye-of-horus-talent.png",
+    "path": "/talents/eye-of-horus-talent.png",
+    "originalName": "eye-of-horus-talent"
+  },
+  "eyeofthetiger": {
+    "filename": "eye-of-the-tiger.png",
+    "path": "/talents/eye-of-the-tiger.png",
+    "originalName": "eye-of-the-tiger"
+  },
+  "eyeofzuljin": {
+    "filename": "eye-of-zuljin.png",
+    "path": "/talents/eye-of-zuljin.png",
+    "originalName": "eye-of-zuljin"
+  },
+  "eyesinthedark": {
+    "filename": "eyes-in-the-dark.png",
+    "path": "/talents/eyes-in-the-dark.png",
+    "originalName": "eyes-in-the-dark"
+  },
+  "eyesofthehuntress": {
+    "filename": "eyes-of-the-huntress.png",
+    "path": "/talents/eyes-of-the-huntress.png",
+    "originalName": "eyes-of-the-huntress"
+  },
+  "ezpzdimensionalripper": {
+    "filename": "ez-pz-dimensional-ripper.png",
+    "path": "/talents/ez-pz-dimensional-ripper.png",
+    "originalName": "ez-pz-dimensional-ripper"
+  },
+  "faerieprotectortalent": {
+    "filename": "faerie-protector-talent.png",
+    "path": "/talents/faerie-protector-talent.png",
+    "originalName": "faerie-protector-talent"
+  },
+  "fallingswordtalent": {
+    "filename": "falling-sword-talent.png",
+    "path": "/talents/falling-sword-talent.png",
+    "originalName": "falling-sword-talent"
+  },
+  "farflightquiver": {
+    "filename": "farflight-quiver.png",
+    "path": "/talents/farflight-quiver.png",
+    "originalName": "farflight-quiver"
+  },
+  "farseersblessing": {
+    "filename": "farseers-blessing.png",
+    "path": "/talents/farseers-blessing.png",
+    "originalName": "farseers-blessing"
+  },
+  "fastforward": {
+    "filename": "fast-forward.png",
+    "path": "/talents/fast-forward.png",
+    "originalName": "fast-forward"
+  },
+  "fastreload": {
+    "filename": "fast-reload.png",
+    "path": "/talents/fast-reload.png",
+    "originalName": "fast-reload"
+  },
+  "fatalfinesse": {
+    "filename": "fatal-finesse.png",
+    "path": "/talents/fatal-finesse.png",
+    "originalName": "fatal-finesse"
+  },
+  "fatalwounds": {
+    "filename": "fatal-wounds.png",
+    "path": "/talents/fatal-wounds.png",
+    "originalName": "fatal-wounds"
+  },
+  "favoroftheoldgods": {
+    "filename": "favor-of-the-old-gods.png",
+    "path": "/talents/favor-of-the-old-gods.png",
+    "originalName": "favor-of-the-old-gods"
+  },
+  "fealtyuntodeath": {
+    "filename": "fealty-unto-death.png",
+    "path": "/talents/fealty-unto-death.png",
+    "originalName": "fealty-unto-death"
+  },
+  "fearthereapertalent": {
+    "filename": "fear-the-reaper-talent.png",
+    "path": "/talents/fear-the-reaper-talent.png",
+    "originalName": "fear-the-reaper-talent"
+  },
+  "feastonfear": {
+    "filename": "feast-on-fear.png",
+    "path": "/talents/feast-on-fear.png",
+    "originalName": "feast-on-fear"
+  },
+  "feedback": {
+    "filename": "feedback.png",
+    "path": "/talents/feedback.png",
+    "originalName": "feedback"
+  },
+  "feedingfrenzy": {
+    "filename": "feeding-frenzy.png",
+    "path": "/talents/feeding-frenzy.png",
+    "originalName": "feeding-frenzy"
+  },
+  "feeltheheat": {
+    "filename": "feel-the-heat.png",
+    "path": "/talents/feel-the-heat.png",
+    "originalName": "feel-the-heat"
+  },
+  "feigndeathtalent": {
+    "filename": "feign-death-talent.png",
+    "path": "/talents/feign-death-talent.png",
+    "originalName": "feign-death-talent"
+  },
+  "felarmor": {
+    "filename": "fel-armor.png",
+    "path": "/talents/fel-armor.png",
+    "originalName": "fel-armor"
+  },
+  "felinfusion": {
+    "filename": "fel-infusion.png",
+    "path": "/talents/fel-infusion.png",
+    "originalName": "fel-infusion"
+  },
+  "feralheart": {
+    "filename": "feral-heart.png",
+    "path": "/talents/feral-heart.png",
+    "originalName": "feral-heart"
+  },
+  "feralresilience": {
+    "filename": "feral-resilience.png",
+    "path": "/talents/feral-resilience.png",
+    "originalName": "feral-resilience"
+  },
+  "ferociousstalker": {
+    "filename": "ferocious-stalker.png",
+    "path": "/talents/ferocious-stalker.png",
+    "originalName": "ferocious-stalker"
+  },
+  "ferocity": {
+    "filename": "ferocity.png",
+    "path": "/talents/ferocity.png",
+    "originalName": "ferocity"
+  },
+  "festeringwounds": {
+    "filename": "festering-wounds.png",
+    "path": "/talents/festering-wounds.png",
+    "originalName": "festering-wounds"
+  },
+  "fetidtouch": {
+    "filename": "fetid-touch.png",
+    "path": "/talents/fetid-touch.png",
+    "originalName": "fetid-touch"
+  },
+  "fieldstudy": {
+    "filename": "field-study.png",
+    "path": "/talents/field-study.png",
+    "originalName": "field-study"
+  },
+  "fierybrand": {
+    "filename": "fiery-brand.png",
+    "path": "/talents/fiery-brand.png",
+    "originalName": "fiery-brand"
+  },
+  "fightorflight": {
+    "filename": "fight-or-flight.png",
+    "path": "/talents/fight-or-flight.png",
+    "originalName": "fight-or-flight"
+  },
+  "finalcurtain": {
+    "filename": "final-curtain.png",
+    "path": "/talents/final-curtain.png",
+    "originalName": "final-curtain"
+  },
+  "finalcutartanis": {
+    "filename": "final-cut-artanis.png",
+    "path": "/talents/final-cut-artanis.png",
+    "originalName": "final-cut-artanis"
+  },
+  "finalcut": {
+    "filename": "final-cut.png",
+    "path": "/talents/final-cut.png",
+    "originalName": "final-cut"
+  },
+  "finalstriketalent": {
+    "filename": "final-strike-talent.png",
+    "path": "/talents/final-strike-talent.png",
+    "originalName": "final-strike-talent"
+  },
+  "finaltoccatatalent": {
+    "filename": "final-toccata-talent.png",
+    "path": "/talents/final-toccata-talent.png",
+    "originalName": "final-toccata-talent"
+  },
+  "fingersoffrost": {
+    "filename": "fingers-of-frost.png",
+    "path": "/talents/fingers-of-frost.png",
+    "originalName": "fingers-of-frost"
+  },
+  "finishingtouch": {
+    "filename": "finishing-touch.png",
+    "path": "/talents/finishing-touch.png",
+    "originalName": "finishing-touch"
+  },
+  "fireandfury": {
+    "filename": "fire-and-fury.png",
+    "path": "/talents/fire-and-fury.png",
+    "originalName": "fire-and-fury"
+  },
+  "fireatwill": {
+    "filename": "fire-at-will.png",
+    "path": "/talents/fire-at-will.png",
+    "originalName": "fire-at-will"
+  },
+  "fireward": {
+    "filename": "fire-ward.png",
+    "path": "/talents/fire-ward.png",
+    "originalName": "fire-ward"
+  },
+  "firewithin": {
+    "filename": "fire-within.png",
+    "path": "/talents/fire-within.png",
+    "originalName": "fire-within"
+  },
+  "fireflies": {
+    "filename": "fireflies.png",
+    "path": "/talents/fireflies.png",
+    "originalName": "fireflies"
+  },
+  "firesofhell": {
+    "filename": "fires-of-hell.png",
+    "path": "/talents/fires-of-hell.png",
+    "originalName": "fires-of-hell"
+  },
+  "firestarter": {
+    "filename": "firestarter.png",
+    "path": "/talents/firestarter.png",
+    "originalName": "firestarter"
+  },
+  "firestorm": {
+    "filename": "firestorm.png",
+    "path": "/talents/firestorm.png",
+    "originalName": "firestorm"
+  },
+  "firinmahlazorz": {
+    "filename": "firin-mah-lazorz.png",
+    "path": "/talents/firin-mah-lazorz.png",
+    "originalName": "firin-mah-lazorz"
+  },
+  "firstresponder": {
+    "filename": "first-responder.png",
+    "path": "/talents/first-responder.png",
+    "originalName": "first-responder"
+  },
+  "firststrike": {
+    "filename": "first-strike.png",
+    "path": "/talents/first-strike.png",
+    "originalName": "first-strike"
+  },
+  "fisheye": {
+    "filename": "fish-eye.png",
+    "path": "/talents/fish-eye.png",
+    "originalName": "fish-eye"
+  },
+  "fishoil": {
+    "filename": "fish-oil.png",
+    "path": "/talents/fish-oil.png",
+    "originalName": "fish-oil"
+  },
+  "fishtank": {
+    "filename": "fish-tank.png",
+    "path": "/talents/fish-tank.png",
+    "originalName": "fish-tank"
+  },
+  "fissionbomb": {
+    "filename": "fission-bomb.png",
+    "path": "/talents/fission-bomb.png",
+    "originalName": "fission-bomb"
+  },
+  "flailaxe": {
+    "filename": "flail-axe.png",
+    "path": "/talents/flail-axe.png",
+    "originalName": "flail-axe"
+  },
+  "flailingswipetalent": {
+    "filename": "flailing-swipe-talent.png",
+    "path": "/talents/flailing-swipe-talent.png",
+    "originalName": "flailing-swipe-talent"
+  },
+  "flamesoffury": {
+    "filename": "flames-of-fury.png",
+    "path": "/talents/flames-of-fury.png",
+    "originalName": "flames-of-fury"
+  },
+  "flamesofsulfuron": {
+    "filename": "flames-of-sulfuron.png",
+    "path": "/talents/flames-of-sulfuron.png",
+    "originalName": "flames-of-sulfuron"
+  },
+  "flamethrower": {
+    "filename": "flamethrower.png",
+    "path": "/talents/flamethrower.png",
+    "originalName": "flamethrower"
+  },
+  "flaretalent": {
+    "filename": "flare-talent.png",
+    "path": "/talents/flare-talent.png",
+    "originalName": "flare-talent"
+  },
+  "flareup": {
+    "filename": "flare-up.png",
+    "path": "/talents/flare-up.png",
+    "originalName": "flare-up"
+  },
+  "flashfire": {
+    "filename": "flash-fire.png",
+    "path": "/talents/flash-fire.png",
+    "originalName": "flash-fire"
+  },
+  "flashfreeze": {
+    "filename": "flash-freeze.png",
+    "path": "/talents/flash-freeze.png",
+    "originalName": "flash-freeze"
+  },
+  "flashofanger": {
+    "filename": "flash-of-anger.png",
+    "path": "/talents/flash-of-anger.png",
+    "originalName": "flash-of-anger"
+  },
+  "flawlesstechnique": {
+    "filename": "flawless-technique.png",
+    "path": "/talents/flawless-technique.png",
+    "originalName": "flawless-technique"
+  },
+  "fleetoffoot": {
+    "filename": "fleet-of-foot.png",
+    "path": "/talents/fleet-of-foot.png",
+    "originalName": "fleet-of-foot"
+  },
+  "flowlikewater": {
+    "filename": "flow-like-water.png",
+    "path": "/talents/flow-like-water.png",
+    "originalName": "flow-like-water"
+  },
+  "flowrider": {
+    "filename": "flow-rider.png",
+    "path": "/talents/flow-rider.png",
+    "originalName": "flow-rider"
+  },
+  "flowingwounds": {
+    "filename": "flowing-wounds.png",
+    "path": "/talents/flowing-wounds.png",
+    "originalName": "flowing-wounds"
+  },
+  "flurry": {
+    "filename": "flurry.png",
+    "path": "/talents/flurry.png",
+    "originalName": "flurry"
+  },
+  "flyingleap": {
+    "filename": "flying-leap.png",
+    "path": "/talents/flying-leap.png",
+    "originalName": "flying-leap"
+  },
+  "focusfire": {
+    "filename": "focus-fire.png",
+    "path": "/talents/focus-fire.png",
+    "originalName": "focus-fire"
+  },
+  "focusingdiodes": {
+    "filename": "focusing-diodes.png",
+    "path": "/talents/focusing-diodes.png",
+    "originalName": "focusing-diodes"
+  },
+  "followthrough": {
+    "filename": "follow-through.png",
+    "path": "/talents/follow-through.png",
+    "originalName": "follow-through"
+  },
+  "forthewildlands": {
+    "filename": "for-the-wildlands.png",
+    "path": "/talents/for-the-wildlands.png",
+    "originalName": "for-the-wildlands"
+  },
+  "forcearmor": {
+    "filename": "force-armor.png",
+    "path": "/talents/force-armor.png",
+    "originalName": "force-armor"
+  },
+  "forcebarrier": {
+    "filename": "force-barrier.png",
+    "path": "/talents/force-barrier.png",
+    "originalName": "force-barrier"
+  },
+  "forceofmagic": {
+    "filename": "force-of-magic.png",
+    "path": "/talents/force-of-magic.png",
+    "originalName": "force-of-magic"
+  },
+  "forceofwilltalent": {
+    "filename": "force-of-will-talent.png",
+    "path": "/talents/force-of-will-talent.png",
+    "originalName": "force-of-will-talent"
+  },
+  "forestmedicine": {
+    "filename": "forest-medicine.png",
+    "path": "/talents/forest-medicine.png",
+    "originalName": "forest-medicine"
+  },
+  "forestswrath": {
+    "filename": "forests-wrath.png",
+    "path": "/talents/forests-wrath.png",
+    "originalName": "forests-wrath"
+  },
+  "fortifiedbunker": {
+    "filename": "fortified-bunker.png",
+    "path": "/talents/fortified-bunker.png",
+    "originalName": "fortified-bunker"
+  },
+  "freedrinks": {
+    "filename": "free-drinks.png",
+    "path": "/talents/free-drinks.png",
+    "originalName": "free-drinks"
+  },
+  "frenziedassault": {
+    "filename": "frenzied-assault.png",
+    "path": "/talents/frenzied-assault.png",
+    "originalName": "frenzied-assault"
+  },
+  "frenziedfists": {
+    "filename": "frenzied-fists.png",
+    "path": "/talents/frenzied-fists.png",
+    "originalName": "frenzied-fists"
+  },
+  "frenzyofkalimdor": {
+    "filename": "frenzy-of-kalimdor.png",
+    "path": "/talents/frenzy-of-kalimdor.png",
+    "originalName": "frenzy-of-kalimdor"
+  },
+  "frenzy": {
+    "filename": "frenzy.png",
+    "path": "/talents/frenzy.png",
+    "originalName": "frenzy"
+  },
+  "frequentflyertalent": {
+    "filename": "frequent-flyer-talent.png",
+    "path": "/talents/frequent-flyer-talent.png",
+    "originalName": "frequent-flyer-talent"
+  },
+  "freshpowder": {
+    "filename": "fresh-powder.png",
+    "path": "/talents/fresh-powder.png",
+    "originalName": "fresh-powder"
+  },
+  "freshestingredients": {
+    "filename": "freshest-ingredients.png",
+    "path": "/talents/freshest-ingredients.png",
+    "originalName": "freshest-ingredients"
+  },
+  "friendorfoe": {
+    "filename": "friend-or-foe.png",
+    "path": "/talents/friend-or-foe.png",
+    "originalName": "friend-or-foe"
+  },
+  "frostarmor": {
+    "filename": "frost-armor.png",
+    "path": "/talents/frost-armor.png",
+    "originalName": "frost-armor"
+  },
+  "frostblasttalent": {
+    "filename": "frost-blast-talent.png",
+    "path": "/talents/frost-blast-talent.png",
+    "originalName": "frost-blast-talent"
+  },
+  "frostpresence": {
+    "filename": "frost-presence.png",
+    "path": "/talents/frost-presence.png",
+    "originalName": "frost-presence"
+  },
+  "frostshards": {
+    "filename": "frost-shards.png",
+    "path": "/talents/frost-shards.png",
+    "originalName": "frost-shards"
+  },
+  "froststorm": {
+    "filename": "frost-storm.png",
+    "path": "/talents/frost-storm.png",
+    "originalName": "frost-storm"
+  },
+  "froststrike": {
+    "filename": "frost-strike.png",
+    "path": "/talents/frost-strike.png",
+    "originalName": "frost-strike"
+  },
+  "frostmournefeeds": {
+    "filename": "frostmourne-feeds.png",
+    "path": "/talents/frostmourne-feeds.png",
+    "originalName": "frostmourne-feeds"
+  },
+  "frostwolfpack": {
+    "filename": "frostwolf-pack.png",
+    "path": "/talents/frostwolf-pack.png",
+    "originalName": "frostwolf-pack"
+  },
+  "frostwolfsgracetalent": {
+    "filename": "frostwolfs-grace-talent.png",
+    "path": "/talents/frostwolfs-grace-talent.png",
+    "originalName": "frostwolfs-grace-talent"
+  },
+  "frozenwastes": {
+    "filename": "frozen-wastes.png",
+    "path": "/talents/frozen-wastes.png",
+    "originalName": "frozen-wastes"
+  },
+  "fuelfortheflame": {
+    "filename": "fuel-for-the-flame.png",
+    "path": "/talents/fuel-for-the-flame.png",
+    "originalName": "fuel-for-the-flame"
+  },
+  "fuelleak": {
+    "filename": "fuel-leak.png",
+    "path": "/talents/fuel-leak.png",
+    "originalName": "fuel-leak"
+  },
+  "fueltherush": {
+    "filename": "fuel-the-rush.png",
+    "path": "/talents/fuel-the-rush.png",
+    "originalName": "fuel-the-rush"
+  },
+  "fueledbytorment": {
+    "filename": "fueled-by-torment.png",
+    "path": "/talents/fueled-by-torment.png",
+    "originalName": "fueled-by-torment"
+  },
+  "fullmetal": {
+    "filename": "full-metal.png",
+    "path": "/talents/full-metal.png",
+    "originalName": "full-metal"
+  },
+  "furiousblow": {
+    "filename": "furious-blow.png",
+    "path": "/talents/furious-blow.png",
+    "originalName": "furious-blow"
+  },
+  "furiousspark": {
+    "filename": "furious-spark.png",
+    "path": "/talents/furious-spark.png",
+    "originalName": "furious-spark"
+  },
+  "furnaceblasttalent": {
+    "filename": "furnace-blast-talent.png",
+    "path": "/talents/furnace-blast-talent.png",
+    "originalName": "furnace-blast-talent"
+  },
+  "furyofthestorm": {
+    "filename": "fury-of-the-storm.png",
+    "path": "/talents/fury-of-the-storm.png",
+    "originalName": "fury-of-the-storm"
+  },
+  "furyofthesunwell": {
+    "filename": "fury-of-the-sunwell.png",
+    "path": "/talents/fury-of-the-sunwell.png",
+    "originalName": "fury-of-the-sunwell"
+  },
+  "furyoftheswarm": {
+    "filename": "fury-of-the-swarm.png",
+    "path": "/talents/fury-of-the-swarm.png",
+    "originalName": "fury-of-the-swarm"
+  },
+  "furzerker": {
+    "filename": "furzerker.png",
+    "path": "/talents/furzerker.png",
+    "originalName": "furzerker"
+  },
+  "fusiongenerator": {
+    "filename": "fusion-generator.png",
+    "path": "/talents/fusion-generator.png",
+    "originalName": "fusion-generator"
+  },
+  "gaintrain": {
+    "filename": "gain-train.png",
+    "path": "/talents/gain-train.png",
+    "originalName": "gain-train"
+  },
+  "galeforce": {
+    "filename": "gale-force.png",
+    "path": "/talents/gale-force.png",
+    "originalName": "gale-force"
+  },
+  "gallopinggaittalent": {
+    "filename": "galloping-gait-talent.png",
+    "path": "/talents/galloping-gait-talent.png",
+    "originalName": "galloping-gait-talent"
+  },
+  "garbagefire": {
+    "filename": "garbage-fire.png",
+    "path": "/talents/garbage-fire.png",
+    "originalName": "garbage-fire"
+  },
+  "gargantuantalent": {
+    "filename": "gargantuan-talent.png",
+    "path": "/talents/gargantuan-talent.png",
+    "originalName": "gargantuan-talent"
+  },
+  "gasbag": {
+    "filename": "gas-bag.png",
+    "path": "/talents/gas-bag.png",
+    "originalName": "gas-bag"
+  },
+  "gatekeeper": {
+    "filename": "gate-keeper.png",
+    "path": "/talents/gate-keeper.png",
+    "originalName": "gate-keeper"
+  },
+  "gatherminerals": {
+    "filename": "gather-minerals.png",
+    "path": "/talents/gather-minerals.png",
+    "originalName": "gather-minerals"
+  },
+  "gatheringstorm": {
+    "filename": "gathering-storm.png",
+    "path": "/talents/gathering-storm.png",
+    "originalName": "gathering-storm"
+  },
+  "gazeontodestruction": {
+    "filename": "gaze-onto-destruction.png",
+    "path": "/talents/gaze-onto-destruction.png",
+    "originalName": "gaze-onto-destruction"
+  },
+  "getonthepoint": {
+    "filename": "get-on-the-point.png",
+    "path": "/talents/get-on-the-point.png",
+    "originalName": "get-on-the-point"
+  },
+  "getstuffed": {
+    "filename": "get-stuffed.png",
+    "path": "/talents/get-stuffed.png",
+    "originalName": "get-stuffed"
+  },
+  "getthroughthis": {
+    "filename": "get-through-this.png",
+    "path": "/talents/get-through-this.png",
+    "originalName": "get-through-this"
+  },
+  "ghastlyarmor": {
+    "filename": "ghastly-armor.png",
+    "path": "/talents/ghastly-armor.png",
+    "originalName": "ghastly-armor"
+  },
+  "ghastlyreach": {
+    "filename": "ghastly-reach.png",
+    "path": "/talents/ghastly-reach.png",
+    "originalName": "ghastly-reach"
+  },
+  "ghostprotocoltalent": {
+    "filename": "ghost-protocol-talent.png",
+    "path": "/talents/ghost-protocol-talent.png",
+    "originalName": "ghost-protocol-talent"
+  },
+  "giantkillerfalstad": {
+    "filename": "giant-killer-falstad.png",
+    "path": "/talents/giant-killer-falstad.png",
+    "originalName": "giant-killer-falstad"
+  },
+  "giantkillerhammer": {
+    "filename": "giant-killer-hammer.png",
+    "path": "/talents/giant-killer-hammer.png",
+    "originalName": "giant-killer-hammer"
+  },
+  "giantscorcher": {
+    "filename": "giant-scorcher.png",
+    "path": "/talents/giant-scorcher.png",
+    "originalName": "giant-scorcher"
+  },
+  "giantslammer": {
+    "filename": "giant-slammer.png",
+    "path": "/talents/giant-slammer.png",
+    "originalName": "giant-slammer"
+  },
+  "giantslayer": {
+    "filename": "giant-slayer.png",
+    "path": "/talents/giant-slayer.png",
+    "originalName": "giant-slayer"
+  },
+  "giddyup": {
+    "filename": "giddy-up.png",
+    "path": "/talents/giddy-up.png",
+    "originalName": "giddy-up"
+  },
+  "giftfromtheembalmer": {
+    "filename": "gift-from-the-embalmer.png",
+    "path": "/talents/gift-from-the-embalmer.png",
+    "originalName": "gift-from-the-embalmer"
+  },
+  "giftofthenaaru": {
+    "filename": "gift-of-the-naaru.png",
+    "path": "/talents/gift-of-the-naaru.png",
+    "originalName": "gift-of-the-naaru"
+  },
+  "giftoftheox": {
+    "filename": "gift-of-the-ox.png",
+    "path": "/talents/gift-of-the-ox.png",
+    "originalName": "gift-of-the-ox"
+  },
+  "gilneanroulette": {
+    "filename": "gilnean-roulette.png",
+    "path": "/talents/gilnean-roulette.png",
+    "originalName": "gilnean-roulette"
+  },
+  "giveemtheaxe": {
+    "filename": "give-em-the-axe.png",
+    "path": "/talents/give-em-the-axe.png",
+    "originalName": "give-em-the-axe"
+  },
+  "givememore": {
+    "filename": "give-me-more.png",
+    "path": "/talents/give-me-more.png",
+    "originalName": "give-me-more"
+  },
+  "givemetwenty": {
+    "filename": "give-me-twenty.png",
+    "path": "/talents/give-me-twenty.png",
+    "originalName": "give-me-twenty"
+  },
+  "gladiatorswarshout": {
+    "filename": "gladiators-war-shout.png",
+    "path": "/talents/gladiators-war-shout.png",
+    "originalName": "gladiators-war-shout"
+  },
+  "glimmerofhope": {
+    "filename": "glimmer-of-hope.png",
+    "path": "/talents/glimmer-of-hope.png",
+    "originalName": "glimmer-of-hope"
+  },
+  "gloomtalent": {
+    "filename": "gloom-talent.png",
+    "path": "/talents/gloom-talent.png",
+    "originalName": "gloom-talent"
+  },
+  "glorytothealliance": {
+    "filename": "glory-to-the-alliance.png",
+    "path": "/talents/glory-to-the-alliance.png",
+    "originalName": "glory-to-the-alliance"
+  },
+  "glovesofalacrity": {
+    "filename": "gloves-of-alacrity.png",
+    "path": "/talents/gloves-of-alacrity.png",
+    "originalName": "gloves-of-alacrity"
+  },
+  "gluttony": {
+    "filename": "gluttony.png",
+    "path": "/talents/gluttony.png",
+    "originalName": "gluttony"
+  },
+  "glyphofpolybomb": {
+    "filename": "glyph-of-poly-bomb.png",
+    "path": "/talents/glyph-of-poly-bomb.png",
+    "originalName": "glyph-of-poly-bomb"
+  },
+  "gnomespeedahead": {
+    "filename": "gnome-speed-ahead.png",
+    "path": "/talents/gnome-speed-ahead.png",
+    "originalName": "gnome-speed-ahead"
+  },
+  "goforthethroattalent": {
+    "filename": "go-for-the-throat-talent.png",
+    "path": "/talents/go-for-the-throat-talent.png",
+    "originalName": "go-for-the-throat-talent"
+  },
+  "goblinfusion": {
+    "filename": "goblin-fusion.png",
+    "path": "/talents/goblin-fusion.png",
+    "originalName": "goblin-fusion"
+  },
+  "goblinrepairs": {
+    "filename": "goblin-repairs.png",
+    "path": "/talents/goblin-repairs.png",
+    "originalName": "goblin-repairs"
+  },
+  "goodtogo": {
+    "filename": "good-to-go.png",
+    "path": "/talents/good-to-go.png",
+    "originalName": "good-to-go"
+  },
+  "goodvibrations": {
+    "filename": "good-vibrations.png",
+    "path": "/talents/good-vibrations.png",
+    "originalName": "good-vibrations"
+  },
+  "gorgetalent": {
+    "filename": "gorge-talent.png",
+    "path": "/talents/gorge-talent.png",
+    "originalName": "gorge-talent"
+  },
+  "gottatrapemall": {
+    "filename": "gotta-trap-em-all.png",
+    "path": "/talents/gotta-trap-em-all.png",
+    "originalName": "gotta-trap-em-all"
+  },
+  "graceofair": {
+    "filename": "grace-of-air.png",
+    "path": "/talents/grace-of-air.png",
+    "originalName": "grace-of-air"
+  },
+  "graduatingrange": {
+    "filename": "graduating-range.png",
+    "path": "/talents/graduating-range.png",
+    "originalName": "graduating-range"
+  },
+  "grandslam": {
+    "filename": "grand-slam.png",
+    "path": "/talents/grand-slam.png",
+    "originalName": "grand-slam"
+  },
+  "gravobomb3000talent": {
+    "filename": "grav-o-bomb-3000-talent.png",
+    "path": "/talents/grav-o-bomb-3000-talent.png",
+    "originalName": "grav-o-bomb-3000-talent"
+  },
+  "gravitonsurgetalent": {
+    "filename": "graviton-surge-talent.png",
+    "path": "/talents/graviton-surge-talent.png",
+    "originalName": "graviton-surge-talent"
+  },
+  "gravitonvortex": {
+    "filename": "graviton-vortex.png",
+    "path": "/talents/graviton-vortex.png",
+    "originalName": "graviton-vortex"
+  },
+  "gravitykills": {
+    "filename": "gravity-kills.png",
+    "path": "/talents/gravity-kills.png",
+    "originalName": "gravity-kills"
+  },
+  "gravitywell": {
+    "filename": "gravity-well.png",
+    "path": "/talents/gravity-well.png",
+    "originalName": "gravity-well"
+  },
+  "greatercleave": {
+    "filename": "greater-cleave.png",
+    "path": "/talents/greater-cleave.png",
+    "originalName": "greater-cleave"
+  },
+  "greaterpolymorph": {
+    "filename": "greater-polymorph.png",
+    "path": "/talents/greater-polymorph.png",
+    "originalName": "greater-polymorph"
+  },
+  "greaterspellshield": {
+    "filename": "greater-spell-shield.png",
+    "path": "/talents/greater-spell-shield.png",
+    "originalName": "greater-spell-shield"
+  },
+  "greed": {
+    "filename": "greed.png",
+    "path": "/talents/greed.png",
+    "originalName": "greed"
+  },
+  "grenadier": {
+    "filename": "grenadier.png",
+    "path": "/talents/grenadier.png",
+    "originalName": "grenadier"
+  },
+  "grillandkill": {
+    "filename": "grill-and-kill.png",
+    "path": "/talents/grill-and-kill.png",
+    "originalName": "grill-and-kill"
+  },
+  "grimscythe": {
+    "filename": "grim-scythe.png",
+    "path": "/talents/grim-scythe.png",
+    "originalName": "grim-scythe"
+  },
+  "grizzledfortitude": {
+    "filename": "grizzled-fortitude.png",
+    "path": "/talents/grizzled-fortitude.png",
+    "originalName": "grizzled-fortitude"
+  },
+  "groundedtotem": {
+    "filename": "grounded-totem.png",
+    "path": "/talents/grounded-totem.png",
+    "originalName": "grounded-totem"
+  },
+  "groundingbolt": {
+    "filename": "grounding-bolt.png",
+    "path": "/talents/grounding-bolt.png",
+    "originalName": "grounding-bolt"
+  },
+  "groundingrod": {
+    "filename": "grounding-rod.png",
+    "path": "/talents/grounding-rod.png",
+    "originalName": "grounding-rod"
+  },
+  "growinginfestation": {
+    "filename": "growing-infestation.png",
+    "path": "/talents/growing-infestation.png",
+    "originalName": "growing-infestation"
+  },
+  "growingnightmare": {
+    "filename": "growing-nightmare.png",
+    "path": "/talents/growing-nightmare.png",
+    "originalName": "growing-nightmare"
+  },
+  "guardianofancientkings": {
+    "filename": "guardian-of-ancient-kings.png",
+    "path": "/talents/guardian-of-ancient-kings.png",
+    "originalName": "guardian-of-ancient-kings"
+  },
+  "guardianoftirisfal": {
+    "filename": "guardian-of-tirisfal.png",
+    "path": "/talents/guardian-of-tirisfal.png",
+    "originalName": "guardian-of-tirisfal"
+  },
+  "guidinglighttalent": {
+    "filename": "guiding-light-talent.png",
+    "path": "/talents/guiding-light-talent.png",
+    "originalName": "guiding-light-talent"
+  },
+  "hallowedground": {
+    "filename": "hallowed-ground.png",
+    "path": "/talents/hallowed-ground.png",
+    "originalName": "hallowed-ground"
+}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { 
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, ReferenceLine 
@@ -16,6 +16,9 @@ import { getHeroFunnyHighlights } from '../data/heroHighlights'
  * Shows deep analytics for a selected hero
  */
 export function HeroDetailsDrawer({ hero, rows, onClose }) {
+  // Sort state for players table
+  const [playerSort, setPlayerSort] = useState({ column: 'matches', direction: 'desc' })
+  
   // Close on ESC key
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -235,12 +238,55 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
                   <thead>
                     <tr className="bg-slate-700/30">
                       <th className="text-left px-4 py-2 text-slate-300 text-sm">Jugador</th>
-                      <th className="text-right px-4 py-2 text-slate-300 text-sm">Partidas</th>
-                      <th className="text-right px-4 py-2 text-slate-300 text-sm">Win Rate</th>
+                      <th 
+                        className="text-right px-4 py-2 text-slate-300 text-sm cursor-pointer hover:bg-slate-700/50 transition-colors select-none"
+                        onClick={() => setPlayerSort(prev => ({
+                          column: 'matches',
+                          direction: prev.column === 'matches' && prev.direction === 'desc' ? 'asc' : 'desc'
+                        }))}
+                      >
+                        <div className="flex items-center justify-end gap-1">
+                          Partidas
+                          {playerSort.column === 'matches' && (
+                            <span className="text-indigo-400">
+                              {playerSort.direction === 'desc' ? '↓' : '↑'}
+                            </span>
+                          )}
+                        </div>
+                      </th>
+                      <th 
+                        className="text-right px-4 py-2 text-slate-300 text-sm cursor-pointer hover:bg-slate-700/50 transition-colors select-none"
+                        onClick={() => setPlayerSort(prev => ({
+                          column: 'winRate',
+                          direction: prev.column === 'winRate' && prev.direction === 'desc' ? 'asc' : 'desc'
+                        }))}
+                      >
+                        <div className="flex items-center justify-end gap-1">
+                          Win Rate
+                          {playerSort.column === 'winRate' && (
+                            <span className="text-indigo-400">
+                              {playerSort.direction === 'desc' ? '↓' : '↑'}
+                            </span>
+                          )}
+                        </div>
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-700/50">
-                    {players.slice(0, 8).map((player) => (
+                    {[...players]
+                      .sort((a, b) => {
+                        if (playerSort.column === 'matches') {
+                          return playerSort.direction === 'desc' 
+                            ? b.matches - a.matches 
+                            : a.matches - b.matches
+                        } else {
+                          return playerSort.direction === 'desc'
+                            ? b.winRate - a.winRate
+                            : a.winRate - b.winRate
+                        }
+                      })
+                      .slice(0, 8)
+                      .map((player) => (
                       <tr key={player.name} className="hover:bg-slate-700/20">
                         <td className="px-4 py-2 text-white text-sm">{player.name}</td>
                         <td className="px-4 py-2 text-right text-slate-300 text-sm">{player.matches}</td>

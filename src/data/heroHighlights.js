@@ -190,11 +190,12 @@ export function getHeroFunnyHighlights(rows, heroName) {
   
   if (mostTimeDead && (mostTimeDead.spentDeadSeconds || 0) > 0) {
     let footer = ''
-    if (mostTimeDead.map) footer += mostTimeDead.map
-    if (mostTimeDead.playerName) {
-      if (footer) footer += ' con '
-      footer += mostTimeDead.playerName
+    if (mostTimeDead.playerName) footer += mostTimeDead.playerName
+    if (mostTimeDead.map) {
+      if (footer) footer += ' en '
+      footer += mostTimeDead.map
     }
+    if (mostTimeDead.winner) footer += ' 🏆'
     
     candidates.push({
       id: 'most_time_dead',
@@ -224,11 +225,12 @@ export function getHeroFunnyHighlights(rows, heroName) {
     
     if (mostHealing && (mostHealing.healingShielding || 0) > 0) {
       let footer = ''
-      if (mostHealing.map) footer += mostHealing.map
-      if (mostHealing.playerName) {
-        if (footer) footer += ' con '
-        footer += mostHealing.playerName
+      if (mostHealing.playerName) footer += mostHealing.playerName
+      if (mostHealing.map) {
+        if (footer) footer += ' en '
+        footer += mostHealing.map
       }
+      if (mostHealing.winner) footer += ' 🏆'
       
       candidates.push({
         id: 'most_healing',
@@ -266,7 +268,11 @@ export function getHeroFunnyHighlights(rows, heroName) {
     }
     
     let footer = ''
-    if (mostDeaths.map) footer += mostDeaths.map
+    if (mostDeaths.playerName) footer += mostDeaths.playerName
+    if (mostDeaths.map) {
+      if (footer) footer += ' en '
+      footer += mostDeaths.map
+    }
     if (mostDeaths.winner !== undefined) {
       if (footer) footer += ' • '
       footer += mostDeaths.winner ? 'Ganaste 🏆' : 'Perdiste'
@@ -313,10 +319,10 @@ export function getHeroFunnyHighlights(rows, heroName) {
       }
       
       let footer = ''
-      if (pacifistWin.map) footer += pacifistWin.map
-      if (pacifistWin.playerName) {
-        if (footer) footer += ' con '
-        footer += pacifistWin.playerName
+      if (pacifistWin.playerName) footer += pacifistWin.playerName
+      if (pacifistWin.map) {
+        if (footer) footer += ' en '
+        footer += pacifistWin.map
       }
       footer += ' 🏆'
       
@@ -350,12 +356,14 @@ export function getHeroFunnyHighlights(rows, heroName) {
       const seconds = Math.floor((speedrun.gameTimeSeconds || 0) % 60)
       
       let footer = ''
-      if (speedrun.winner !== undefined) {
-        footer += speedrun.winner ? 'Ganaste 🏆' : 'Perdiste'
-      }
+      if (speedrun.playerName) footer += speedrun.playerName
       if (speedrun.map) {
-        if (footer) footer += ' • '
+        if (footer) footer += ' en '
         footer += speedrun.map
+      }
+      if (speedrun.winner !== undefined) {
+        if (footer) footer += ' • '
+        footer += speedrun.winner ? 'Ganaste 🏆' : 'Perdiste'
       }
       
       candidates.push({
@@ -385,12 +393,14 @@ export function getHeroFunnyHighlights(rows, heroName) {
   
   if (mostDamageTaken && (mostDamageTaken.damageTaken || 0) > 0) {
     let footer = ''
-    if (mostDamageTaken.winner !== undefined) {
-      footer += mostDamageTaken.winner ? 'Ganaste 🏆' : 'Perdiste'
-    }
+    if (mostDamageTaken.playerName) footer += mostDamageTaken.playerName
     if (mostDamageTaken.map) {
-      if (footer) footer += ' • '
+      if (footer) footer += ' en '
       footer += mostDamageTaken.map
+    }
+    if (mostDamageTaken.winner !== undefined) {
+      if (footer) footer += ' • '
+      footer += mostDamageTaken.winner ? 'Ganaste 🏆' : 'Perdiste'
     }
     
     candidates.push({
@@ -434,11 +444,12 @@ export function getHeroFunnyHighlights(rows, heroName) {
       let subValue = `${protagonist.heroKills || 0}K / ${protagonist.assists || 0}A / ${protagonist.deaths || 0}D`
       
       let footer = ''
-      if (protagonist.map) footer += protagonist.map
-      if (protagonist.playerName) {
-        if (footer) footer += ' con '
-        footer += protagonist.playerName
+      if (protagonist.playerName) footer += protagonist.playerName
+      if (protagonist.map) {
+        if (footer) footer += ' en '
+        footer += protagonist.map
       }
+      if (protagonist.winner) footer += ' 🏆'
       
       candidates.push({
         id: 'protagonist',
@@ -467,11 +478,12 @@ export function getHeroFunnyHighlights(rows, heroName) {
   
   if (mostSiege && (mostSiege.siegeDamage || 0) > 0) {
     let footer = ''
-    if (mostSiege.map) footer += mostSiege.map
-    if (mostSiege.playerName) {
-      if (footer) footer += ' con '
-      footer += mostSiege.playerName
+    if (mostSiege.playerName) footer += mostSiege.playerName
+    if (mostSiege.map) {
+      if (footer) footer += ' en '
+      footer += mostSiege.map
     }
+    if (mostSiege.winner) footer += ' 🏆'
     
     candidates.push({
       id: 'push_enjoyer',
@@ -505,11 +517,12 @@ export function getHeroFunnyHighlights(rows, heroName) {
     }
     
     let footer = ''
-    if (mostAssists.map) footer += mostAssists.map
-    if (mostAssists.playerName) {
-      if (footer) footer += ' con '
-      footer += mostAssists.playerName
+    if (mostAssists.playerName) footer += mostAssists.playerName
+    if (mostAssists.map) {
+      if (footer) footer += ' en '
+      footer += mostAssists.map
     }
+    if (mostAssists.winner) footer += ' 🏆'
     
     candidates.push({
       id: 'socializer',

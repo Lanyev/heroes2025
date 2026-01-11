@@ -324,7 +324,7 @@ export function Premios() {
 
   return (
     <div id="premios-container" className="min-h-screen overflow-y-auto">
-      {/* Sección 1: Hero HALL OF FAME ocupando todo el alto de la pantalla */}
+      {/* Sección 1: Hero ALAN AWARDS 2025 ocupando todo el alto de la pantalla */}
       <section className="relative overflow-hidden min-h-screen flex items-center">
         {/* Hero Header */}
         <div className="relative w-full">
@@ -360,7 +360,7 @@ export function Premios() {
             >
               <h1 className="text-5xl md:text-6xl font-black mb-1 tracking-tight transition-all duration-300 group-hover:scale-110">
                 <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent relative inline-block transition-all duration-300 group-hover:drop-shadow-[0_0_25px_rgba(129,140,248,0.5)]">
-                  HALL OF FAME
+                  ALAN AWARDS 2025
                   {/* Underline animado */}
                   <span className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 rounded-full transition-all duration-300 ease-out group-hover:w-full" />
                 </span>
