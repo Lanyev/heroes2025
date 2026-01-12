@@ -180,9 +180,9 @@ export function SortableTable({
   }
 
   return (
-    <div className={clsx('overflow-x-auto relative bg-layer-deep/60 rounded-xl border border-slate-700/50 shadow-inset-custom p-2', className)} ref={tableRef}>
-      <table className="w-full">
-        <thead className="sticky top-0 z-10">
+    <div className={clsx('relative bg-layer-deep/60 rounded-xl border border-slate-700/50 shadow-inset-custom p-2', className)} ref={tableRef}>
+      <table className="w-full" style={{ minWidth: `${columns.length * 120}px` }}>
+        <thead className="sticky top-0 z-20">
           <tr className="bg-layer-light/40 backdrop-blur-sm shadow-sm-custom">
             {columns.map((col) => (
               <th

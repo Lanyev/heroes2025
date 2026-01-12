@@ -28,18 +28,50 @@ function getPlayerStats(rows) {
         deaths: 0,
         assists: 0,
         heroDamage: 0,
-        healing: 0
+        siegeDamage: 0,
+        totalDamage: 0,
+        damageTaken: 0,
+        healing: 0,
+        maxKills: 0,
+        maxDeaths: 0,
+        maxAssists: 0,
+        maxHeroDamage: 0,
+        maxTotalDamage: 0,
+        maxDamageTaken: 0,
+        maxHealing: 0
       })
     }
     
     const s = stats.get(name)
     s.matches++
     if (row.winner) s.wins++
-    s.kills += row.heroKills || 0
-    s.deaths += row.deaths || 0
-    s.assists += row.assists || 0
-    s.heroDamage += row.heroDamage || 0
-    s.healing += row.healingShielding || 0
+    
+    const currentKills = row.heroKills || 0
+    const currentDeaths = row.deaths || 0
+    const currentAssists = row.assists || 0
+    const currentHeroDamage = row.heroDamage || 0
+    const currentSiegeDamage = row.siegeDamage || 0
+    const currentTotalDamage = currentHeroDamage + currentSiegeDamage
+    const currentDamageTaken = row.damageTaken || 0
+    const currentHealing = row.healingShielding || 0
+    
+    s.kills += currentKills
+    s.deaths += currentDeaths
+    s.assists += currentAssists
+    s.heroDamage += currentHeroDamage
+    s.siegeDamage += currentSiegeDamage
+    s.totalDamage += currentTotalDamage
+    s.damageTaken += currentDamageTaken
+    s.healing += currentHealing
+    
+    // Track maximums per match
+    if (currentKills > s.maxKills) s.maxKills = currentKills
+    if (currentDeaths > s.maxDeaths) s.maxDeaths = currentDeaths
+    if (currentAssists > s.maxAssists) s.maxAssists = currentAssists
+    if (currentHeroDamage > s.maxHeroDamage) s.maxHeroDamage = currentHeroDamage
+    if (currentTotalDamage > s.maxTotalDamage) s.maxTotalDamage = currentTotalDamage
+    if (currentDamageTaken > s.maxDamageTaken) s.maxDamageTaken = currentDamageTaken
+    if (currentHealing > s.maxHealing) s.maxHealing = currentHealing
   }
   
   // Calculate averages and winrate
@@ -49,6 +81,9 @@ function getPlayerStats(rows) {
     s.avgDeaths = s.matches > 0 ? s.deaths / s.matches : 0
     s.avgAssists = s.matches > 0 ? s.assists / s.matches : 0
     s.avgDamage = s.matches > 0 ? s.heroDamage / s.matches : 0
+    s.avgTotalDamage = s.matches > 0 ? s.totalDamage / s.matches : 0
+    s.avgDamageTaken = s.matches > 0 ? s.damageTaken / s.matches : 0
+    s.avgHealing = s.matches > 0 ? s.healing / s.matches : 0
     s.kda = s.deaths > 0 ? (s.kills + s.assists) / s.deaths : s.kills + s.assists
   }
   
@@ -62,11 +97,22 @@ const PLAYER_TABLE_COLUMNS = [
   { key: 'name', label: 'Jugador', sortable: true, type: 'string' },
   { key: 'matches', label: 'Partidas', sortable: true, type: 'number' },
   { key: 'winRate', label: 'Win Rate', sortable: true, type: 'percent' },
+  { key: 'kda', label: 'KDA', sortable: true, type: 'decimal' },
+  // Average columns first
   { key: 'avgKills', label: 'Avg K', sortable: true, type: 'decimal' },
   { key: 'avgDeaths', label: 'Avg D', sortable: true, type: 'decimal' },
   { key: 'avgAssists', label: 'Avg A', sortable: true, type: 'decimal' },
-  { key: 'kda', label: 'KDA', sortable: true, type: 'decimal' },
   { key: 'avgDamage', label: 'Avg Daño', sortable: true, type: 'compact' },
+  { key: 'avgTotalDamage', label: 'Avg Daño Total', sortable: true, type: 'compact' },
+  { key: 'avgDamageTaken', label: 'Avg D.Tankeado', sortable: true, type: 'compact' },
+  { key: 'avgHealing', label: 'Avg Heal', sortable: true, type: 'compact' },
+  // Max columns after averages
+  { key: 'maxKills', label: 'Max K', sortable: true, type: 'number' },
+  { key: 'maxAssists', label: 'Max A', sortable: true, type: 'number' },
+  { key: 'maxHeroDamage', label: 'Max D.Héroe', sortable: true, type: 'compact' },
+  { key: 'maxTotalDamage', label: 'Max Daño', sortable: true, type: 'compact' },
+  { key: 'maxDamageTaken', label: 'Max D.Tankeado', sortable: true, type: 'compact' },
+  { key: 'maxHealing', label: 'Max Heal', sortable: true, type: 'compact' },
 ]
 
 /**
@@ -103,19 +149,42 @@ export function Players({ rows }) {
   // Sort player stats
   const sortedPlayerStats = useMemo(() => {
     const { key, direction } = tableSort
+    
+    // Get column definition to understand the type
+    const columnDef = PLAYER_TABLE_COLUMNS.find(col => col.key === key)
+    const isNumericType = columnDef && ['number', 'decimal', 'percent', 'compact', 'duration'].includes(columnDef.type)
+    
     return [...playerStats].sort((a, b) => {
-      const aVal = a[key]
-      const bVal = b[key]
+      let aVal = a[key]
+      let bVal = b[key]
       
-      // Handle string sorting
-      if (typeof aVal === 'string') {
+      // Handle null/undefined values - put them at the end
+      const aIsNull = aVal === null || aVal === undefined || aVal === ''
+      const bIsNull = bVal === null || bVal === undefined || bVal === ''
+      
+      if (aIsNull && bIsNull) return 0
+      if (aIsNull) return 1
+      if (bIsNull) return -1
+      
+      // Handle string sorting (for name, etc.)
+      if (!isNumericType && typeof aVal === 'string' && typeof bVal === 'string') {
         return direction === 'asc' 
           ? aVal.localeCompare(bVal) 
           : bVal.localeCompare(aVal)
       }
       
-      // Handle numeric sorting
-      return direction === 'asc' ? aVal - bVal : bVal - aVal
+      // For numeric types, ensure we're comparing numbers
+      const aNum = typeof aVal === 'number' ? aVal : (typeof aVal === 'string' ? parseFloat(aVal) : Number(aVal))
+      const bNum = typeof bVal === 'number' ? bVal : (typeof bVal === 'string' ? parseFloat(bVal) : Number(bVal))
+      
+      // Handle NaN cases (invalid numbers) - put them at the end
+      if (isNaN(aNum) && isNaN(bNum)) return 0
+      if (isNaN(aNum)) return 1
+      if (isNaN(bNum)) return -1
+      
+      // Handle numeric sorting with proper comparison
+      const diff = aNum - bNum
+      return direction === 'asc' ? diff : -diff
     })
   }, [playerStats, tableSort])
   
@@ -171,9 +240,21 @@ export function Players({ rows }) {
       )
     }
     
-    if (column.key === 'avgDamage') {
+    if (column.key === 'avgDamage' || column.key === 'avgTotalDamage' || column.key === 'avgDamageTaken' || column.key === 'avgHealing') {
       return (
-        <span className="text-slate-300">{formatCompact(row.avgDamage)}</span>
+        <span className="text-slate-300">{formatCompact(row[column.key])}</span>
+      )
+    }
+    
+    if (column.key === 'maxKills' || column.key === 'maxAssists') {
+      return (
+        <span className="text-slate-300">{formatNumber(row[column.key])}</span>
+      )
+    }
+    
+    if (column.key === 'maxHeroDamage' || column.key === 'maxTotalDamage' || column.key === 'maxDamageTaken' || column.key === 'maxHealing') {
+      return (
+        <span className="text-slate-300">{formatCompact(row[column.key])}</span>
       )
     }
     
@@ -279,16 +360,18 @@ export function Players({ rows }) {
         description={`${sortedPlayerStats.length} jugadores • Click en una fila para ver detalles`}
         isSecondary
       >
-        <div className="bg-layer-deep/80 rounded-xl border border-slate-700/50 overflow-hidden shadow-inset-custom">
-          <SortableTable
-            columns={PLAYER_TABLE_COLUMNS}
-            rows={sortedPlayerStats}
-            sort={tableSort}
-            onSort={handleSort}
-            onRowClick={handleRowClick}
-            renderCell={renderPlayerCell}
-            emptyMessage="No hay datos de jugadores"
-          />
+        <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
+          <div className="max-h-[600px] overflow-y-auto overflow-x-auto scrollbar-visible">
+            <SortableTable
+              columns={PLAYER_TABLE_COLUMNS}
+              rows={sortedPlayerStats}
+              sort={tableSort}
+              onSort={handleSort}
+              onRowClick={handleRowClick}
+              renderCell={renderPlayerCell}
+              emptyMessage="No hay datos de jugadores"
+            />
+          </div>
         </div>
       </SectionShell>
 

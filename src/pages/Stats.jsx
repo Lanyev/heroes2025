@@ -61,19 +61,43 @@ export function Stats({ rows }) {
   // Sort table
   const sortedTable = useMemo(() => {
     const { key, direction } = tableSort
+    
+    // Get column definition to understand the type
+    const columnDef = HERO_TABLE_COLUMNS.find(col => col.key === key)
+    const isNumericType = columnDef && ['number', 'decimal', 'percent', 'compact', 'duration'].includes(columnDef.type)
+    
     return [...filteredTable].sort((a, b) => {
-      const aVal = a[key]
-      const bVal = b[key]
+      let aVal = a[key]
+      let bVal = b[key]
       
-      // Handle string sorting
-      if (typeof aVal === 'string') {
+      // Handle null/undefined values - put them at the end
+      const aIsNull = aVal === null || aVal === undefined || aVal === ''
+      const bIsNull = bVal === null || bVal === undefined || bVal === ''
+      
+      if (aIsNull && bIsNull) return 0
+      if (aIsNull) return 1
+      if (bIsNull) return -1
+      
+      // Handle string sorting (for name, role, etc.)
+      if (!isNumericType && typeof aVal === 'string' && typeof bVal === 'string') {
         return direction === 'asc' 
           ? aVal.localeCompare(bVal) 
           : bVal.localeCompare(aVal)
       }
       
-      // Handle numeric sorting
-      return direction === 'asc' ? aVal - bVal : bVal - aVal
+      // For numeric types, ensure we're comparing numbers
+      // Convert to numbers if they're not already
+      const aNum = typeof aVal === 'number' ? aVal : (typeof aVal === 'string' ? parseFloat(aVal) : Number(aVal))
+      const bNum = typeof bVal === 'number' ? bVal : (typeof bVal === 'string' ? parseFloat(bVal) : Number(bVal))
+      
+      // Handle NaN cases (invalid numbers) - put them at the end
+      if (isNaN(aNum) && isNaN(bNum)) return 0
+      if (isNaN(aNum)) return 1
+      if (isNaN(bNum)) return -1
+      
+      // Handle numeric sorting with proper comparison
+      const diff = aNum - bNum
+      return direction === 'asc' ? diff : -diff
     })
   }, [filteredTable, tableSort])
   
@@ -351,7 +375,7 @@ export function Stats({ rows }) {
             <TableExportButton onExport={handleExportTable} />
           </div>
           
-          <div className="max-h-[600px] overflow-y-auto">
+          <div className="max-h-[600px] overflow-y-auto overflow-x-auto scrollbar-visible">
             <SortableTable
               columns={HERO_TABLE_COLUMNS}
               rows={sortedTable}

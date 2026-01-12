@@ -31,6 +31,10 @@ export function buildHeroIndex(rows) {
         spentDeadSeconds: 0,
         gameTimeSeconds: 0,
         onFireTotal: 0,
+        maxHeroDamage: 0,
+        maxTotalDamage: 0,
+        maxDamageTaken: 0,
+        maxHealingShielding: 0,
         maps: {},
         players: {},
         matchRecords: []
@@ -46,13 +50,33 @@ export function buildHeroIndex(rows) {
     h.deaths += row.deaths || 0
     h.assists += row.assists || 0
     h.takedowns += row.takedowns || 0
-    h.heroDamage += row.heroDamage || 0
-    h.siegeDamage += row.siegeDamage || 0
-    h.damageTaken += row.damageTaken || 0
-    h.healingShielding += row.healingShielding || 0
+    const currentHeroDamage = row.heroDamage || 0
+    const currentSiegeDamage = row.siegeDamage || 0
+    const currentTotalDamage = currentHeroDamage + currentSiegeDamage
+    const currentDamageTaken = row.damageTaken || 0
+    const currentHealing = row.healingShielding || 0
+    
+    h.heroDamage += currentHeroDamage
+    h.siegeDamage += currentSiegeDamage
+    h.damageTaken += currentDamageTaken
+    h.healingShielding += currentHealing
     h.spentDeadSeconds += row.spentDeadSeconds || 0
     h.gameTimeSeconds += row.gameTimeSeconds || 0
     h.onFireTotal += row.onFire || 0
+    
+    // Track maximums per match
+    if (currentHeroDamage > h.maxHeroDamage) {
+      h.maxHeroDamage = currentHeroDamage
+    }
+    if (currentTotalDamage > h.maxTotalDamage) {
+      h.maxTotalDamage = currentTotalDamage
+    }
+    if (currentDamageTaken > h.maxDamageTaken) {
+      h.maxDamageTaken = currentDamageTaken
+    }
+    if (currentHealing > h.maxHealingShielding) {
+      h.maxHealingShielding = currentHealing
+    }
     
     // Track by map
     const map = row.map || 'Unknown'
@@ -68,9 +92,11 @@ export function buildHeroIndex(rows) {
     
     // Store match record for finding extremes
     h.matchRecords.push({
-      totalDamage: (row.heroDamage || 0) + (row.siegeDamage || 0),
-      heroDamage: row.heroDamage || 0,
-      siegeDamage: row.siegeDamage || 0,
+      totalDamage: currentTotalDamage,
+      heroDamage: currentHeroDamage,
+      siegeDamage: currentSiegeDamage,
+      damageTaken: currentDamageTaken,
+      healingShielding: currentHealing,
       map: row.map,
       player: row.playerName,
       date: row.dateObj,
@@ -166,6 +192,10 @@ export function getHeroStatsTable(rows, options = {}) {
       heroDpm,
       killsPerMin,
       deathsPerMin,
+      maxHeroDamage: h.maxHeroDamage,
+      maxTotalDamage: h.maxTotalDamage,
+      maxDamageTaken: h.maxDamageTaken,
+      maxHealingShielding: h.maxHealingShielding,
       lowSample,
       confidenceNote,
       mostViolent,
@@ -398,9 +428,16 @@ export const HERO_TABLE_COLUMNS = [
   { key: 'pickRate', label: 'Pick Rate', sortable: true, type: 'percent' },
   { key: 'kda', label: 'KDA', sortable: true, type: 'decimal' },
   { key: 'dpm', label: 'DPM', sortable: true, type: 'compact' },
+  // Average columns first
   { key: 'avgTotalDamage', label: 'Avg Daño', sortable: true, type: 'compact' },
   { key: 'avgHeroDamage', label: 'Avg D.Héroe', sortable: true, type: 'compact' },
   { key: 'avgHealingShielding', label: 'Avg Heal', sortable: true, type: 'compact' },
+  { key: 'avgDamageTaken', label: 'Avg D.Tankeado', sortable: true, type: 'compact' },
   { key: 'avgDeaths', label: 'Avg Muertes', sortable: true, type: 'decimal' },
-  { key: 'avgSpentDeadSeconds', label: 'Avg T.Muerto', sortable: true, type: 'duration' }
+  { key: 'avgSpentDeadSeconds', label: 'Avg T.Muerto', sortable: true, type: 'duration' },
+  // Max columns after averages
+  { key: 'maxTotalDamage', label: 'Max Daño', sortable: true, type: 'compact' },
+  { key: 'maxHeroDamage', label: 'Max D.Héroe', sortable: true, type: 'compact' },
+  { key: 'maxHealingShielding', label: 'Max Heal', sortable: true, type: 'compact' },
+  { key: 'maxDamageTaken', label: 'Max D.Tankeado', sortable: true, type: 'compact' }
 ]
