@@ -53,7 +53,7 @@ function App() {
       )}
       
       <main className="flex-1 relative z-10">
-        {activeRoute === 'premios' ? (
+        {activeRoute === 'premios' || activeRoute === 'geekos' ? (
           <PageComponent rows={rows} />
         ) : (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

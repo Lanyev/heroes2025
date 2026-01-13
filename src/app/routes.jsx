@@ -3,6 +3,7 @@ import { Heroes } from '../pages/Heroes'
 import { Stats } from '../pages/Stats'
 import { Players } from '../pages/Players'
 import { Premios } from '../pages/Premios'
+import { Geekos } from '../pages/Geekos'
 
 /**
  * Route configuration for the dashboard
@@ -31,6 +32,12 @@ export const routes = [
     label: 'Jugadores',
     icon: '👤',
     component: Players
+  },
+  {
+    id: 'geekos',
+    label: 'Geekos TCG',
+    icon: '🎴',
+    component: Geekos
   },
   {
     id: 'premios',

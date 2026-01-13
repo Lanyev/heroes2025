@@ -1,0 +1,845 @@
+/**
+ * TCG Card Styles - Pokemon-like effects
+ * Based on: https://github.com/simeydotme/pokemon-cards-css
+ * 
+ * Effects included:
+ * - 3D Tilt with mouse parallax
+ * - Holo foil / shimmer patterns
+ * - Dynamic glare based on mouse position
+ * - Layered depth effects
+ * - Shine and foil textures
+ */
+
+/* ============================================
+   CSS VARIABLES FOR TCG CARDS
+   ============================================ */
+:root {
+  /* Card dimensions */
+  --tcg-card-width: 280px;
+  --tcg-card-height: 390px;
+  --tcg-card-radius: 14px;
+  --tcg-card-border: 8px;
+  
+  /* Animation timing */
+  --tcg-transition-speed: 0.4s;
+  --tcg-transition-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  
+  /* Default colors (overridden per card) */
+  --tcg-primary: #6366f1;
+  --tcg-secondary: #a855f7;
+  --tcg-glow: rgba(99, 102, 241, 0.6);
+  
+  /* Foil/Holo settings */
+  --tcg-foil-opacity: 0.5;
+  --tcg-glare-opacity: 0.4;
+  --tcg-shine-intensity: 1;
+  
+  /* Mouse position (updated via JS) */
+  --tcg-mx: 50%;
+  --tcg-my: 50%;
+  --tcg-rx: 0deg;
+  --tcg-ry: 0deg;
+  --tcg-pos: 50% 50%;
+  --tcg-hyp: 0;
+}
+
+/* ============================================
+   CARD CONTAINER
+   ============================================ */
+.tcg-card {
+  position: relative;
+  width: var(--tcg-card-width);
+  height: var(--tcg-card-height);
+  border-radius: var(--tcg-card-radius);
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  cursor: pointer;
+  
+  /* Base transition for hover lift */
+  transition: transform var(--tcg-transition-speed) var(--tcg-transition-ease);
+}
+
+.tcg-card:hover {
+  /* Slight lift on hover */
+  transform: translateZ(30px);
+}
+
+/* The actual card element with 3D transform */
+.tcg-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--tcg-card-radius);
+  transform-style: preserve-3d;
+  transform: rotateY(var(--tcg-ry)) rotateX(var(--tcg-rx));
+  transition: transform var(--tcg-transition-speed) var(--tcg-transition-ease);
+  will-change: transform;
+}
+
+/* Disable tilt transition when actively moving */
+.tcg-card--active .tcg-card__inner {
+  transition: none;
+}
+
+/* ============================================
+   CARD FRAME / BORDER
+   ============================================ */
+.tcg-card__frame {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--tcg-card-radius);
+  padding: var(--tcg-card-border);
+  background: var(--tcg-frame, linear-gradient(145deg, #1a1a2e 0%, #16213e 100%));
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    0 8px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+/* Frame glow effect for high-rarity cards */
+.tcg-card--glow .tcg-card__frame {
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+    0 0 20px var(--tcg-glow),
+    0 0 40px var(--tcg-glow),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Animated glow pulse for legendary */
+.tcg-card--legendary .tcg-card__frame {
+  animation: tcg-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes tcg-glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+      0 0 20px var(--tcg-glow),
+      0 0 40px var(--tcg-glow),
+      0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+      0 0 30px var(--tcg-glow),
+      0 0 60px var(--tcg-glow),
+      0 0 80px var(--tcg-glow),
+      0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ============================================
+   CARD CONTENT AREA
+   ============================================ */
+.tcg-card__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(30, 41, 59, 0.98) 100%
+  );
+  border-radius: calc(var(--tcg-card-radius) - var(--tcg-card-border) / 2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   HOLO / FOIL EFFECT LAYER
+   ============================================ */
+.tcg-card__holo {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--tcg-holo-pattern);
+  background-size: 200% 200%;
+  background-position: var(--tcg-pos);
+  mix-blend-mode: color-dodge;
+  opacity: 0;
+  filter: brightness(1.2) contrast(1.1);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.tcg-card:hover .tcg-card__holo {
+  opacity: var(--tcg-foil-opacity, 0.5);
+}
+
+/* Holo patterns by type */
+.tcg-card--holo-fire .tcg-card__holo {
+  --tcg-holo-pattern: 
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 100, 50, 0.3) 0px,
+      rgba(255, 200, 50, 0.3) 10px,
+      rgba(255, 100, 50, 0.3) 20px
+    ),
+    radial-gradient(
+      ellipse at var(--tcg-mx) var(--tcg-my),
+      rgba(255, 150, 50, 0.8) 0%,
+      rgba(255, 100, 50, 0.4) 30%,
+      transparent 70%
+    );
+}
+
+.tcg-card--holo-water .tcg-card__holo {
+  --tcg-holo-pattern: 
+    repeating-linear-gradient(
+      135deg,
+      rgba(50, 150, 255, 0.3) 0px,
+      rgba(100, 200, 255, 0.3) 10px,
+      rgba(50, 150, 255, 0.3) 20px
+    ),
+    radial-gradient(
+      ellipse at var(--tcg-mx) var(--tcg-my),
+      rgba(100, 200, 255, 0.8) 0%,
+      rgba(50, 150, 255, 0.4) 30%,
+      transparent 70%
+    );
+}
+
+.tcg-card--holo-psychic .tcg-card__holo {
+  --tcg-holo-pattern: 
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(150, 100, 255, 0.2) 0deg,
+      rgba(200, 100, 255, 0.2) 30deg,
+      rgba(150, 100, 255, 0.2) 60deg
+    ),
+    radial-gradient(
+      ellipse at var(--tcg-mx) var(--tcg-my),
+      rgba(180, 130, 255, 0.8) 0%,
+      rgba(130, 80, 255, 0.4) 30%,
+      transparent 70%
+    );
+}
+
+.tcg-card--holo-fairy .tcg-card__holo {
+  --tcg-holo-pattern: 
+    repeating-linear-gradient(
+      60deg,
+      rgba(255, 150, 200, 0.3) 0px,
+      rgba(150, 255, 200, 0.3) 15px,
+      rgba(255, 150, 200, 0.3) 30px
+    ),
+    radial-gradient(
+      ellipse at var(--tcg-mx) var(--tcg-my),
+      rgba(255, 180, 220, 0.8) 0%,
+      rgba(150, 255, 180, 0.4) 30%,
+      transparent 70%
+    );
+}
+
+/* Rainbow holo for legendary cards */
+.tcg-card--holo-rainbow .tcg-card__holo {
+  --tcg-holo-pattern: 
+    repeating-linear-gradient(
+      var(--tcg-holo-angle, 45deg),
+      rgba(255, 0, 0, 0.3) 0%,
+      rgba(255, 127, 0, 0.3) 14%,
+      rgba(255, 255, 0, 0.3) 28%,
+      rgba(0, 255, 0, 0.3) 42%,
+      rgba(0, 127, 255, 0.3) 57%,
+      rgba(75, 0, 130, 0.3) 71%,
+      rgba(139, 0, 255, 0.3) 85%,
+      rgba(255, 0, 0, 0.3) 100%
+    ),
+    radial-gradient(
+      ellipse at var(--tcg-mx) var(--tcg-my),
+      rgba(255, 255, 255, 0.6) 0%,
+      transparent 50%
+    );
+  background-size: 400% 400%;
+  animation: tcg-rainbow-shift 8s linear infinite;
+}
+
+@keyframes tcg-rainbow-shift {
+  0% {
+    --tcg-holo-angle: 0deg;
+    background-position: 0% 0%;
+  }
+  100% {
+    --tcg-holo-angle: 360deg;
+    background-position: 100% 100%;
+  }
+}
+
+/* ============================================
+   GLARE / SHINE EFFECT
+   ============================================ */
+.tcg-card__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse 80% 50% at var(--tcg-mx) var(--tcg-my),
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    transparent 70%
+  );
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.tcg-card:hover .tcg-card__glare {
+  opacity: var(--tcg-glare-opacity, 0.4);
+}
+
+/* Intensified glare for higher rarities */
+.tcg-card--legendary .tcg-card__glare,
+.tcg-card--epic .tcg-card__glare {
+  background: radial-gradient(
+    ellipse 100% 60% at var(--tcg-mx) var(--tcg-my),
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.25) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+}
+
+/* ============================================
+   SHIMMER / SPARKLE OVERLAY
+   ============================================ */
+.tcg-card__shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E"),
+    linear-gradient(
+      125deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.1) 45%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.1) 55%,
+      transparent 60%,
+      transparent 100%
+    );
+  background-size: 100% 100%, 300% 300%;
+  background-position: 0 0, var(--tcg-pos);
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 12;
+}
+
+.tcg-card:hover .tcg-card__shimmer {
+  opacity: calc(0.6 * var(--tcg-shine-intensity, 1));
+}
+
+/* ============================================
+   TEXTURE OVERLAY (card surface grain)
+   ============================================ */
+.tcg-card__texture {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ============================================
+   CARD HEADER
+   ============================================ */
+.tcg-card__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px 6px;
+  padding-right: 50px;
+  z-index: 20;
+}
+
+.tcg-card__name {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 10px var(--tcg-glow);
+  margin: 0;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tcg-card__hp {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 15px var(--tcg-glow);
+}
+
+.tcg-card__hp-label {
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  margin-right: 2px;
+}
+
+.tcg-card__energy-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tcg-primary);
+  border-radius: 50%;
+  font-size: 10px;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    0 0 10px var(--tcg-glow);
+}
+
+/* ============================================
+   CARD ART / AVATAR
+   ============================================ */
+.tcg-card__art {
+  position: relative;
+  flex: 1;
+  min-height: 130px;
+  margin: 0 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(180deg, 
+    rgba(0, 0, 0, 0.2) 0%, 
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+.tcg-card__art-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(1.1) contrast(1.05);
+}
+
+/* Art overlay gradient */
+.tcg-card__art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.3) 80%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  pointer-events: none;
+}
+
+/* Art foil overlay */
+.tcg-card__art-foil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-position: var(--tcg-pos);
+  background-size: 200% 200%;
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.tcg-card:hover .tcg-card__art-foil {
+  opacity: 0.7;
+}
+
+/* ============================================
+   CARD INFO STRIP
+   ============================================ */
+.tcg-card__info-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 5px 12px;
+  margin: 6px 10px 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tcg-card__info-strip span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tcg-card__info-divider {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ============================================
+   STATS SECTION (Attacks in Pokemon terms)
+   ============================================ */
+.tcg-card__stats {
+  padding: 4px 12px;
+  z-index: 20;
+}
+
+.tcg-card__stat-row {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tcg-card__stat-row:last-child {
+  border-bottom: none;
+}
+
+.tcg-card__stat-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  margin-right: 5px;
+}
+
+.tcg-card__stat-label {
+  flex: 1;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.tcg-card__stat-value {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   SIGNATURE STAT (HP Circle)
+   ============================================ */
+.tcg-card__signature {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--tcg-gradient);
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    0 0 20px var(--tcg-glow),
+    inset 0 0 15px rgba(255, 255, 255, 0.2);
+  z-index: 25;
+}
+
+.tcg-card__signature-value {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1;
+}
+
+.tcg-card__signature-label {
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   WEAKNESS / EVOLUTION
+   ============================================ */
+.tcg-card__meta {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 12px 8px;
+  margin-top: 4px;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.3;
+}
+
+.tcg-card__weakness,
+.tcg-card__evolution {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tcg-card__weakness-label,
+.tcg-card__evolution-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-size: 7px;
+}
+
+.tcg-card__weakness-value {
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 7px;
+}
+
+.tcg-card__evolution-value {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 7px;
+}
+
+/* ============================================
+   CARD FOOTER
+   ============================================ */
+.tcg-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+  z-index: 20;
+}
+
+.tcg-card__set-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tcg-card__set-name {
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tcg-card__set-year {
+  font-size: 7px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.tcg-card__number {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   RARITY BADGE
+   ============================================ */
+.tcg-card__rarity {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 2px;
+  z-index: 30;
+}
+
+.tcg-card__rarity-star {
+  font-size: 10px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+/* Rarity star colors */
+.tcg-card--common .tcg-card__rarity-star {
+  color: #94a3b8;
+}
+
+.tcg-card--rare .tcg-card__rarity-star {
+  color: #fbbf24;
+}
+
+.tcg-card--epic .tcg-card__rarity-star {
+  color: #a78bfa;
+  animation: tcg-star-shine 2s ease-in-out infinite;
+}
+
+.tcg-card--legendary .tcg-card__rarity-star {
+  color: #f472b6;
+  animation: tcg-star-rainbow 3s linear infinite;
+}
+
+@keyframes tcg-star-shine {
+  0%, 100% { 
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)) brightness(1); 
+  }
+  50% { 
+    filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.8)) brightness(1.3); 
+  }
+}
+
+@keyframes tcg-star-rainbow {
+  0% { 
+    color: #f472b6; 
+    filter: drop-shadow(0 0 5px #f472b6); 
+  }
+  25% { 
+    color: #60a5fa; 
+    filter: drop-shadow(0 0 5px #60a5fa); 
+  }
+  50% { 
+    color: #34d399; 
+    filter: drop-shadow(0 0 5px #34d399); 
+  }
+  75% { 
+    color: #fbbf24; 
+    filter: drop-shadow(0 0 5px #fbbf24); 
+  }
+  100% { 
+    color: #f472b6; 
+    filter: drop-shadow(0 0 5px #f472b6); 
+  }
+}
+
+/* ============================================
+   ARCHETYPE BADGE
+   ============================================ */
+.tcg-card__archetype-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  border: 1px solid var(--tcg-primary);
+  z-index: 25;
+  white-space: nowrap;
+}
+
+.tcg-card__archetype-icon {
+  font-size: 10px;
+}
+
+.tcg-card__archetype-name {
+  font-size: 7px;
+  font-weight: 700;
+  color: var(--tcg-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   CARD GRID
+   ============================================ */
+.tcg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--tcg-card-width), 1fr));
+  gap: 32px;
+  padding: 24px;
+  justify-items: center;
+}
+
+@media (max-width: 640px) {
+  .tcg-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 16px;
+  }
+  
+  :root {
+    --tcg-card-width: 260px;
+    --tcg-card-height: 365px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tcg-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .tcg-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1401px) {
+  .tcg-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY & REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .tcg-card,
+  .tcg-card__inner,
+  .tcg-card__holo,
+  .tcg-card__glare,
+  .tcg-card__shimmer {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .tcg-card:hover .tcg-card__holo,
+  .tcg-card:hover .tcg-card__glare,
+  .tcg-card:hover .tcg-card__shimmer {
+    opacity: 0.3;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.tcg-card:focus-visible {
+  outline: 3px solid var(--tcg-primary);
+  outline-offset: 4px;
+}
+
+.tcg-card:focus-visible .tcg-card__frame {
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 0 25px var(--tcg-glow),
+    0 0 50px var(--tcg-glow),
+    0 4px 15px rgba(0, 0, 0, 0.5);
+}
