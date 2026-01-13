@@ -2,7 +2,6 @@ import { Overview } from '../pages/Overview'
 import { Heroes } from '../pages/Heroes'
 import { Stats } from '../pages/Stats'
 import { Players } from '../pages/Players'
-import { Maps } from '../pages/Maps'
 import { Premios } from '../pages/Premios'
 
 /**
@@ -32,12 +31,6 @@ export const routes = [
     label: 'Jugadores',
     icon: '👤',
     component: Players
-  },
-  {
-    id: 'maps',
-    label: 'Mapas',
-    icon: '🗺️',
-    component: Maps
   },
   {
     id: 'premios',
