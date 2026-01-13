@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { formatMetricValue, getMetricDisplayName } from '../../data/loadAwardsForPresentation'
 import { getHeroImageSrc } from '../../utils/heroImage'
+import { Emote } from '../Emote'
 
 /**
  * Helper para detectar si un premio es de "Partida más corta" o "Partida más larga"
@@ -158,7 +159,7 @@ function GroupedMatchCard({ group, position, isRevealed, revealDelay }) {
             ${position <= 3 ? '' : 'text-sm'}
           `}
         >
-          {position <= 3 ? badge.emoji : position}
+          {position <= 3 ? <Emote emoji={badge.emoji} size="lg" /> : position}
         </div>
 
         {/* Header fijo: GameTime + Winner */}
@@ -277,7 +278,9 @@ export function GroupedMatchPodiumSlide({ award, revealStep, isVisible }) {
       {/* Header */}
       <div className="text-center mb-8 z-10">
         <div className="flex items-center justify-center gap-3 mb-2">
-          <span className="text-5xl md:text-6xl">{award.icon}</span>
+          <span className="text-5xl md:text-6xl">
+            <Emote emoji={award.icon} size={64} />
+          </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
             {award.title}
           </h2>

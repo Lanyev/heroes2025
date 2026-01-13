@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { loadAwardsCSV, formatAwardValue, getAwardColorClasses } from '../data/loadAwardsCSV'
 import { LoadingState } from '../components/LoadingState'
 import { Presentation } from './Presentation'
+import { Emote } from '../components/Emote'
 
 /**
  * Award Card Component - Shows a single award table
@@ -203,7 +204,9 @@ export function Premios() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="text-6xl mb-4 opacity-50">🏆</div>
+          <div className="text-6xl mb-4 opacity-50">
+            <Emote emoji="🏆" size={64} />
+          </div>
           <p className="text-slate-400 text-lg">No se encontraron datos de awards</p>
         </div>
       </div>
@@ -397,7 +400,16 @@ export function Premios() {
                   }
                 `}
                 >
-                  <span>{cat.icon}</span>
+                  {cat.icon === '⏱️' || cat.icon === '\u23F1' || cat.icon === '\u23F1\uFE0F' ? (
+                    <img 
+                      src="/emotes/clockwork.png" 
+                      alt="⏱️" 
+                      className="w-4 h-4"
+                      style={{ objectFit: 'contain', imageRendering: 'crisp-edges' }}
+                    />
+                  ) : (
+                    <Emote emoji={cat.icon} size="sm" />
+                  )}
                   <span>{cat.label}</span>
                 </button>
               ))}

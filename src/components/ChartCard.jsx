@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 
 /**
- * Card wrapper for charts
+ * Card wrapper for charts with improved depth and modern styling
  * @param {Object} props
- * @param {string} props.title - Chart title
+ * @param {string} props.title - Chart title (optional, can use SectionHeader inside)
  * @param {string} props.subtitle - Optional subtitle
  * @param {React.ReactNode} props.children - Chart content
  * @param {string} props.className - Additional CSS classes
@@ -11,19 +11,27 @@ import clsx from 'clsx'
 export function ChartCard({ title, subtitle, children, className }) {
   return (
     <div className={clsx(
-      'bg-layer-deep/80 backdrop-blur-sm rounded-xl border border-slate-700/50',
-      'shadow-inset-custom',
-      'animate-fade-in',
-      // Panel hundido para gráficas integradas
+      'relative rounded-xl border border-slate-700/40 backdrop-blur-sm',
+      'bg-gradient-to-br from-slate-900/90 via-slate-800/80 to-slate-900/90',
+      'shadow-lg-custom hover:shadow-xl transition-shadow duration-300',
+      'group',
       className
     )}>
-      <div className="p-4 border-b border-slate-700/50 bg-layer-light/20">
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
-        {subtitle && (
-          <p className="text-slate-400 text-sm mt-1">{subtitle}</p>
-        )}
-      </div>
-      <div className="p-4 bg-layer-deep/60">
+      {/* Gradient overlay for depth */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-500/0 via-transparent to-purple-500/0 group-hover:from-indigo-500/3 group-hover:to-purple-500/3 transition-opacity duration-300 pointer-events-none" />
+      
+      {/* Edge highlight */}
+      <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-indigo-500/10 transition-colors duration-300 pointer-events-none" />
+      
+      {title && (
+        <div className="p-4 border-b border-slate-700/40 bg-slate-800/30 relative z-10">
+          <h3 className="text-lg font-semibold text-white">{title}</h3>
+          {subtitle && (
+            <p className="text-slate-400 text-sm mt-1">{subtitle}</p>
+          )}
+        </div>
+      )}
+      <div className={clsx('relative z-10', title ? 'p-4' : 'p-6')}>
         {children}
       </div>
     </div>

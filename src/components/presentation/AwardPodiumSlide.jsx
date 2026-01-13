@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { formatMetricValue, getMetricDisplayName, requiresGrouping, groupAwardRows } from '../../data/loadAwardsForPresentation'
 import { getHeroImageSrc } from '../../utils/heroImage'
 import { GroupedMatchPodiumSlide, isDurationMatchAward } from './GroupedMatchPodiumSlide'
+import { Emote } from '../Emote'
 
 /**
  * Card individual para un participante del podio
@@ -146,7 +147,7 @@ function PodiumCard({ entry, position, metricKey, isRevealed, revealDelay }) {
                 onError={() => setImageError(true)}
               />
             ) : (
-              <span className="text-2xl md:text-3xl">⚔️</span>
+              <Emote emoji="⚔️" size={32} />
             )}
           </div>
 
@@ -471,7 +472,9 @@ export function AwardPodiumSlide({ award, revealStep, isVisible }) {
       {/* Header */}
       <div className="text-center mb-8 z-10">
         <div className="flex items-center justify-center gap-3 mb-2">
-          <span className="text-5xl md:text-6xl">{award.icon}</span>
+          <span className="text-5xl md:text-6xl">
+            <Emote emoji={award.icon} size={64} />
+          </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
             {award.title}
           </h2>

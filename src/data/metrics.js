@@ -953,10 +953,16 @@ export function calculateFunFacts(rows) {
  * Get detailed stats for a specific player
  * @param {Array} rows - All filtered rows
  * @param {string} playerName - Player to analyze
+ * @param {string} [heroName] - Optional hero name to filter by
  * @returns {Object} - Detailed player analytics
  */
-export function getPlayerDetails(rows, playerName) {
-  const playerRows = rows.filter(r => r.playerName === playerName)
+export function getPlayerDetails(rows, playerName, heroName = null) {
+  let playerRows = rows.filter(r => r.playerName === playerName)
+  
+  // Filter by hero if specified
+  if (heroName) {
+    playerRows = playerRows.filter(r => r.heroName === heroName)
+  }
   
   if (playerRows.length === 0) {
     return null
@@ -1026,6 +1032,11 @@ export function getPlayerDetails(rows, playerName) {
       heroDamage: row.heroDamage || 0,
       siegeDamage: row.siegeDamage || 0,
       totalDamage: (row.heroDamage || 0) + (row.siegeDamage || 0),
+      damageTaken: row.damageTaken || 0,
+      healingShielding: row.healingShielding || 0,
+      selfHealing: row.selfHealing || 0,
+      mercCampCaptures: row.mercCampCaptures || 0,
+      regenGlobes: row.regenGlobes || 0,
       gameTimeSeconds: row.gameTimeSeconds || 0
     })
   }
@@ -1085,6 +1096,7 @@ export function getPlayerDetails(rows, playerName) {
   
   return {
     name: playerName,
+    heroName: heroName || null, // Store the filtered hero name if any
     kpis,
     heroes: heroesList,
     maps: mapsList,

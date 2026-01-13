@@ -1,11 +1,14 @@
 import { useMemo, useState, useCallback } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { ChartCard } from '../components/ChartCard'
 import { SectionShell } from '../app/layout/SectionShell'
+import { SectionHeader } from '../components/SectionHeader'
 import { EmptyState } from '../components/EmptyState'
 import { Badge } from '../components/Badge'
 import { SortableTable } from '../components/SortableTable'
 import { PlayerModal } from '../components/PlayerModal'
+import { PlayerAvatarWithName } from '../components/PlayerAvatar'
 import { getTopPlayersByMatches, getTopPlayersByWinRate, getAverage, getTotal, getPlayerDetails } from '../data/metrics'
 import { formatNumber, formatPercent, formatCompact } from '../utils/format'
 
@@ -206,7 +209,11 @@ export function Players({ rows }) {
   const renderPlayerCell = useCallback((row, column) => {
     if (column.key === 'name') {
       return (
-        <span className="text-white font-medium">{row.name}</span>
+        <PlayerAvatarWithName
+          name={row.name}
+          size="sm"
+          showBorder={false}
+        />
       )
     }
     
@@ -265,93 +272,142 @@ export function Players({ rows }) {
     return <EmptyState />
   }
 
+  const shouldReduceMotion = useReducedMotion()
+  
+  // Chart animation variants
+  const chartVariants = {
+    initial: { opacity: 0, scale: 0.98 },
+    animate: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        duration: shouldReduceMotion ? 0 : 0.4, 
+        ease: 'easeOut' 
+      }
+    }
+  }
+
   return (
     <div className="space-y-8 relative z-10">
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Players by Matches */}
-        <ChartCard title="Jugadores Más Activos" subtitle="Top 10 por cantidad de partidas">
-          <div className="h-96">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={topByMatches} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
-                <XAxis type="number" stroke="#94a3b8" fontSize={12} />
-                <YAxis 
-                  dataKey="name" 
-                  type="category" 
-                  stroke="#94a3b8" 
-                  fontSize={11}
-                  width={100}
-                />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: '#1e293b', 
-                    border: '1px solid #334155',
-                    borderRadius: '8px'
-                  }}
-                  labelStyle={{ color: '#f8fafc' }}
-                  formatter={(value, name, props) => {
-                    return [`${formatNumber(value)} (WR: ${formatPercent(props.payload.winRate)})`, 'Partidas']
-                  }}
-                />
-                <Bar 
-                  dataKey="matches" 
-                  name="Partidas"
-                  radius={[0, 4, 4, 0]}
-                >
-                  {topByMatches.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={getMatchesFill(entry)} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </ChartCard>
+        <motion.div variants={chartVariants} initial="initial" animate="animate">
+          <ChartCard>
+            <SectionHeader
+              title="Jugadores Más Activos"
+              subtitle="Top 10 por cantidad de partidas"
+            />
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={topByMatches} layout="vertical">
+                  <CartesianGrid 
+                    strokeDasharray="3 3" 
+                    stroke="rgba(51, 65, 85, 0.2)" 
+                    horizontal={true}
+                    vertical={false}
+                  />
+                  <XAxis 
+                    type="number" 
+                    stroke="#64748b" 
+                    fontSize={11}
+                    tick={{ fill: '#94a3b8' }}
+                  />
+                  <YAxis 
+                    dataKey="name" 
+                    type="category" 
+                    stroke="#64748b" 
+                    fontSize={11}
+                    width={100}
+                    tick={{ fill: '#94a3b8' }}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#1e293b', 
+                      border: '1px solid #334155',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3)'
+                    }}
+                    labelStyle={{ color: '#f8fafc', fontWeight: 600 }}
+                    itemStyle={{ color: '#cbd5e1' }}
+                    formatter={(value, name, props) => {
+                      return [`${formatNumber(value)} (WR: ${formatPercent(props.payload.winRate)})`, 'Partidas']
+                    }}
+                  />
+                  <Bar 
+                    dataKey="matches" 
+                    name="Partidas"
+                    radius={[0, 6, 6, 0]}
+                  >
+                    {topByMatches.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={getMatchesFill(entry)} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </ChartCard>
+        </motion.div>
 
         {/* Top Players by Win Rate */}
-        <ChartCard title="Jugadores con Mayor Win Rate" subtitle="Top 10 (mínimo 10 partidas)">
-          <div className="h-96">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={topByWinRate} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                <XAxis 
-                  type="number" 
-                  stroke="#94a3b8" 
-                  fontSize={12}
-                  domain={[0, 1]}
-                  tickFormatter={(v) => formatPercent(v, 0)}
-                />
-                <YAxis 
-                  dataKey="name" 
-                  type="category" 
-                  stroke="#94a3b8" 
-                  fontSize={11}
-                  width={100}
-                />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: '#1e293b', 
-                    border: '1px solid #334155',
-                    borderRadius: '8px'
-                  }}
-                  labelStyle={{ color: '#f8fafc' }}
-                  formatter={(value, name, props) => {
-                    return [`${formatPercent(value)} (${props.payload.matches} partidas)`, 'Win Rate']
-                  }}
-                />
-                <Bar 
-                  dataKey="winRate" 
-                  name="Win Rate"
-                  radius={[0, 4, 4, 0]}
-                >
-                  {topByWinRate.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={getWinRateFill(entry)} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </ChartCard>
+        <motion.div variants={chartVariants} initial="initial" animate="animate">
+          <ChartCard>
+            <SectionHeader
+              title="Jugadores con Mayor Win Rate"
+              subtitle="Top 10 (mínimo 10 partidas)"
+            />
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={topByWinRate} layout="vertical">
+                  <CartesianGrid 
+                    strokeDasharray="3 3" 
+                    stroke="rgba(51, 65, 85, 0.2)" 
+                    horizontal={true}
+                    vertical={false}
+                  />
+                  <XAxis 
+                    type="number" 
+                    stroke="#64748b" 
+                    fontSize={11}
+                    domain={[0, 1]}
+                    tick={{ fill: '#94a3b8' }}
+                    tickFormatter={(v) => formatPercent(v, 0)}
+                  />
+                  <YAxis 
+                    dataKey="name" 
+                    type="category" 
+                    stroke="#64748b" 
+                    fontSize={11}
+                    width={100}
+                    tick={{ fill: '#94a3b8' }}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#1e293b', 
+                      border: '1px solid #334155',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3)'
+                    }}
+                    labelStyle={{ color: '#f8fafc', fontWeight: 600 }}
+                    itemStyle={{ color: '#cbd5e1' }}
+                    formatter={(value, name, props) => {
+                      return [`${formatPercent(value)} (${props.payload.matches} partidas)`, 'Win Rate']
+                    }}
+                  />
+                  <Bar 
+                    dataKey="winRate" 
+                    name="Win Rate"
+                    radius={[0, 6, 6, 0]}
+                  >
+                    {topByWinRate.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={getWinRateFill(entry)} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </ChartCard>
+        </motion.div>
       </div>
 
       {/* Players Table */}

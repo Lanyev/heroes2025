@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Emote } from './Emote'
 
 /**
  * KPI Card component for displaying key metrics
@@ -44,7 +45,32 @@ export function KpiCard({ title, value, subtitle, icon, trend, explanation, show
           )}
         </div>
         {icon && (
-          <div className="text-3xl ml-3 opacity-80">{icon}</div>
+          <div className="ml-3 opacity-80">
+            {typeof icon === 'string' ? (
+              // Casos especiales para emojis problemáticos - verificar primero
+              icon === '⏳' || icon === '\u23F3' || icon.trim() === '⏳' ? (
+                <img 
+                  src="/emotes/sands-of-time.png" 
+                  alt="⏳" 
+                  className="w-8 h-8"
+                  style={{ objectFit: 'contain', imageRendering: 'crisp-edges' }}
+                />
+              ) : icon === '⏱️' || icon === '\u23F1' || icon === '\u23F1\uFE0F' || icon.replace(/\uFE0F/g, '') === '\u23F1' ? (
+                <img 
+                  src="/emotes/clockwork.png" 
+                  alt="⏱️" 
+                  className="w-8 h-8"
+                  style={{ objectFit: 'contain', imageRendering: 'crisp-edges' }}
+                />
+              ) : /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u.test(icon) ? (
+                <Emote emoji={icon} size="lg" />
+              ) : (
+                <span className="text-3xl">{icon}</span>
+              )
+            ) : (
+              <span className="text-3xl">{icon}</span>
+            )}
+          </div>
         )}
       </div>
       {trend && (

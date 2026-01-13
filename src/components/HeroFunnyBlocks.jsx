@@ -1,3 +1,5 @@
+import { Emote, EmoteText } from './Emote'
+
 /**
  * Component to render 3 funny highlight blocks for a hero
  * @param {Object} props
@@ -116,7 +118,9 @@ export function HeroFunnyBlocks({ blocks }) {
   
   return (
     <section>
-      <h3 className="text-lg font-semibold text-white mb-3">🔥 Highlights</h3>
+      <h3 className="text-lg font-semibold text-white mb-3">
+        <EmoteText text="🔥 Highlights" emoteSize="md" />
+      </h3>
       <div className="space-y-3">
         {blocks.map((block, index) => {
           if (!block) return null
@@ -134,7 +138,7 @@ export function HeroFunnyBlocks({ blocks }) {
             >
               <div className="flex items-start gap-4">
                 <div className="text-4xl shrink-0">
-                  {emoji}
+                  <Emote emoji={emoji} size={48} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wide">
@@ -157,7 +161,7 @@ export function HeroFunnyBlocks({ blocks }) {
                   )}
                   {block.footer && (
                     <p className="text-slate-400/70 text-sm mb-1 opacity-80">
-                      {block.footer}
+                      <EmoteText text={block.footer} emoteSize="sm" />
                     </p>
                   )}
                   {block.joke && (

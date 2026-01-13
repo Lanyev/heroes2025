@@ -8,6 +8,7 @@ import {
   AwardVideoIntro
 } from '../components/presentation'
 import { LoadingState } from '../components/LoadingState'
+import { Emote } from '../components/Emote'
 
 /**
  * Mapeo de premios a sus videos correspondientes
@@ -291,7 +292,9 @@ export function Presentation({ onExit }) {
     return (
       <div className="fixed inset-0 z-[100] bg-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-6xl mb-4">😢</div>
+          <div className="text-6xl mb-4">
+            <Emote emoji="😢" size={64} />
+          </div>
           <p className="text-slate-400 mb-4">
             {error || 'No se encontraron premios'}
           </p>

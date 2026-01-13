@@ -326,6 +326,8 @@ export function normalizeRow(row) {
     experience: safeNumber(row.Experience),
     spentDeadSeconds: parseGameTime(row.SpentDead),
     onFire: parseGameTime(row.OnFire),
+    mercCampCaptures: safeNumber(row.MercCampCaptures),
+    regenGlobes: safeNumber(row.RegenGlobes),
     
     // Awards
     award: String(row.Award || '').trim(),

@@ -125,7 +125,7 @@ export function Heroes({ rows }) {
             <button
               key={hero.name}
               onClick={() => handleHeroClick(hero.name)}
-              className="group bg-surface-1 hover:bg-surface-2 rounded-xl p-4 border border-slate-700/40 hover:border-indigo-500/40 transition-all duration-200 shadow-sm hover:shadow-md card-hover-lift flex flex-col items-center gap-3 focus-ring-accent"
+              className="hero-card group flex flex-col items-center gap-3 focus-ring-accent"
             >
               <HeroAvatar
                 name={hero.name}

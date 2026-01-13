@@ -55,29 +55,23 @@ export const routes = [
  */
 export function TabNav({ activeRoute, onRouteChange }) {
   return (
-    <nav className="bg-layer-mid/60 border-b border-slate-700/50 shadow-sm-custom relative z-10">
+    <nav className="bg-layer-mid/50 border-b border-slate-700/50 backdrop-blur-sm shadow-sm-custom relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex gap-1 overflow-x-auto py-2">
+        <div className="flex gap-2 overflow-x-auto py-3">
           {routes.map((route) => (
             <button
               key={route.id}
               onClick={() => onRouteChange(route.id)}
               className={`
-                flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
-                transition-all duration-300 whitespace-nowrap relative
-                focus-ring-accent
+                flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium
+                transition-all duration-200 whitespace-nowrap relative
                 ${activeRoute === route.id
-                  ? 'bg-indigo-600 text-white shadow-elevated font-semibold tab-indicator'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-700/50 hover:shadow-sm-custom'
+                  ? 'bg-indigo-600 text-white font-semibold shadow-elevated ring-2 ring-indigo-400/50'
+                  : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white shadow-sm-custom hover:shadow-md-custom'
                 }
               `}
             >
-              <span>{route.icon}</span>
               <span>{route.label}</span>
-              {/* Underline animado para tab activo */}
-              {activeRoute === route.id && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-400 rounded-full animate-tab-underline" />
-              )}
             </button>
           ))}
         </div>

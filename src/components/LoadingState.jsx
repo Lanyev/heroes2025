@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Emote } from './Emote'
 
 /**
  * Loading state component
@@ -36,7 +37,9 @@ export function ErrorState({ error, onRetry, className }) {
       'text-center animate-fade-in',
       className
     )}>
-      <div className="text-6xl mb-4">⚠️</div>
+      <div className="text-6xl mb-4">
+        <Emote emoji="⚠️" size={64} />
+      </div>
       <h3 className="text-xl font-semibold text-white mb-2">Error al cargar datos</h3>
       <p className="text-red-400 max-w-md mb-4">{error}</p>
       <p className="text-slate-500 text-sm max-w-md mb-6">

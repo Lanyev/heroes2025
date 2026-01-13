@@ -6,9 +6,13 @@ import {
 import { KpiCard } from './KpiCard'
 import { Badge } from './Badge'
 import { HeroAvatar } from './HeroAvatar'
+import { PlayerAvatar } from './PlayerAvatar'
+import { PlayerModal } from './PlayerModal'
 import { HeroFunnyBlocks } from './HeroFunnyBlocks'
+import { Emote } from './Emote'
 import { formatNumber, formatPercent, formatCompact, formatDecimal, formatDuration } from '../utils/format'
 import { getHeroFunnyHighlights } from '../data/heroHighlights'
+import { getPlayerDetails } from '../data/metrics'
 import { 
   getTalentStatsByHero, 
   getBestBuildByHero, 
@@ -19,7 +23,7 @@ import { getTalentInfo } from '../utils/talentImages'
 /**
  * Componente para mostrar un talento con su imagen y nombre legible
  */
-function TalentDisplay({ talentName, size = 32, showName = true, className = '' }) {
+export function TalentDisplay({ talentName, size = 32, showName = true, className = '' }) {
   const [imageUrl, setImageUrl] = useState(null)
   const [displayName, setDisplayName] = useState(talentName || '')
   const [isLoading, setIsLoading] = useState(true)
@@ -134,6 +138,8 @@ export function HeroModal({ hero, rows, onClose }) {
   const [playerSort, setPlayerSort] = useState({ column: 'matches', direction: 'desc' })
   // State for talent tabs
   const [selectedTalentLevel, setSelectedTalentLevel] = useState(1)
+  // State for selected player modal
+  const [selectedPlayer, setSelectedPlayer] = useState(null)
   
   // Close on ESC key
   useEffect(() => {
@@ -219,14 +225,9 @@ export function HeroModal({ hero, rows, onClose }) {
 
   return (
     <>
-      {/* 
-        Backdrop - Viewport safety: 
-        - items-start: evita que el modal quede debajo del navbar (no centra verticalmente)
-        - padding-top: respeta altura del header + espacio (header z-50, modal z-[60])
-        - z-[60]: por encima del header (z-50) para visibilidad completa
-      */}
+      {/* Backdrop - Dark glass overlay */}
       <div 
-        className="fixed inset-0 bg-black/45 z-[60] flex items-start justify-center overflow-y-auto"
+        className="fixed inset-0 bg-gradient-to-br from-black/60 via-slate-900/50 to-black/60 backdrop-blur-sm z-[60] flex items-center justify-center overflow-y-auto"
         onClick={onClose}
         style={{
           paddingTop: 'calc(var(--app-header-h, 80px) + 16px)',
@@ -235,38 +236,57 @@ export function HeroModal({ hero, rows, onClose }) {
           paddingBottom: '16px'
         }}
       >
-        {/* 
-          Modal Card - tamaño contenido, no full-screen:
-          - maxWidth: 1100px para mantener aspecto de card premium
-          - maxHeight: calcula altura disponible restando header + padding
-          - overflow: hidden en contenedor para que scroll sea interno del body
-        */}
+        {/* Modal Container - Premium dark glass panel */}
         <div 
-          className="bg-surface-1 rounded-2xl border border-slate-700/50 flex flex-col shadow-lg-custom animate-modal-enter w-full"
+          className="bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-xl rounded-2xl border border-slate-700/30 shadow-2xl animate-modal-enter w-full flex flex-col"
           onClick={(e) => e.stopPropagation()}
           style={{ 
-            maxWidth: '1100px',
-            maxHeight: 'calc(100vh - var(--app-header-h, 80px) - 32px)',
+            maxWidth: '1000px',
+            maxHeight: '90vh',
             overflow: 'hidden'
           }}
         >
-          {/* Header - sticky para mantener visible al hacer scroll */}
-          <div className="sticky top-0 bg-surface-1/98 backdrop-blur-sm border-b border-slate-700/50 px-6 py-4 flex items-center justify-between z-10 shrink-0 rounded-t-2xl">
-            <div className="flex items-center gap-4">
-              <HeroAvatar 
-                name={name} 
-                role={role}
-                size="lg" 
-                showBorder={true}
-              />
-              <div>
-                <h2 className="text-2xl font-bold text-white">{name}</h2>
-                <Badge variant="info">{role}</Badge>
+          {/* Header - Hero Summary */}
+          <div className="sticky top-0 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/30 px-6 py-5 flex items-center justify-between z-10 shrink-0 rounded-t-2xl">
+            <div className="flex items-center gap-5 flex-1 min-w-0">
+              {/* Avatar - 10-15% bigger */}
+              <div className="shrink-0">
+                <HeroAvatar 
+                  name={name} 
+                  role={role}
+                  size="xl" 
+                  showBorder={true}
+                />
+              </div>
+              
+              {/* Name and Role */}
+              <div className="flex-1 min-w-0">
+                <h2 className="text-3xl font-bold text-white mb-1">{name}</h2>
+                <Badge variant="info" size="md">{role}</Badge>
+              </div>
+              
+              {/* Inline Badges - Quick Stats */}
+              <div className="flex items-center gap-3 shrink-0">
+                <div className={`${kpis.winRate >= 0.5 ? 'bg-emerald-500/20 border-emerald-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg px-4 py-2`}>
+                  <div className={`${kpis.winRate >= 0.5 ? 'text-emerald-400' : 'text-red-400'} text-xs font-medium mb-0.5`}>Win Rate</div>
+                  <div className="text-white text-xl font-bold">{formatPercent(kpis.winRate)}</div>
+                </div>
+                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-4 py-2">
+                  <div className="text-slate-400 text-xs font-medium mb-0.5">Partidas</div>
+                  <div className="text-white text-xl font-bold">{formatNumber(kpis.matches)}</div>
+                </div>
+                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-4 py-2">
+                  <div className="text-slate-400 text-xs font-medium mb-0.5">Pick Rate</div>
+                  <div className="text-white text-xl font-bold">{formatPercent(kpis.pickRate)}</div>
+                </div>
               </div>
             </div>
+            
+            {/* Close Button */}
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors shrink-0 shadow-sm-custom hover:shadow-md-custom"
+              className="ml-4 p-2 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-all shrink-0"
+              aria-label="Cerrar modal"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -274,64 +294,98 @@ export function HeroModal({ hero, rows, onClose }) {
             </button>
           </div>
 
-          {/* 
-            Body: scroll interno - el modal no crece, solo el contenido hace scroll:
-            - flex-1: ocupa espacio disponible dentro del modal
-            - overflow-y-auto: scroll vertical cuando contenido excede altura
-            - maxHeight: 100% para respetar límites del contenedor padre
-          */}
+          {/* Body - Scrollable Content */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6" style={{ maxHeight: '100%' }}>
-            {/* KPI Cards */}
+            {/* Key Stats Strip - 4 prominent stats */}
             <section>
-              <h3 className="text-lg font-semibold text-white mb-3">Estadísticas Clave</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <KpiCard
-                  title="Partidas"
-                  value={formatNumber(kpis.matches)}
-                  subtitle={kpis.confidenceNote}
-                  icon="🎮"
-                  explanation="Número total de partidas jugadas con este héroe"
-                  showExplanation={!kpis.matches || kpis.matches === 0}
-                />
-                <KpiCard
-                  title="Win Rate"
-                  value={formatPercent(kpis.winRate)}
-                  subtitle={`Wilson: ${formatPercent(kpis.winRateWilson)}`}
-                  icon="🏆"
-                  isHighlighted
-                  explanation="Porcentaje de victorias. Wilson ajusta por tamaño de muestra para mayor confiabilidad"
-                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.winRate) || kpis.winRate == null}
-                />
-                <KpiCard
-                  title="Pick Rate"
-                  value={formatPercent(kpis.pickRate)}
-                  icon="📊"
-                  explanation="Porcentaje de veces que este héroe fue elegido del total de partidas"
-                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.pickRate) || kpis.pickRate == null}
-                />
-                <KpiCard
-                  title="KDA"
-                  value={formatDecimal(kpis.kda, 2)}
-                  subtitle={`${formatDecimal(kpis.avgKills, 1)}/${formatDecimal(kpis.avgDeaths, 1)}/${formatDecimal(kpis.avgAssists, 1)}`}
-                  icon="⚔️"
-                  explanation="Ratio de (Kills + Asistencias) / Muertes. Muestra eficiencia en combate"
-                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.kda) || kpis.kda == null}
-                />
-                <KpiCard
-                  title="DPM"
-                  value={formatCompact(kpis.dpm)}
-                  subtitle="Daño por minuto"
-                  icon="💥"
-                  explanation="Daño por minuto. Mide la contribución de daño en el tiempo"
-                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.dpm) || kpis.dpm == null}
-                />
-                <KpiCard
-                  title="Avg Tiempo Muerto"
-                  value={formatDuration(kpis.avgSpentDeadSeconds)}
-                  icon="💀"
-                  explanation="Tiempo promedio que el héroe pasó muerto por partida"
-                  showExplanation={!kpis.matches || kpis.matches === 0 || isNaN(kpis.avgSpentDeadSeconds) || kpis.avgSpentDeadSeconds == null}
-                />
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className={`bg-gradient-to-br ${kpis.winRate >= 0.5 ? 'from-emerald-500/20 to-emerald-600/10 border-emerald-500/30 hover:border-emerald-400/50 hover:shadow-emerald-500/10' : 'from-red-500/20 to-red-600/10 border-red-500/30 hover:border-red-400/50 hover:shadow-red-500/10'} border rounded-xl p-5 transition-all hover:shadow-lg`}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-2xl">🏆</span>
+                    <div className="text-slate-400 text-xs font-medium">Win Rate</div>
+                  </div>
+                  <div className={`text-3xl font-bold ${kpis.winRate >= 0.5 ? 'text-emerald-400' : 'text-red-400'}`}>{formatPercent(kpis.winRate)}</div>
+                  {kpis.winRateWilson && (
+                    <div className="text-slate-500 text-xs mt-1">Wilson: {formatPercent(kpis.winRateWilson)}</div>
+                  )}
+                </div>
+                <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/30 rounded-xl p-5 hover:border-purple-400/50 transition-all hover:shadow-lg hover:shadow-purple-500/10">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-2xl">⚔️</span>
+                    <div className="text-slate-400 text-xs font-medium">KDA</div>
+                  </div>
+                  <div className="text-white text-3xl font-bold">{formatDecimal(kpis.kda, 2)}</div>
+                  <div className="text-slate-500 text-xs mt-1">{formatDecimal(kpis.avgKills, 1)}/{formatDecimal(kpis.avgDeaths, 1)}/{formatDecimal(kpis.avgAssists, 1)}</div>
+                </div>
+                <div className="bg-gradient-to-br from-red-500/20 to-red-600/10 border border-red-500/30 rounded-xl p-5 hover:border-red-400/50 transition-all hover:shadow-lg hover:shadow-red-500/10">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-2xl">💥</span>
+                    <div className="text-slate-400 text-xs font-medium">DPM</div>
+                  </div>
+                  <div className="text-white text-3xl font-bold">{formatCompact(kpis.dpm)}</div>
+                  <div className="text-slate-500 text-xs mt-1">Daño por minuto</div>
+                </div>
+                <div className="bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/30 rounded-xl p-5 hover:border-amber-400/50 transition-all hover:shadow-lg hover:shadow-amber-500/10">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-2xl">💀</span>
+                    <div className="text-slate-400 text-xs font-medium">Avg Time Dead</div>
+                  </div>
+                  <div className="text-white text-3xl font-bold">{formatDuration(kpis.avgSpentDeadSeconds)}</div>
+                  <div className="text-slate-500 text-xs mt-1">Por partida</div>
+                </div>
+              </div>
+            </section>
+
+            {/* Performance Breakdown - Two Columns */}
+            <section>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Group A: Output */}
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wide">Output</h3>
+                  <div className="space-y-3">
+                    <div className="bg-slate-800/40 border border-slate-700/30 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-slate-400 text-sm">Avg Hero Damage</span>
+                        <span className="text-white font-semibold">{formatCompact(kpis.avgHeroDamage || 0)}</span>
+                      </div>
+                    </div>
+                    {kpis.avgHealingShielding > 0 && (
+                      <div className="bg-slate-800/40 border border-slate-700/30 rounded-lg p-4">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-slate-400 text-sm">Avg Healing/Shielding</span>
+                          <span className="text-white font-semibold">{formatCompact(kpis.avgHealingShielding)}</span>
+                        </div>
+                      </div>
+                    )}
+                    {kpis.avgSiegeDamage > 0 && (
+                      <div className="bg-slate-800/40 border border-slate-700/30 rounded-lg p-4">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-slate-400 text-sm">Avg Siege/Structure</span>
+                          <span className="text-white font-semibold">{formatCompact(kpis.avgSiegeDamage)}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Group B: Survivability */}
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wide">Survivability</h3>
+                  <div className="space-y-3">
+                    <div className="bg-slate-800/40 border border-slate-700/30 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-slate-400 text-sm">Avg Damage Taken</span>
+                        <span className="text-white font-semibold">{formatCompact(kpis.avgDamageTaken || 0)}</span>
+                      </div>
+                    </div>
+                    <div className="bg-slate-800/40 border border-slate-700/30 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-slate-400 text-sm">Avg Time Dead</span>
+                        <span className="text-white font-semibold">{formatDuration(kpis.avgSpentDeadSeconds)}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -436,7 +490,7 @@ export function HeroModal({ hero, rows, onClose }) {
                           <td className="px-4 py-2 text-white text-sm">{map.name}</td>
                           <td className="px-4 py-2 text-right text-slate-300 text-sm">{map.matches}</td>
                           <td className="px-4 py-2 text-right">
-                            <Badge variant={map.winRate >= 0.55 ? 'success' : map.winRate <= 0.45 ? 'danger' : 'default'}>
+                            <Badge variant={map.winRate >= 0.5 ? 'success' : 'danger'}>
                               {formatPercent(map.winRate)}
                             </Badge>
                           </td>
@@ -505,17 +559,40 @@ export function HeroModal({ hero, rows, onClose }) {
                           }
                         })
                         .slice(0, 8)
-                        .map((player) => (
-                        <tr key={player.name} className="hover:bg-slate-700/20">
-                          <td className="px-4 py-2 text-white text-sm">{player.name}</td>
-                          <td className="px-4 py-2 text-right text-slate-300 text-sm">{player.matches}</td>
-                          <td className="px-4 py-2 text-right">
-                            <Badge variant={player.winRate >= 0.55 ? 'success' : player.winRate <= 0.45 ? 'danger' : 'default'}>
-                              {formatPercent(player.winRate)}
-                            </Badge>
-                          </td>
-                        </tr>
-                      ))}
+                        .map((player) => {
+                          const handlePlayerClick = () => {
+                            // Pass the current hero name to filter player stats by this hero
+                            const playerDetails = getPlayerDetails(rows, player.name, name)
+                            if (playerDetails) {
+                              setSelectedPlayer(playerDetails)
+                            }
+                          }
+                          
+                          return (
+                            <tr 
+                              key={player.name} 
+                              className="hover:bg-slate-700/20 transition-colors cursor-pointer"
+                              onClick={handlePlayerClick}
+                            >
+                              <td className="px-4 py-2">
+                                <div className="flex items-center gap-2">
+                                  <PlayerAvatar
+                                    name={player.name}
+                                    size="sm"
+                                    showBorder={true}
+                                  />
+                                  <span className="text-white text-sm">{player.name}</span>
+                                </div>
+                              </td>
+                              <td className="px-4 py-2 text-right text-slate-300 text-sm">{player.matches}</td>
+                              <td className="px-4 py-2 text-right">
+                                <Badge variant={player.winRate >= 0.5 ? 'success' : 'danger'}>
+                                  {formatPercent(player.winRate)}
+                                </Badge>
+                              </td>
+                            </tr>
+                          )
+                        })}
                     </tbody>
                   </table>
                 </div>
@@ -535,7 +612,7 @@ export function HeroModal({ hero, rows, onClose }) {
                           <h3 className="text-lg font-semibold text-white mb-3">Ultimate (Nivel 10) más tomado</h3>
                           <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 p-4">
                             <div className="flex items-center gap-3 mb-3">
-                              <span className="text-2xl">⚡</span>
+                              <Emote emoji="⚡" size={32} />
                               <div className="flex-1">
                                 <TalentDisplay 
                                   talentName={mostPickedUltimate.talent} 
@@ -554,7 +631,7 @@ export function HeroModal({ hero, rows, onClose }) {
                               <div>
                                 <p className="text-slate-400 text-xs mb-1">Win %</p>
                                 <p className="text-white font-semibold">
-                                  <Badge variant={mostPickedUltimate.winPct >= 55 ? 'success' : mostPickedUltimate.winPct <= 45 ? 'danger' : 'default'}>
+                                  <Badge variant={mostPickedUltimate.winPct >= 50 ? 'success' : 'danger'}>
                                     {formatDecimal(mostPickedUltimate.winPct, 1)}%
                                   </Badge>
                                 </p>
@@ -574,7 +651,7 @@ export function HeroModal({ hero, rows, onClose }) {
                           <h3 className="text-lg font-semibold text-white mb-3">Talento Nivel 20 más tomado</h3>
                           <div className="bg-layer-mid/60 rounded-xl border border-slate-700/50 p-4 shadow-md-custom">
                             <div className="flex items-center gap-3 mb-3">
-                              <span className="text-2xl">⭐</span>
+                              <Emote emoji="⭐" size={32} />
                               <div className="flex-1">
                                 <TalentDisplay 
                                   talentName={mostPickedL20.talent} 
@@ -593,7 +670,7 @@ export function HeroModal({ hero, rows, onClose }) {
                               <div>
                                 <p className="text-slate-400 text-xs mb-1">Win %</p>
                                 <p className="text-white font-semibold">
-                                  <Badge variant={mostPickedL20.winPct >= 55 ? 'success' : mostPickedL20.winPct <= 45 ? 'danger' : 'default'}>
+                                  <Badge variant={mostPickedL20.winPct >= 50 ? 'success' : 'danger'}>
                                     {formatDecimal(mostPickedL20.winPct, 1)}%
                                   </Badge>
                                 </p>
@@ -610,60 +687,6 @@ export function HeroModal({ hero, rows, onClose }) {
                   </section>
                 )}
 
-                {/* Best Build */}
-                {bestBuild ? (
-                  <section>
-                    <h3 className="text-lg font-semibold text-white mb-3">Mejor build según estadísticas</h3>
-                    <div className="bg-layer-mid/60 rounded-xl border border-slate-700/50 p-4 shadow-md-custom">
-                      <div className="space-y-3 mb-4">
-                        {[1, 4, 7, 10, 13, 16, 20].map(level => {
-                          const talentName = bestBuild.talents[level]
-                          if (!talentName) return null
-                          
-                          return (
-                            <div key={level} className="flex items-center gap-3">
-                              <span className="text-slate-400 text-sm w-16 shrink-0">Nivel {level}:</span>
-                              <TalentDisplay 
-                                talentName={talentName} 
-                                size={32}
-                                showName={true}
-                                className="flex-1"
-                              />
-                            </div>
-                          )
-                        })}
-                      </div>
-                      <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-700/50">
-                        <div>
-                          <p className="text-slate-400 text-xs mb-1">Win %</p>
-                          <p className="text-white font-semibold text-lg">
-                            <Badge variant={bestBuild.winPct >= 55 ? 'success' : bestBuild.winPct <= 45 ? 'danger' : 'default'}>
-                              {formatDecimal(bestBuild.winPct, 1)}%
-                            </Badge>
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-slate-400 text-xs mb-1">Partidas</p>
-                          <p className="text-white font-semibold text-lg">{formatNumber(bestBuild.games)}</p>
-                        </div>
-                      </div>
-                      <p className="text-slate-500 text-xs mt-3">
-                        Calculado a partir de builds con al menos 5 partidas
-                      </p>
-                    </div>
-                  </section>
-                ) : (
-                  Object.keys(talentStats).length > 0 && (
-                    <section>
-                      <h3 className="text-lg font-semibold text-white mb-3">Mejor build según estadísticas</h3>
-                      <div className="bg-layer-mid/60 rounded-xl border border-slate-700/50 p-4 shadow-md-custom">
-                        <p className="text-slate-400 text-sm">
-                          No hay suficientes datos para determinar la mejor build (mínimo 5 partidas requeridas)
-                        </p>
-                      </div>
-                    </section>
-                  )
-                )}
 
                 {/* Most Picked Talents by Level */}
                 {Object.keys(talentStats).length > 0 && (
@@ -717,7 +740,7 @@ export function HeroModal({ hero, rows, onClose }) {
                                     {formatDecimal(stat.pickPct, 1)}%
                                   </td>
                                   <td className="px-4 py-2 text-right">
-                                    <Badge variant={stat.winPct >= 55 ? 'success' : stat.winPct <= 45 ? 'danger' : 'default'}>
+                                    <Badge variant={stat.winPct >= 50 ? 'success' : 'danger'}>
                                       {formatDecimal(stat.winPct, 1)}%
                                     </Badge>
                                   </td>
@@ -743,6 +766,15 @@ export function HeroModal({ hero, rows, onClose }) {
           </div>
         </div>
       </div>
+
+      {/* Player Modal */}
+      {selectedPlayer && (
+        <PlayerModal
+          player={selectedPlayer}
+          rows={rows}
+          onClose={() => setSelectedPlayer(null)}
+        />
+      )}
     </>
   )
 }

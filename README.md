@@ -1,5 +1,7 @@
 # Geekos HotS Dashboard 2024-2025
 
+**Versión:** 1.0.0
+
 Dashboard interactivo para visualizar y analizar estadísticas de Heroes of the Storm de la comunidad Geekos.
 
 ## 🚀 Instalación
@@ -158,15 +160,26 @@ public/
     └── ...
 ```
 
-## 🛠️ Tecnologías
+## 🛠️ Tecnologías y Herramientas
 
-- **Vite** - Build tool
-- **React** - UI library
-- **TailwindCSS** - Styling
-- **PapaParse** - CSV parsing
-- **Recharts** - Charts
-- **html-to-image** - Exportación de gráficos a PNG
-- **clsx** - Class utilities
+### Frameworks y Librerías Principales
+
+- **React** v18.3.1 - Biblioteca de UI
+- **Vite** v6.3.5 - Build tool y bundler
+- **TailwindCSS** v4.1.10 - Framework de estilos CSS
+- **Framer Motion** v12.24.7 - Librería de animaciones
+
+### Librerías de Utilidad
+
+- **PapaParse** v5.5.3 - Parsing de archivos CSV
+- **Recharts** v2.15.3 - Librería de gráficos y visualización de datos
+- **html-to-image** v1.11.13 - Exportación de gráficos a PNG
+- **clsx** v2.1.1 - Utilidades para manejo de clases CSS
+
+### Herramientas de Desarrollo
+
+- **@vitejs/plugin-react** v4.5.2 - Plugin de Vite para React
+- **@tailwindcss/vite** v4.1.10 - Plugin de Vite para TailwindCSS
 
 ## 📈 Wilson Score
 
@@ -251,6 +264,45 @@ src/
 │   └── index.css            # Estilos globales + Tailwind
 └── main.jsx                 # Entry point
 ```
+
+## 🎨 Créditos de Iconos
+
+Los iconos utilizados en este proyecto son obra de los siguientes artistas:
+
+- **Lorc** - http://lorcblog.blogspot.com
+- **Delapouite** - https://delapouite.com
+- **John Colburn** - http://ninmunanmu.com
+- **Felbrigg** - http://blackdogofdoom.blogspot.co.uk
+- **John Redman** - http://www.uniquedicetowers.com
+- **Carl Olsen** - https://twitter.com/unstoppableCarl
+- **Sbed** - http://opengameart.org/content/95-game-icons
+- **PriorBlue**
+- **Willdabeast** - http://wjbstories.blogspot.com
+- **Viscious Speed** - http://viscious-speed.deviantart.com (CC0)
+- **Lord Berandas** - http://berandas.deviantart.com
+- **Irongamer** - http://ecesisllc.wix.com/home
+- **HeavenlyDog** - http://www.gnomosygoblins.blogspot.com
+- **Lucas**
+- **Faithtoken** - http://fungustoken.deviantart.com
+- **Skoll**
+- **Andy Meneely** - http://www.se.rit.edu/~andy/
+- **Cathelineau**
+- **Kier Heyl**
+- **Aussiesim**
+- **Sparker** - http://citizenparker.com
+- **Zeromancer** (CC0)
+- **Rihlsul**
+- **Quoting**
+- **Guard13007** - https://guard13007.com
+- **DarkZaitzev** - http://darkzaitzev.deviantart.com
+- **SpencerDub**
+- **GeneralAce135**
+- **Zajkonur**
+- **Catsu**
+- **Starseeker**
+- **Pepijn Poolman**
+- **Pierre Leducq**
+- **Caro Asercion**
 
 ## 📄 Licencia
 

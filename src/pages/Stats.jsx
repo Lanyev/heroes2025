@@ -1,10 +1,12 @@
 import { useMemo, useState, useRef, useCallback } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, 
   ResponsiveContainer, ReferenceLine, Cell 
 } from 'recharts'
 import { ChartCard } from '../components/ChartCard'
 import { SectionShell } from '../app/layout/SectionShell'
+import { SectionHeader } from '../components/SectionHeader'
 import { EmptyState } from '../components/EmptyState'
 import { SearchInput } from '../components/SearchInput'
 import { HeroMetricPicker } from '../components/HeroMetricPicker'
@@ -177,195 +179,271 @@ export function Stats({ rows }) {
     return <EmptyState />
   }
 
+  const shouldReduceMotion = useReducedMotion()
+  
+  // Chart animation variants
+  const chartVariants = {
+    initial: { opacity: 0, scale: 0.98 },
+    animate: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        duration: shouldReduceMotion ? 0 : 0.4, 
+        ease: 'easeOut' 
+      }
+    }
+  }
+
   return (
-    <div className="space-y-6 relative z-10">
+    <div className="space-y-8 relative z-10">
       {/* Controls Section */}
-      <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-end justify-between">
-        <HeroMetricPicker
-          selectedMetric={selectedMetric}
-          onMetricChange={setSelectedMetric}
-          minMatches={minMatches}
-          onMinMatchesChange={setMinMatches}
-          topN={topN}
-          onTopNChange={setTopN}
-        />
-        
-        <div className="flex items-end gap-3">
-          <SearchInput
-            value={searchText}
-            onChange={setSearchText}
-            placeholder="Buscar héroe..."
-            className="w-48"
+      <SectionShell title="Análisis de Héroes" isPrimary>
+        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-end justify-between">
+          <HeroMetricPicker
+            selectedMetric={selectedMetric}
+            onMetricChange={setSelectedMetric}
+            minMatches={minMatches}
+            onMinMatchesChange={setMinMatches}
+            topN={topN}
+            onTopNChange={setTopN}
           />
           
-          <button
-            onClick={() => setShowClassicCharts(!showClassicCharts)}
-            className={`px-3 py-2 text-sm rounded-lg transition-all duration-300 focus-ring-accent ${
-              showClassicCharts 
-                ? 'bg-indigo-600 text-white shadow-elevated' 
-                : 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:shadow-sm-custom'
-            }`}
-          >
-            {showClassicCharts ? 'Ver Métrica' : 'Ver Clásicos'}
-          </button>
+          <div className="flex items-end gap-3">
+            <SearchInput
+              value={searchText}
+              onChange={setSearchText}
+              placeholder="Buscar héroe..."
+              className="w-48"
+            />
+            
+            <button
+              onClick={() => setShowClassicCharts(!showClassicCharts)}
+              className={`px-3 py-2 text-sm rounded-lg transition-all duration-300 focus-ring-accent ${
+                showClassicCharts 
+                  ? 'bg-indigo-600 text-white shadow-elevated' 
+                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:shadow-sm-custom'
+              }`}
+            >
+              {showClassicCharts ? 'Ver Métrica' : 'Ver Clásicos'}
+            </button>
+          </div>
         </div>
-      </div>
+      </SectionShell>
 
       {/* Charts Section */}
       {showClassicCharts ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Top by Picks */}
-          <ChartCard 
-            title="Héroes Más Jugados" 
-            subtitle={`Top ${topN} por cantidad de partidas`}
-          >
-            <div className="h-96" ref={metricChartRef}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={topByMetric} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis type="number" stroke="#94a3b8" fontSize={12} />
-                  <YAxis 
-                    dataKey="name" 
-                    type="category" 
-                    stroke="#94a3b8" 
-                    fontSize={10}
-                    width={100}
-                    tickFormatter={(v) => truncateForChart(v, 14)}
-                  />
-                  <Tooltip 
-                    content={
-                      <HeroChartTooltip 
-                        config={{
-                          primaryLabel: 'Partidas',
-                          showRole: true
-                        }}
-                      />
-                    }
-                  />
-                  <Bar 
-                    dataKey="matches" 
-                    radius={[0, 4, 4, 0]}
-                  >
-                    {topByMetric.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={getMatchesFill(entry)} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="flex justify-end mt-2">
-              <ChartExportButton chartRef={metricChartRef} filename="heroes_picks" />
-            </div>
-          </ChartCard>
+          <motion.div variants={chartVariants} initial="initial" animate="animate">
+            <ChartCard>
+              <SectionHeader
+                title="Héroes Más Jugados"
+                subtitle={`Top ${topN} por cantidad de partidas`}
+              />
+              <div className="h-96" ref={metricChartRef}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={topByMetric} layout="vertical">
+                    <CartesianGrid 
+                      strokeDasharray="3 3" 
+                      stroke="rgba(51, 65, 85, 0.2)" 
+                      horizontal={true}
+                      vertical={false}
+                    />
+                    <XAxis 
+                      type="number" 
+                      stroke="#64748b" 
+                      fontSize={11}
+                      tick={{ fill: '#94a3b8' }}
+                    />
+                    <YAxis 
+                      dataKey="name" 
+                      type="category" 
+                      stroke="#64748b" 
+                      fontSize={11}
+                      width={100}
+                      tick={{ fill: '#94a3b8' }}
+                      tickFormatter={(v) => truncateForChart(v, 14)}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#1e293b', 
+                        border: '1px solid #334155',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3)'
+                      }}
+                      labelStyle={{ color: '#f8fafc', fontWeight: 600 }}
+                      itemStyle={{ color: '#cbd5e1' }}
+                      content={
+                        <HeroChartTooltip 
+                          config={{
+                            primaryLabel: 'Partidas',
+                            showRole: true
+                          }}
+                        />
+                      }
+                    />
+                    <Bar 
+                      dataKey="matches" 
+                      radius={[0, 6, 6, 0]}
+                    >
+                      {topByMetric.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={getMatchesFill(entry)} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex justify-end mt-2">
+                <ChartExportButton chartRef={metricChartRef} filename="heroes_picks" />
+              </div>
+            </ChartCard>
+          </motion.div>
 
           {/* Top by Win Rate (Wilson) */}
-          <ChartCard 
-            title="Héroes con Mayor Win Rate" 
-            subtitle={`Top ${topN} por Wilson Score (mín. ${Math.max(minMatches, 10)} partidas)`}
-          >
-            <div className="h-96" ref={winrateChartRef}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={topByWinRate} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis 
-                    type="number" 
-                    stroke="#94a3b8" 
-                    fontSize={12}
-                    domain={[0, 1]}
-                    tickFormatter={(v) => formatPercent(v, 0)}
-                  />
-                  <YAxis 
-                    dataKey="name" 
-                    type="category" 
-                    stroke="#94a3b8" 
-                    fontSize={10}
-                    width={100}
-                    tickFormatter={(v) => truncateForChart(v, 14)}
-                  />
-                  <Tooltip 
-                    content={
-                      <HeroChartTooltip 
-                        config={{
-                          primaryLabel: 'Win Rate Wilson',
-                          showRole: true,
-                          showWinRate: false
-                        }}
-                      />
-                    }
-                  />
-                  <ReferenceLine x={0.5} stroke="#f59e0b" strokeDasharray="5 5" />
-                  <Bar 
-                    dataKey="winRateWilson" 
-                    radius={[0, 4, 4, 0]}
-                  >
-                    {topByWinRate.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={getWinRateFill(entry)} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="flex justify-end mt-2">
-              <ChartExportButton chartRef={winrateChartRef} filename="heroes_winrate" />
-            </div>
-          </ChartCard>
+          <motion.div variants={chartVariants} initial="initial" animate="animate">
+            <ChartCard>
+              <SectionHeader
+                title="Héroes con Mayor Win Rate"
+                subtitle={`Top ${topN} por Wilson Score (mín. ${Math.max(minMatches, 10)} partidas)`}
+              />
+              <div className="h-96" ref={winrateChartRef}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={topByWinRate} layout="vertical">
+                    <CartesianGrid 
+                      strokeDasharray="3 3" 
+                      stroke="rgba(51, 65, 85, 0.2)" 
+                      horizontal={true}
+                      vertical={false}
+                    />
+                    <XAxis 
+                      type="number" 
+                      stroke="#64748b" 
+                      fontSize={11}
+                      domain={[0, 1]}
+                      tick={{ fill: '#94a3b8' }}
+                      tickFormatter={(v) => formatPercent(v, 0)}
+                    />
+                    <YAxis 
+                      dataKey="name" 
+                      type="category" 
+                      stroke="#64748b" 
+                      fontSize={11}
+                      width={100}
+                      tick={{ fill: '#94a3b8' }}
+                      tickFormatter={(v) => truncateForChart(v, 14)}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#1e293b', 
+                        border: '1px solid #334155',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3)'
+                      }}
+                      labelStyle={{ color: '#f8fafc', fontWeight: 600 }}
+                      itemStyle={{ color: '#cbd5e1' }}
+                      content={
+                        <HeroChartTooltip 
+                          config={{
+                            primaryLabel: 'Win Rate Wilson',
+                            showRole: true,
+                            showWinRate: false
+                          }}
+                        />
+                      }
+                    />
+                    <ReferenceLine x={0.5} stroke="#f59e0b" strokeDasharray="5 5" />
+                    <Bar 
+                      dataKey="winRateWilson" 
+                      radius={[0, 6, 6, 0]}
+                    >
+                      {topByWinRate.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={getWinRateFill(entry)} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex justify-end mt-2">
+                <ChartExportButton chartRef={winrateChartRef} filename="heroes_winrate" />
+              </div>
+            </ChartCard>
+          </motion.div>
         </div>
       ) : (
         /* Metric-driven Chart */
-        <ChartCard 
-          title={`Top Héroes por ${metricLabel}`}
-          subtitle={`Top ${topN} con mínimo ${minMatches} partidas`}
-        >
-          <div className="h-96" ref={metricChartRef}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={topByMetric} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(51, 65, 85, 0.3)" />
-                <XAxis 
-                  type="number" 
-                  stroke="#94a3b8" 
-                  fontSize={12}
-                  domain={isPercentMetric ? [0, 1] : undefined}
-                  tickFormatter={isPercentMetric ? (v) => formatPercent(v, 0) : undefined}
-                />
-                <YAxis 
-                  dataKey="name" 
-                  type="category" 
-                  stroke="#94a3b8" 
-                  fontSize={10}
-                  width={100}
-                  tickFormatter={(v) => truncateForChart(v, 14)}
-                />
-                <Tooltip 
-                  content={
-                    <HeroChartTooltip 
-                      config={createTooltipConfig(selectedMetric, metricLabel)}
-                    />
-                  }
-                />
-                {isPercentMetric && (
-                  <ReferenceLine x={0.5} stroke="#f59e0b" strokeDasharray="5 5" />
-                )}
-                <Bar 
-                  dataKey={selectedMetric}
-                  radius={[0, 4, 4, 0]}
-                >
-                  {topByMetric.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={getMetricFill(entry)} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="flex justify-end mt-2">
-            <ChartExportButton chartRef={metricChartRef} filename={`heroes_${selectedMetric}`} />
-          </div>
-        </ChartCard>
+        <motion.div variants={chartVariants} initial="initial" animate="animate">
+          <ChartCard>
+            <SectionHeader
+              title={`Top Héroes por ${metricLabel}`}
+              subtitle={`Top ${topN} con mínimo ${minMatches} partidas`}
+            />
+            <div className="h-96" ref={metricChartRef}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={topByMetric} layout="vertical">
+                  <CartesianGrid 
+                    strokeDasharray="3 3" 
+                    stroke="rgba(51, 65, 85, 0.2)" 
+                    horizontal={true}
+                    vertical={false}
+                  />
+                  <XAxis 
+                    type="number" 
+                    stroke="#64748b" 
+                    fontSize={11}
+                    domain={isPercentMetric ? [0, 1] : undefined}
+                    tick={{ fill: '#94a3b8' }}
+                    tickFormatter={isPercentMetric ? (v) => formatPercent(v, 0) : undefined}
+                  />
+                  <YAxis 
+                    dataKey="name" 
+                    type="category" 
+                    stroke="#64748b" 
+                    fontSize={11}
+                    width={100}
+                    tick={{ fill: '#94a3b8' }}
+                    tickFormatter={(v) => truncateForChart(v, 14)}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#1e293b', 
+                      border: '1px solid #334155',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3)'
+                    }}
+                    labelStyle={{ color: '#f8fafc', fontWeight: 600 }}
+                    itemStyle={{ color: '#cbd5e1' }}
+                    content={
+                      <HeroChartTooltip 
+                        config={createTooltipConfig(selectedMetric, metricLabel)}
+                      />
+                    }
+                  />
+                  {isPercentMetric && (
+                    <ReferenceLine x={0.5} stroke="#f59e0b" strokeDasharray="5 5" />
+                  )}
+                  <Bar 
+                    dataKey={selectedMetric}
+                    radius={[0, 6, 6, 0]}
+                  >
+                    {topByMetric.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={getMetricFill(entry)} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="flex justify-end mt-2">
+              <ChartExportButton chartRef={metricChartRef} filename={`heroes_${selectedMetric}`} />
+            </div>
+          </ChartCard>
+        </motion.div>
       )}
 
       {/* Full Stats Table */}
       <SectionShell 
         title="Tabla Completa de Héroes" 
         description={`${sortedTable.length} héroes • Click en una fila para ver detalles`}
+        isSecondary
       >
         <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2 border-b border-slate-700/50 bg-layer-light/20">

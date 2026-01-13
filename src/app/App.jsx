@@ -4,12 +4,14 @@ import { Header } from './layout/Header'
 import { FilterBar } from './layout/FilterBar'
 import { TabNav, getRouteComponent } from './routes'
 import { LoadingState, ErrorState } from '../components/LoadingState'
+import { BannerLoader } from '../components/BannerLoader'
 
 /**
  * Main App component
  */
 function App() {
   const [activeRoute, setActiveRoute] = useState('overview')
+  const [showBanner, setShowBanner] = useState(true)
   
   const {
     loading,
@@ -26,8 +28,13 @@ function App() {
   const PageComponent = useMemo(() => getRouteComponent(activeRoute), [activeRoute])
 
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <>
+      {showBanner && (
+        <BannerLoader onComplete={() => setShowBanner(false)} />
+      )}
       <Header />
+      {!showBanner && (
+        <div className="min-h-screen flex flex-col relative animate-fade-in">
       
       {!loading && !error && (
         <>
@@ -65,14 +72,46 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-layer-mid/50 border-t border-slate-700/50 py-4 shadow-sm-custom">
+      <footer className="bg-layer-mid/50 border-t border-slate-700/50 py-6 shadow-sm-custom">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-slate-500 text-sm">
-            Geekos HotS Dashboard 2024-2025 • Datos de {meta?.totalRows || 0} registros
-          </p>
+          <div className="text-center space-y-2">
+            <p className="text-slate-300 text-base font-semibold">
+              Alan Awards Dashboard 2023-2025
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-slate-500 text-sm">
+              <span>
+                {meta?.totalRows || 0} partidas registradas
+              </span>
+              {meta?.players && meta.players.length > 0 && (
+                <span>
+                  • {meta.players.length} jugadores
+                </span>
+              )}
+              {meta?.heroes && meta.heroes.length > 0 && (
+                <span>
+                  • {meta.heroes.length} héroes
+                </span>
+              )}
+              {meta?.maps && meta.maps.length > 0 && (
+                <span>
+                  • {meta.maps.length} mapas
+                </span>
+              )}
+              {meta?.dateMin && meta?.dateMax && (
+                <span>
+                  • {new Date(meta.dateMin).toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })} - {new Date(meta.dateMax).toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}
+                </span>
+              )}
+            </div>
+            <p className="text-slate-600 text-xs mt-3">
+              Estadísticas de Heroes of the Storm de la comunidad Geekos
+            </p>
+          </div>
         </div>
       </footer>
-    </div>
+      </div>
+      )}
+    </>
   )
 }
 

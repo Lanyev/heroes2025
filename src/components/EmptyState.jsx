@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Emote } from './Emote'
 
 /**
  * Empty state component when no data matches filters
@@ -22,7 +23,9 @@ export function EmptyState({
       'text-center animate-fade-in',
       className
     )}>
-      <div className="text-6xl mb-4 opacity-50">{icon}</div>
+      <div className="text-6xl mb-4 opacity-50">
+        <Emote emoji={icon} size={64} />
+      </div>
       <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
       <p className="text-slate-400 max-w-md mb-6">{description}</p>
       {action}
