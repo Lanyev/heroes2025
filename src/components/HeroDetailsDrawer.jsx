@@ -55,40 +55,71 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Backdrop - Dark glass overlay */}
       <div 
-        className="fixed inset-0 bg-black/50 z-40"
+        className="fixed inset-0 bg-gradient-to-br from-black/60 via-slate-900/50 to-black/60 backdrop-blur-sm z-[60] flex items-center justify-center overflow-y-auto"
         onClick={onClose}
-      />
-      
-      {/* Drawer */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-2xl bg-slate-900 border-l border-slate-700 z-50 flex flex-col animate-fade-in">
-        {/* Header: altura fija, sticky, z-index alto */}
-        <div className="sticky top-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 px-6 py-4 flex items-center justify-between z-50 shrink-0">
-          <div className="flex items-center gap-4">
-            <HeroAvatar 
-              name={name} 
-              role={role}
-              size="lg" 
-              showBorder={true}
-            />
-            <div>
-              <h2 className="text-2xl font-bold text-white">{name}</h2>
-              <Badge variant="info">{role}</Badge>
+        style={{
+          paddingTop: 'calc(var(--app-header-h, 80px) + 16px)',
+          paddingLeft: '16px',
+          paddingRight: '16px',
+          paddingBottom: '16px'
+        }}
+      >
+        {/* Modal Container - Premium dark glass panel */}
+        <div 
+          className="bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-xl rounded-2xl border border-slate-700/30 shadow-2xl animate-modal-enter w-full flex flex-col"
+          onClick={(e) => e.stopPropagation()}
+          style={{ 
+            maxWidth: '1000px',
+            maxHeight: '90vh',
+            overflow: 'hidden'
+          }}
+        >
+          {/* Header - Hero Summary */}
+          <div className="sticky top-0 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/30 px-6 py-5 flex items-center justify-between z-10 shrink-0 rounded-t-2xl">
+            <div className="flex items-center gap-5 flex-1 min-w-0">
+              {/* Avatar */}
+              <div className="shrink-0">
+                <HeroAvatar 
+                  name={name} 
+                  role={role}
+                  size="xl" 
+                  showBorder={true}
+                />
+              </div>
+              
+              {/* Name and Role */}
+              <div className="flex-1 min-w-0">
+                <h2 className="text-3xl font-bold text-white mb-1">{name}</h2>
+                <Badge variant="info" size="md">{role}</Badge>
+              </div>
+              
+              {/* Inline Badges - Quick Stats */}
+              <div className="flex items-center gap-3 shrink-0">
+                <div className={`${kpis.winRate >= 0.5 ? 'bg-emerald-500/20 border-emerald-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg px-4 py-2`}>
+                  <div className={`${kpis.winRate >= 0.5 ? 'text-emerald-400' : 'text-red-400'} text-xs font-medium mb-0.5`}>Win Rate</div>
+                  <div className="text-white text-xl font-bold">{formatPercent(kpis.winRate)}</div>
+                </div>
+                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-4 py-2">
+                  <div className="text-slate-400 text-xs font-medium mb-0.5">Partidas</div>
+                  <div className="text-white text-xl font-bold">{formatNumber(kpis.matches)}</div>
+                </div>
+              </div>
             </div>
+            <button
+              onClick={onClose}
+              className="p-2 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-colors shrink-0"
+              aria-label="Cerrar"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors shrink-0"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
 
-        {/* Body: scroll solo aquí, con padding superior para espaciado */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            {/* Body: scroll solo aquí, con padding superior para espaciado */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-6" style={{ maxHeight: '100%' }}>
           {/* KPI Cards */}
           <section>
             <h3 className="text-lg font-semibold text-white mb-3">Estadísticas Clave</h3>
@@ -330,10 +361,11 @@ export function HeroDetailsDrawer({ hero, rows, onClose }) {
             </section>
           )}
 
-          {/* Funny Highlights */}
-          {funnyHighlights && funnyHighlights.length > 0 && (
-            <HeroFunnyBlocks blocks={funnyHighlights} />
-          )}
+            {/* Funny Highlights */}
+            {funnyHighlights && funnyHighlights.length > 0 && (
+              <HeroFunnyBlocks blocks={funnyHighlights} />
+            )}
+          </div>
         </div>
       </div>
     </>

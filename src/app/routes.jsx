@@ -21,12 +21,12 @@ export const routes = [
     icon: '⚔️',
     component: Heroes
   },
-  {
-    id: 'stats',
-    label: 'Estadísticas',
-    icon: '📈',
-    component: Stats
-  },
+  // {
+  //   id: 'stats',
+  //   label: 'Estadísticas',
+  //   icon: '📈',
+  //   component: Stats
+  // },
   {
     id: 'players',
     label: 'Jugadores',
