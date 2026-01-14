@@ -18,9 +18,9 @@ const getBasePath = () => {
     return `/${repoName}/`
   }
   
-  // Por defecto, asumir que el repositorio se llama "heroes2"
+  // Por defecto, asumir que el repositorio se llama "heroes2025"
   // CAMBIA ESTE VALOR si tu repositorio tiene otro nombre
-  const defaultRepoName = 'heroes2'
+  const defaultRepoName = 'heroes2025'
   return process.env.NODE_ENV === 'production' ? `/${defaultRepoName}/` : '/'
 }
 
