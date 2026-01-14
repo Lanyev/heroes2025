@@ -20,6 +20,67 @@ npm run build
 npm run preview
 ```
 
+## 🌐 Despliegue en GitHub Pages
+
+El proyecto está configurado para desplegarse automáticamente en GitHub Pages usando GitHub Actions.
+
+### Configuración automática (recomendado)
+
+1. **Habilita GitHub Pages en tu repositorio:**
+   - Ve a `Settings` > `Pages` en tu repositorio de GitHub
+   - En `Source`, selecciona `GitHub Actions`
+   - Guarda los cambios
+
+2. **Verifica el nombre del repositorio:**
+   - Abre `vite.config.js`
+   - Busca la línea con `const defaultRepoName = 'heroes2'`
+   - **Cámbialo** si tu repositorio tiene otro nombre
+   - Si tu repositorio es de tipo usuario/organización (ej: `username.github.io`), cambia el base a `'/'` en lugar de `'/${defaultRepoName}/'`
+
+3. **Haz push a la rama principal:**
+   ```bash
+   git add .
+   git commit -m "Configurar GitHub Pages"
+   git push
+   ```
+
+4. **Espera a que se complete el workflow:**
+   - Ve a la pestaña `Actions` en tu repositorio
+   - El workflow se ejecutará automáticamente y desplegará tu sitio
+   - Tu sitio estará disponible en: `https://tu-usuario.github.io/nombre-del-repo/`
+
+### Solución de problemas
+
+**Error 404:**
+- Verifica que el nombre del repositorio en `vite.config.js` coincida con el nombre real de tu repositorio
+- Asegúrate de que GitHub Pages esté configurado para usar `GitHub Actions` como fuente
+- Verifica que el workflow se haya completado exitosamente en la pestaña `Actions`
+
+**Rutas no funcionan:**
+- Si ves un 404 al navegar, verifica que el `base` path en `vite.config.js` sea correcto
+- Para repositorios de usuario/organización (`username.github.io`), usa `base: '/'`
+- Para otros repositorios, usa `base: '/nombre-del-repo/'`
+
+**Imágenes no cargan:**
+- Asegúrate de que el archivo `.nojekyll` esté presente en la carpeta `public/` (ya está incluido)
+- Verifica que las imágenes estén en la carpeta `public/` y se hayan incluido en el commit
+
+### Configuración manual (alternativa)
+
+Si prefieres desplegar manualmente:
+
+1. Construye el proyecto:
+   ```bash
+   npm run build
+   ```
+
+2. Configura GitHub Pages para usar la carpeta `dist`:
+   - Ve a `Settings` > `Pages`
+   - En `Source`, selecciona la rama `main` o `master` y la carpeta `/dist`
+   - Guarda los cambios
+
+3. **Importante:** Asegúrate de actualizar el `base` path en `vite.config.js` antes de hacer build.
+
 ## 📁 Ubicación del CSV
 
 **IMPORTANTE:** El archivo CSV debe estar en la carpeta `/public` para que la aplicación pueda cargarlo.
