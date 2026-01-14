@@ -9,8 +9,9 @@
  * - Full accessibility support
  */
 
-import { useState, useRef, useCallback, useEffect } from 'react'
-import { getPlayerAvatarPath, ARCHETYPE_THEMES } from '../../utils/geekoCards'
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
+import { getPlayerCardImageSources, ARCHETYPE_THEMES } from '../../utils/geekoCards'
+import { Emote } from '../Emote'
 
 // Constants for tilt calculation
 const MAX_ROTATION = 15 // Maximum degrees of rotation
@@ -43,9 +44,88 @@ function getRarityClass(rarity) {
 }
 
 /**
+ * Normalize player name for comparison
+ */
+function normalizePlayerName(playerName) {
+  if (!playerName) return ''
+  return playerName.toLowerCase()
+    .replace(/[^a-z0-9]/g, '') // Remove special characters
+    .replace(/\s+/g, '') // Remove spaces
+}
+
+/**
+ * Custom player types mapping
+ */
+const PLAYER_TYPES = {
+  'raizenser': {
+    text: 'DRUNK TYPE',
+    color: '#f59e0b', // Amber/Orange
+    bgColor: 'rgba(245, 158, 11, 0.2)',
+    borderColor: '#f59e0b'
+  },
+  'watchdogman': {
+    text: 'FURRO TYPE',
+    color: '#ec4899', // Pink
+    bgColor: 'rgba(236, 72, 153, 0.2)',
+    borderColor: '#ec4899'
+  },
+  'ticoman': {
+    text: 'PUCHICA TYPE',
+    color: '#10b981', // Emerald
+    bgColor: 'rgba(16, 185, 129, 0.2)',
+    borderColor: '#10b981'
+  },
+  'deathmask': {
+    text: 'AFK TYPE',
+    color: '#6b7280', // Gray
+    bgColor: 'rgba(107, 114, 128, 0.2)',
+    borderColor: '#6b7280'
+  },
+  'indigente': {
+    text: 'CIEGOS DE M... TYPE',
+    color: '#8b5cf6', // Violet
+    bgColor: 'rgba(139, 92, 246, 0.2)',
+    borderColor: '#8b5cf6'
+  },
+  'malenfant': {
+    text: 'TREPACERROS TYPE',
+    color: '#ef4444', // Red
+    bgColor: 'rgba(239, 68, 68, 0.2)',
+    borderColor: '#ef4444'
+  },
+  'chapelhots': {
+    text: 'WEON TYPE',
+    color: '#06b6d4', // Cyan
+    bgColor: 'rgba(6, 182, 212, 0.2)',
+    borderColor: '#06b6d4'
+  },
+  'omarman': {
+    text: '9-11 TYPE',
+    color: '#f97316', // Orange
+    bgColor: 'rgba(249, 115, 22, 0.2)',
+    borderColor: '#f97316'
+  },
+  'rampage15th': {
+    text: 'XV TYPE',
+    color: '#a855f7', // Purple
+    bgColor: 'rgba(168, 85, 247, 0.2)',
+    borderColor: '#a855f7'
+  }
+}
+
+/**
+ * Get custom type for a player
+ */
+function getPlayerCustomType(playerName) {
+  if (!playerName) return null
+  const normalized = normalizePlayerName(playerName)
+  return PLAYER_TYPES[normalized] || null
+}
+
+/**
  * Main TCG Card Component
  */
-export function GeekoTCGCard({ card, index = 0 }) {
+export function GeekoTCGCard({ card, index = 0, isModal = false, onClick }) {
   const cardRef = useRef(null)
   const [isHovering, setIsHovering] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -154,13 +234,24 @@ export function GeekoTCGCard({ card, index = 0 }) {
     evolution
   } = card
   
+  // Check if this is WatchdogMan card (needs dark text)
+  const isWatchdogMan = playerName && normalizePlayerName(playerName) === 'watchdogman'
+  
+  // Check if name is long (needs smaller font)
+  // WatchdogMan = 11 caracteres, así que ajustamos para nombres >= 10
+  const isLongName = playerName && playerName.length >= 10
+  
+  // Get custom type for this player
+  const customType = getPlayerCustomType(playerName)
+  
   // Build class names
   const cardClasses = [
     'tcg-card',
     getRarityClass(rarity),
     getHoloPatternClass(theme),
     rarity.holoType === 'rainbow' ? 'tcg-card--holo-rainbow' : '',
-    isActive ? 'tcg-card--active' : ''
+    isActive ? 'tcg-card--active' : '',
+    isWatchdogMan ? 'tcg-card--dark-text' : ''
   ].filter(Boolean).join(' ')
   
   // Custom CSS variables for this card's theme
@@ -176,34 +267,35 @@ export function GeekoTCGCard({ card, index = 0 }) {
     ...cssVars
   }
   
-  // Avatar handling with fallback - try multiple name variations
-  const getAvatarSources = useCallback(() => {
-    if (!playerName) return []
-    const normalizedName = playerName.toLowerCase()
-      .replace(/[^a-z0-9]/g, '')
-      .replace(/\s+/g, '')
-    return [
-      `/players-images/${normalizedName}.jpg`,
-      `/players-images/${normalizedName}.png`,
-      `/players-images/${normalizedName}.webp`,
-      `/players-images/${playerName.toLowerCase()}.jpg`,
-      `/players-images/${playerName.toLowerCase()}.png`
-    ]
-  }, [playerName])
+  // Card image handling - uses -card images exclusively
+  const cardImageSources = useMemo(() => 
+    getPlayerCardImageSources(playerName), 
+    [playerName]
+  )
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [imageError, setImageError] = useState(false)
+  const currentImagePath = cardImageSources[currentImageIndex] || ''
   
-  const avatarSources = getAvatarSources()
-  const [currentAvatarIndex, setCurrentAvatarIndex] = useState(0)
-  const [avatarError, setAvatarError] = useState(false)
-  const currentAvatarPath = avatarSources[currentAvatarIndex] || ''
-  
+  // Handler para clic en la card
+  const handleCardClick = useCallback((e) => {
+    if (onClick) {
+      e.stopPropagation()
+      onClick(card)
+    }
+  }, [onClick, card])
+
   return (
     <article
       ref={cardRef}
       className={cardClasses}
-      style={themeVars}
+      style={{
+        ...themeVars,
+        cursor: onClick ? 'pointer' : 'default'
+      }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleCardClick}
       tabIndex={0}
       role="img"
       aria-label={`Carta TCG de ${playerName} - ${archetype.name} - ${rarity.name}`}
@@ -217,9 +309,17 @@ export function GeekoTCGCard({ card, index = 0 }) {
             {/* Header: Name + HP/Signature */}
             <div className="tcg-card__header">
               <div className="tcg-card__energy-icon" title={archetype.pokemonType}>
-                {archetype.energyIcon}
+                <Emote emoji={archetype.energyIcon} size={10} />
               </div>
-              <h3 className="tcg-card__name">{playerName}</h3>
+              <h3 
+                className="tcg-card__name"
+                style={isLongName ? {
+                  fontSize: '9.5px',
+                  letterSpacing: '0.2px'
+                } : {}}
+              >
+                {playerName}
+              </h3>
               <div className="tcg-card__hp">
                 <span className="tcg-card__hp-label">{signatureStat.shortLabel}</span>
                 <span>{signatureStat.displayValue}</span>
@@ -235,17 +335,17 @@ export function GeekoTCGCard({ card, index = 0 }) {
             
             {/* Art Area */}
             <div className="tcg-card__art">
-              {!avatarError && currentAvatarPath ? (
+              {!imageError && currentImagePath ? (
                 <img
-                  src={currentAvatarPath}
-                  alt={`Avatar de ${playerName}`}
+                  src={currentImagePath}
+                  alt={`Carta de ${playerName}`}
                   className="tcg-card__art-image"
                   onError={() => {
                     // Try next source if available
-                    if (currentAvatarIndex < avatarSources.length - 1) {
-                      setCurrentAvatarIndex(currentAvatarIndex + 1)
+                    if (currentImageIndex < cardImageSources.length - 1) {
+                      setCurrentImageIndex(currentImageIndex + 1)
                     } else {
-                      setAvatarError(true)
+                      setImageError(true)
                     }
                   }}
                   loading="lazy"
@@ -279,16 +379,34 @@ export function GeekoTCGCard({ card, index = 0 }) {
             </div>
             
             {/* Archetype Badge */}
-            <div className="tcg-card__archetype-badge">
-              <span className="tcg-card__archetype-icon">{archetype.energyIcon}</span>
-              <span className="tcg-card__archetype-name">{archetype.subtitle}</span>
+            <div 
+              className={`tcg-card__archetype-badge ${customType ? 'tcg-card__archetype-badge--custom' : ''}`}
+              style={customType ? {
+                background: customType.bgColor,
+                borderColor: customType.borderColor
+              } : {}}
+            >
+              {customType ? (
+                <span className="tcg-card__archetype-name" style={{ color: customType.color }}>
+                  {customType.text}
+                </span>
+              ) : (
+                <>
+                  <span className="tcg-card__archetype-icon">
+                    <Emote emoji={archetype.energyIcon} size={10} />
+                  </span>
+                  <span className="tcg-card__archetype-name">{archetype.subtitle}</span>
+                </>
+              )}
             </div>
             
             {/* Stats Section */}
             <div className="tcg-card__stats">
               {secondaryStats.map((stat, i) => (
                 <div key={i} className="tcg-card__stat-row">
-                  <span className="tcg-card__stat-icon">{stat.icon}</span>
+                  <span className="tcg-card__stat-icon">
+                    <Emote emoji={stat.icon} size={9} />
+                  </span>
                   <span className="tcg-card__stat-label">{stat.label}</span>
                   <span className="tcg-card__stat-value">{stat.value}</span>
                 </div>

@@ -1,0 +1,14 @@
+{
+  "availableCards": [
+    "chapelhots-card.png",
+    "deathmask-card.png",
+    "indigente-card.png",
+    "malenfant-card.png",
+    "omarman-card.png",
+    "raisenzer-card.png",
+    "rampage15th-card.png",
+    "ticoman-card.png",
+    "watchdogman-card.png"
+  ],
+  "fallback": "default-card.png"
+}

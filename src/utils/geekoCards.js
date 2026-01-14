@@ -679,3 +679,113 @@ export function getPlayerAvatarPath(playerName) {
   // Return primary path (component handles fallback via onError)
   return `/players-images/${normalizedName}.jpg`
 }
+
+/**
+ * Normalize player name for filename matching
+ * Converts to lowercase and removes special characters/spaces
+ * @param {string} playerName - Original player name
+ * @returns {string} - Normalized name
+ */
+function normalizePlayerName(playerName) {
+  if (!playerName) return ''
+  return playerName.toLowerCase()
+    .replace(/[^a-z0-9]/g, '') // Remove special characters
+    .replace(/\s+/g, '') // Remove spaces
+}
+
+/**
+ * Get player card image path
+ * Searches for images matching pattern: {playerName}-card.{ext}
+ * Supports multiple extensions: png, jpg, jpeg, webp
+ * Returns fallback image if no card image is found
+ * 
+ * @param {string} playerName - Player name
+ * @returns {string} - Public path to card image or fallback
+ */
+export function getPlayerCardImage(playerName) {
+  if (!playerName) {
+    return '/players-images/default-card.png'
+  }
+  
+  const normalizedName = normalizePlayerName(playerName)
+  
+  // Supported extensions in order of preference
+  const extensions = ['png', 'jpg', 'jpeg', 'webp']
+  
+  // Try each extension - return first match (Vite will handle 404s)
+  // In production, we'll rely on the browser's onError handler
+  // For now, return the most common format (png)
+  // The component will handle fallback via onError
+  return `/players-images/${normalizedName}-card.png`
+}
+
+/**
+ * Get all possible card image paths for a player
+ * Returns array of paths to try in order
+ * Used by components to handle fallback logic
+ * 
+ * @param {string} playerName - Player name
+ * @returns {string[]} - Array of paths to try
+ */
+export function getPlayerCardImageSources(playerName) {
+  if (!playerName) {
+    return ['/players-images/default-card.png']
+  }
+  
+  const normalizedName = normalizePlayerName(playerName)
+  const extensions = ['png', 'jpg', 'jpeg', 'webp']
+  
+  // Return all possible paths in order of preference
+  const paths = extensions.map(ext => 
+    `/players-images/${normalizedName}-card.${ext}`
+  )
+  
+  // Add fallback at the end
+  paths.push('/players-images/default-card.png')
+  
+  return paths
+}
+
+/**
+ * Load the card images index (lazy-loaded for performance)
+ * @returns {Promise<Object|null>} - Index object or null if not available
+ */
+let cardImagesIndexCache = null
+export async function loadCardImagesIndex() {
+  if (cardImagesIndexCache !== null) {
+    return cardImagesIndexCache
+  }
+  
+  try {
+    const response = await fetch('/players-card-images-index.json')
+    if (response.ok) {
+      cardImagesIndexCache = await response.json()
+      return cardImagesIndexCache
+    }
+  } catch (error) {
+    // Index not available, return null (fallback will be used)
+    if (import.meta.env.DEV) {
+      console.warn('[CardImages] Index not available, using fallback logic:', error)
+    }
+  }
+  
+  cardImagesIndexCache = null
+  return null
+}
+
+/**
+ * Check if a card image exists in the index
+ * @param {string} playerName - Player name
+ * @returns {Promise<boolean>} - True if image exists in index
+ */
+export async function hasPlayerCardImage(playerName) {
+  if (!playerName) return false
+  
+  const index = await loadCardImagesIndex()
+  if (!index || !index.availableCards) return true // Assume exists if index unavailable
+  
+  const normalizedName = normalizePlayerName(playerName)
+  return index.availableCards.some(filename => 
+    filename.startsWith(`${normalizedName}-card.`)
+  )
+}

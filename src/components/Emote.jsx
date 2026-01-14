@@ -9,6 +9,7 @@
 const EMOJI_TO_IMAGE = {
   // Emotes principales (15 originales)
   '❤️': '/emotes/curacion.png',
+  '💚': '/emotes/curacion.png', // Corazón verde (Support/Healing)
   '💥': '/emotes/explosion.png',
   '🔥': '/emotes/fire.png',
   '⚔️': '/emotes/swords-power.png',
@@ -16,8 +17,10 @@ const EMOJI_TO_IMAGE = {
   '🛡️': '/emotes/shield.png',
   '⭐': '/emotes/star-formation.png',
   '🏆': '/emotes/trofeo.png',
-  '🗡️': '/emotes/minions.png',
+  '🗡️': '/emotes/swords-power.png', // Espada (Kills/Assassin)
   '🎯': '/emotes/objetives.png',
+  '🔮': '/emotes/star-formation.png', // Bola de cristal (Macro/Psychic)
+  '🏰': '/emotes/stone-wall.png', // Castillo (Siege/Structures)
   '🥇': '/emotes/podium-winner.png',
   '🥈': '/emotes/podium-second.png',
   '🥉': '/emotes/podium-third.png',
