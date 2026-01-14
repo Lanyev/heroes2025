@@ -1,12 +1,14 @@
+import { getPublicPath } from '../utils/paths'
+
 /**
  * Componente Emote - Renderiza emotes desde imágenes PNG
  * Mapea emojis Unicode a sus imágenes correspondientes en public/emotes/
  */
 
 /**
- * Mapeo de emojis a sus imágenes PNG correspondientes
+ * Mapeo de emojis a sus imágenes PNG correspondientes (rutas relativas)
  */
-const EMOJI_TO_IMAGE = {
+const EMOJI_TO_IMAGE_PATHS = {
   // Emotes principales (15 originales)
   '❤️': '/emotes/curacion.png',
   '💚': '/emotes/curacion.png', // Corazón verde (Support/Healing)
@@ -51,6 +53,13 @@ const EMOJI_TO_IMAGE = {
 }
 
 /**
+ * Obtiene la ruta completa de una imagen de emote con el base path
+ */
+function getEmoteImagePath(path) {
+  return getPublicPath(path)
+}
+
+/**
  * Componente Emote
  * @param {string} emoji - El emoji a renderizar (se mapea a su imagen PNG)
  * @param {string} className - Clases CSS adicionales
@@ -74,7 +83,7 @@ export function Emote({ emoji, className = '', size = 'md' }) {
     
     return (
       <img
-        src="/emotes/sands-of-time.png"
+        src={getEmoteImagePath('/emotes/sands-of-time.png')}
         alt="⏳"
         className={`inline-block ${sizeClass} ${className}`}
         style={{
@@ -102,7 +111,7 @@ export function Emote({ emoji, className = '', size = 'md' }) {
     
     return (
       <img
-        src="/emotes/clockwork.png"
+        src={getEmoteImagePath('/emotes/clockwork.png')}
         alt="⏱️"
         className={`inline-block ${sizeClass} ${className}`}
         style={{
@@ -124,10 +133,11 @@ export function Emote({ emoji, className = '', size = 'md' }) {
   const cleanNormalized = normalizedEmoji.trim()
   
   // Obtener la ruta de la imagen, intentar múltiples variantes
-  const imageSrc = EMOJI_TO_IMAGE[emoji] || 
-                   EMOJI_TO_IMAGE[normalizedEmoji] || 
-                   EMOJI_TO_IMAGE[cleanEmoji] || 
-                   EMOJI_TO_IMAGE[cleanNormalized]
+  const imagePath = EMOJI_TO_IMAGE_PATHS[emoji] || 
+                   EMOJI_TO_IMAGE_PATHS[normalizedEmoji] || 
+                   EMOJI_TO_IMAGE_PATHS[cleanEmoji] || 
+                   EMOJI_TO_IMAGE_PATHS[cleanNormalized]
+  const imageSrc = imagePath ? getEmoteImagePath(imagePath) : null
   
   // Si no hay imagen mapeada, renderizar el emoji como texto
   if (!imageSrc) {

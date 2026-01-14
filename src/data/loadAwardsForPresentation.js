@@ -198,13 +198,15 @@ export function parseAwardsCSV(csvText) {
   return orderedAwards
 }
 
+import { getPublicPath } from '../utils/paths'
+
 /**
  * Carga y parsea el CSV de awards para la presentación
  * @returns {Promise<Array>} - Array de premios parseados
  */
 export async function loadAwardsForPresentation() {
   try {
-    const response = await fetch('/resources/tablas_awards.csv')
+    const response = await fetch(getPublicPath('/resources/tablas_awards.csv'))
     if (!response.ok) {
       throw new Error(`Failed to fetch CSV: ${response.status}`)
     }

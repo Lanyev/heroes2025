@@ -1,3 +1,5 @@
+import { getPublicPath } from './paths'
+
 /**
  * Utilidades para obtener imágenes y nombres legibles de talentos
  * Usa /public/talent-dict-optimized.json como fuente principal
@@ -40,7 +42,7 @@ async function loadTalentDict() {
   // Iniciar carga
   loadingPromise = (async () => {
     try {
-      const response = await fetch('/talent-dict-optimized.json')
+      const response = await fetch(getPublicPath('/talent-dict-optimized.json'))
       if (!response.ok) {
         console.warn('[TalentImage] No se pudo cargar talent-dict-optimized.json, usando índice como fallback')
         return await loadTalentsIndex()
@@ -84,7 +86,7 @@ export async function loadTalentsIndex() {
   // Iniciar carga
   indexLoadingPromise = (async () => {
     try {
-      const response = await fetch('/talents-index.json')
+      const response = await fetch(getPublicPath('/talents-index.json'))
       if (!response.ok) {
         console.error('[TalentImage] No se pudo cargar talents-index.json', {
           status: response.status,

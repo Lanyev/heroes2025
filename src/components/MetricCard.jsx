@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import clsx from 'clsx'
 import { Emote } from './Emote'
+import { getPublicPath } from '../utils/paths'
 
 /**
  * Generate micro-insight text based on metric type and value
@@ -269,14 +270,14 @@ export function MetricCard({
                 // Casos especiales para emojis problemáticos - verificar primero
                 icon === '⏳' || icon === '\u23F3' || icon.trim() === '⏳' ? (
                   <img 
-                    src="/emotes/sands-of-time.png" 
+                    src={getPublicPath('/emotes/sands-of-time.png')} 
                     alt="⏳" 
                     className={priorityStyles?.iconSize || (tier === 'A' ? 'w-12 h-12' : 'w-8 h-8')}
                     style={{ objectFit: 'contain', imageRendering: 'crisp-edges' }}
                   />
                 ) : icon === '⏱️' || icon === '\u23F1' || icon === '\u23F1\uFE0F' || icon.replace(/\uFE0F/g, '') === '\u23F1' ? (
                   <img 
-                    src="/emotes/clockwork.png" 
+                    src={getPublicPath('/emotes/clockwork.png')} 
                     alt="⏱️" 
                     className={priorityStyles?.iconSize || (tier === 'A' ? 'w-12 h-12' : 'w-8 h-8')}
                     style={{ objectFit: 'contain', imageRendering: 'crisp-edges' }}

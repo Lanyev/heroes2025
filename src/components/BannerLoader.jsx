@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { getPublicPath } from '../utils/paths'
 
 /**
  * BannerLoader component
@@ -74,7 +75,7 @@ export function BannerLoader({ onComplete }) {
     >
       <img
         ref={imgRef}
-        src="/banner.gif"
+        src={getPublicPath('/banner.gif')}
         alt="Loading banner"
         className="max-w-full max-h-full object-contain pointer-events-none"
         style={{

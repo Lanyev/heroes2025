@@ -1,4 +1,5 @@
 import Papa from 'papaparse'
+import { getPublicPath } from '../utils/paths'
 
 /**
  * Fetch and parse CSV from public folder
@@ -7,8 +8,9 @@ import Papa from 'papaparse'
  */
 export async function loadCsv(url = '/structured_data.csv') {
   // Add cache-busting param to avoid browser cache issues
+  const fullUrl = getPublicPath(url)
   const cacheBuster = `?t=${Date.now()}`
-  const response = await fetch(url + cacheBuster)
+  const response = await fetch(fullUrl + cacheBuster)
   
   if (!response.ok) {
     throw new Error(`Failed to load CSV: ${response.status} ${response.statusText}. Make sure the file is in the /public folder.`)

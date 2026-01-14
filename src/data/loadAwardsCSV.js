@@ -154,9 +154,11 @@ const TABLE_DEFINITIONS = {
 /**
  * Parse CSV content and extract all award tables
  */
+import { getPublicPath } from '../utils/paths'
+
 export async function loadAwardsCSV() {
   try {
-    const response = await fetch('/resources/tablas_awards.csv')
+    const response = await fetch(getPublicPath('/resources/tablas_awards.csv'))
     const text = await response.text()
     
     const lines = text.split('\n').map(line => line.split(','))

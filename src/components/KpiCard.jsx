@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { Emote } from './Emote'
+import { getPublicPath } from '../utils/paths'
 
 /**
  * KPI Card component for displaying key metrics
@@ -50,14 +51,14 @@ export function KpiCard({ title, value, subtitle, icon, trend, explanation, show
               // Casos especiales para emojis problemáticos - verificar primero
               icon === '⏳' || icon === '\u23F3' || icon.trim() === '⏳' ? (
                 <img 
-                  src="/emotes/sands-of-time.png" 
+                  src={getPublicPath('/emotes/sands-of-time.png')} 
                   alt="⏳" 
                   className="w-8 h-8"
                   style={{ objectFit: 'contain', imageRendering: 'crisp-edges' }}
                 />
               ) : icon === '⏱️' || icon === '\u23F1' || icon === '\u23F1\uFE0F' || icon.replace(/\uFE0F/g, '') === '\u23F1' ? (
                 <img 
-                  src="/emotes/clockwork.png" 
+                  src={getPublicPath('/emotes/clockwork.png')} 
                   alt="⏱️" 
                   className="w-8 h-8"
                   style={{ objectFit: 'contain', imageRendering: 'crisp-edges' }}

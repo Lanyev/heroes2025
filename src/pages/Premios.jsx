@@ -3,6 +3,7 @@ import { loadAwardsCSV, formatAwardValue, getAwardColorClasses } from '../data/l
 import { LoadingState } from '../components/LoadingState'
 import { Presentation } from './Presentation'
 import { Emote } from '../components/Emote'
+import { getPublicPath } from '../utils/paths'
 
 /**
  * Award Card Component - Shows a single award table
@@ -402,7 +403,7 @@ export function Premios() {
                 >
                   {cat.icon === '⏱️' || cat.icon === '\u23F1' || cat.icon === '\u23F1\uFE0F' ? (
                     <img 
-                      src="/emotes/clockwork.png" 
+                      src={getPublicPath('/emotes/clockwork.png')} 
                       alt="⏱️" 
                       className="w-4 h-4"
                       style={{ objectFit: 'contain', imageRendering: 'crisp-edges' }}

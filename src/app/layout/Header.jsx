@@ -1,3 +1,5 @@
+import { getPublicPath } from '../../utils/paths'
+
 /**
  * Main header component with title and subtitle
  */
@@ -7,7 +9,7 @@ export function Header() {
       <div className="h-full flex items-center justify-center relative px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
           <img 
-            src="/banner_logo.png" 
+            src={getPublicPath('/banner_logo.png')} 
             alt="Alan Awards 2025 Logo" 
             className="h-full object-contain"
             style={{ maxHeight: '84px' }}

@@ -752,13 +752,15 @@ export function getPlayerCardImageSources(playerName) {
  * @returns {Promise<Object|null>} - Index object or null if not available
  */
 let cardImagesIndexCache = null
+import { getPublicPath } from './paths'
+
 export async function loadCardImagesIndex() {
   if (cardImagesIndexCache !== null) {
     return cardImagesIndexCache
   }
   
   try {
-    const response = await fetch('/players-card-images-index.json')
+    const response = await fetch(getPublicPath('/players-card-images-index.json'))
     if (response.ok) {
       cardImagesIndexCache = await response.json()
       return cardImagesIndexCache

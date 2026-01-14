@@ -1,8 +1,5 @@
-/**
- * Load the list of players from resources/players.json
- * The file contains player names, one per line
- * @returns {Promise<Set<string>>} - Set of player names (for fast lookup)
- */
+import { getPublicPath } from '../utils/paths'
+
 /**
  * Load the list of players from resources/players.json
  * The file contains player names, one per line
@@ -11,7 +8,7 @@
 export async function loadPlayersList() {
   try {
     // In Vite, files in public/ are served from root
-    const response = await fetch('/resources/players.json')
+    const response = await fetch(getPublicPath('/resources/players.json'))
     
     if (!response.ok) {
       console.warn('Could not load players.json, using empty list')
