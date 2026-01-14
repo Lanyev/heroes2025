@@ -337,7 +337,7 @@ export async function getTalentImageUrl(talentName) {
   const entry = findTalentInIndex(talentName, index)
 
   if (entry && entry.path) {
-    return entry.path
+    return getPublicPath(entry.path)
   }
 
   // Log en desarrollo si no se encuentra
@@ -391,7 +391,7 @@ export async function getTalentInfo(talentName) {
   
   // Si el diccionario tiene el talento directamente, usarlo (más rápido)
   if (dict && dict[talentName]) {
-    const imageUrl = dict[talentName]
+    const imageUrl = getPublicPath(dict[talentName])
     const displayName = formatTalentDisplayName(null, talentName)
     
     if (import.meta.env.DEV) {
@@ -416,7 +416,7 @@ export async function getTalentInfo(talentName) {
 
   const entry = findTalentInIndex(talentName, index)
 
-  const imageUrl = entry && entry.path ? entry.path : null
+  const imageUrl = entry && entry.path ? getPublicPath(entry.path) : null
   const displayName = entry && entry.originalName
     ? formatTalentDisplayName(entry.originalName, talentName)
     : formatTalentDisplayName(null, talentName)

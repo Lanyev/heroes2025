@@ -1,4 +1,5 @@
 import { heroSlug } from './slug'
+import { getPublicPath } from './paths'
 
 /**
  * Supported image extensions in priority order
@@ -54,7 +55,7 @@ export function getHeroImageSources(heroName) {
   
   const filename = getImageFilename(slug)
   
-  return IMAGE_EXTENSIONS.map(ext => `${HERO_IMAGES_PATH}/${filename}.${ext}`)
+  return IMAGE_EXTENSIONS.map(ext => getPublicPath(`${HERO_IMAGES_PATH}/${filename}.${ext}`))
 }
 
 /**

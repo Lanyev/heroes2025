@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import clsx from 'clsx'
+import { getPublicPath } from '../utils/paths'
 
 /**
  * Size configurations for the avatar
@@ -31,21 +32,21 @@ function getPlayerImageSources(name) {
 
   return [
     // First try -profile images (new format)
-    `/players-images/${normalizedName}-profile.png`,
-    `/players-images/${normalizedName}-profile.jpg`,
-    `/players-images/${normalizedName}-profile.webp`,
+    getPublicPath(`/players-images/${normalizedName}-profile.png`),
+    getPublicPath(`/players-images/${normalizedName}-profile.jpg`),
+    getPublicPath(`/players-images/${normalizedName}-profile.webp`),
     // Fallback to old format without -profile
-    `/players-images/${normalizedName}.png`,
-    `/players-images/${normalizedName}.jpg`,
-    `/players-images/${normalizedName}.webp`,
+    getPublicPath(`/players-images/${normalizedName}.png`),
+    getPublicPath(`/players-images/${normalizedName}.jpg`),
+    getPublicPath(`/players-images/${normalizedName}.webp`),
     // Try original name with spaces/special chars (with -profile)
-    `/players-images/${name}-profile.png`,
-    `/players-images/${name}-profile.jpg`,
-    `/players-images/${name}-profile.webp`,
+    getPublicPath(`/players-images/${name}-profile.png`),
+    getPublicPath(`/players-images/${name}-profile.jpg`),
+    getPublicPath(`/players-images/${name}-profile.webp`),
     // Try original name without -profile
-    `/players-images/${name}.png`,
-    `/players-images/${name}.jpg`,
-    `/players-images/${name}.webp`
+    getPublicPath(`/players-images/${name}.png`),
+    getPublicPath(`/players-images/${name}.jpg`),
+    getPublicPath(`/players-images/${name}.webp`)
   ]
 }
 

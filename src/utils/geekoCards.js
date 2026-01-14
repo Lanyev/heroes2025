@@ -1,3 +1,5 @@
+import { getPublicPath } from './paths'
+
 /**
  * Geeko TCG Card System
  * Determines card archetype, rarity, and signature stat based on player statistics
@@ -678,7 +680,7 @@ export function getPlayerAvatarPath(playerName) {
     .replace(/\s+/g, '') // Remove spaces
   
   // Return primary path with -profile suffix (component handles fallback via onError)
-  return `/players-images/${normalizedName}-profile.png`
+  return getPublicPath(`/players-images/${normalizedName}-profile.png`)
 }
 
 /**
@@ -705,7 +707,7 @@ function normalizePlayerName(playerName) {
  */
 export function getPlayerCardImage(playerName) {
   if (!playerName) {
-    return '/players-images/default-card.png'
+    return getPublicPath('/players-images/default-card.png')
   }
   
   const normalizedName = normalizePlayerName(playerName)
@@ -717,7 +719,7 @@ export function getPlayerCardImage(playerName) {
   // In production, we'll rely on the browser's onError handler
   // For now, return the most common format (png)
   // The component will handle fallback via onError
-  return `/players-images/${normalizedName}-card.png`
+  return getPublicPath(`/players-images/${normalizedName}-card.png`)
 }
 
 /**
@@ -730,7 +732,7 @@ export function getPlayerCardImage(playerName) {
  */
 export function getPlayerCardImageSources(playerName) {
   if (!playerName) {
-    return ['/players-images/default-card.png']
+    return [getPublicPath('/players-images/default-card.png')]
   }
   
   const normalizedName = normalizePlayerName(playerName)
@@ -738,11 +740,11 @@ export function getPlayerCardImageSources(playerName) {
   
   // Return all possible paths in order of preference
   const paths = extensions.map(ext => 
-    `/players-images/${normalizedName}-card.${ext}`
+    getPublicPath(`/players-images/${normalizedName}-card.${ext}`)
   )
   
   // Add fallback at the end
-  paths.push('/players-images/default-card.png')
+  paths.push(getPublicPath('/players-images/default-card.png'))
   
   return paths
 }
@@ -752,8 +754,6 @@ export function getPlayerCardImageSources(playerName) {
  * @returns {Promise<Object|null>} - Index object or null if not available
  */
 let cardImagesIndexCache = null
-import { getPublicPath } from './paths'
-
 export async function loadCardImagesIndex() {
   if (cardImagesIndexCache !== null) {
     return cardImagesIndexCache

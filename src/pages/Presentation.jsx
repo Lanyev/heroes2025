@@ -9,30 +9,31 @@ import {
 } from '../components/presentation'
 import { LoadingState } from '../components/LoadingState'
 import { Emote } from '../components/Emote'
+import { getPublicPath } from '../utils/paths'
 
 /**
  * Mapeo de premios a sus videos correspondientes
  */
 const AWARD_VIDEO_MAP = {
-  'Top Kills': '/video/top_kills.mp4',
-  'Top Hero Damage': '/video/top_damage.mp4',
-  'Top Deaths': '/video/top_deaths.mp4',
-  'Top Siege Damage': '/video/top_siege.mp4',
-  'Top Assists': '/video/top_assists.mp4',
-  'Top Time Death': '/video/top_time_death.mp4',
-  'Partida mas Corta': '/video/short_match.mp4',
-  'Partida mas Larga': '/video/longest_match.mp4',
-  'Top Tank Damage': '/video/top_tank.mp4',
-  'Top Capturas Mercenarios': '/video/top_mercenaries.mp4',
-  'Top Kills W/Healer': '/video/top_kills_whealer.mp4',
-  'Less Tank Damage': '/video/less_tank.mp4',
-  'Top Globitos': '/video/top_globes.mp4',
-  'Top Time OnFire': '/video/top_onfire.mp4',
-  'Top Damage W/Healer': '/video/top_damage_whealer.mp4',
-  'Top Healing': '/video/top_healing.mp4',
-  'Top Self Healing': '/video/top_selfhealing.mp4',
-  'Top Exp': '/video/top_exp.mp4',
-  'Top Minion Killer': '/video/top_minion.mp4'
+  'Top Kills': getPublicPath('/video/top_kills.mp4'),
+  'Top Hero Damage': getPublicPath('/video/top_damage.mp4'),
+  'Top Deaths': getPublicPath('/video/top_deaths.mp4'),
+  'Top Siege Damage': getPublicPath('/video/top_siege.mp4'),
+  'Top Assists': getPublicPath('/video/top_assists.mp4'),
+  'Top Time Death': getPublicPath('/video/top_time_death.mp4'),
+  'Partida mas Corta': getPublicPath('/video/short_match.mp4'),
+  'Partida mas Larga': getPublicPath('/video/longest_match.mp4'),
+  'Top Tank Damage': getPublicPath('/video/top_tank.mp4'),
+  'Top Capturas Mercenarios': getPublicPath('/video/top_mercenaries.mp4'),
+  'Top Kills W/Healer': getPublicPath('/video/top_kills_whealer.mp4'),
+  'Less Tank Damage': getPublicPath('/video/less_tank.mp4'),
+  'Top Globitos': getPublicPath('/video/top_globes.mp4'),
+  'Top Time OnFire': getPublicPath('/video/top_onfire.mp4'),
+  'Top Damage W/Healer': getPublicPath('/video/top_damage_whealer.mp4'),
+  'Top Healing': getPublicPath('/video/top_healing.mp4'),
+  'Top Self Healing': getPublicPath('/video/top_selfhealing.mp4'),
+  'Top Exp': getPublicPath('/video/top_exp.mp4'),
+  'Top Minion Killer': getPublicPath('/video/top_minion.mp4')
 }
 
 /**
@@ -63,25 +64,25 @@ function getVideoSrc(award) {
   
   // Mapeo de patrones a videos
   const patterns = [
-    { match: ['top kills', 'top-kills'], exclude: ['healer'], video: '/video/top_kills.mp4' },
-    { match: ['top hero damage', 'top-hero-damage'], video: '/video/top_damage.mp4' },
-    { match: ['top deaths', 'top-deaths'], video: '/video/top_deaths.mp4' },
-    { match: ['top siege damage', 'top-siege-damage'], video: '/video/top_siege.mp4' },
-    { match: ['top assists', 'top-assists'], video: '/video/top_assists.mp4' },
-    { match: ['top time death', 'top-time-death'], video: '/video/top_time_death.mp4' },
-    { match: ['partida mas corta', 'partida-mas-corta'], video: '/video/short_match.mp4' },
-    { match: ['partida mas larga', 'partida-mas-larga'], video: '/video/longest_match.mp4' },
-    { match: ['top tank damage', 'top-tank-damage'], video: '/video/top_tank.mp4' },
-    { match: ['top capturas mercenarios', 'top-capturas-mercenarios'], video: '/video/top_mercenaries.mp4' },
-    { match: ['top kills w/healer', 'top-kills-w-healer'], video: '/video/top_kills_whealer.mp4' },
-    { match: ['top damage w/healer', 'top-damage-w-healer'], video: '/video/top_damage_whealer.mp4' },
-    { match: ['less tank damage', 'less-tank-damage'], video: '/video/less_tank.mp4' },
-    { match: ['top globitos', 'top-globitos'], video: '/video/top_globes.mp4' },
-    { match: ['top time onfire', 'top-time-onfire'], video: '/video/top_onfire.mp4' },
-    { match: ['top healing', 'top-healing'], video: '/video/top_healing.mp4' },
-    { match: ['top self healing', 'top-self-healing'], video: '/video/top_selfhealing.mp4' },
-    { match: ['top exp', 'top-exp'], video: '/video/top_exp.mp4' },
-    { match: ['top minion killer', 'top-minion-killer'], video: '/video/top_minion.mp4' }
+    { match: ['top kills', 'top-kills'], exclude: ['healer'], video: getPublicPath('/video/top_kills.mp4') },
+    { match: ['top hero damage', 'top-hero-damage'], video: getPublicPath('/video/top_damage.mp4') },
+    { match: ['top deaths', 'top-deaths'], video: getPublicPath('/video/top_deaths.mp4') },
+    { match: ['top siege damage', 'top-siege-damage'], video: getPublicPath('/video/top_siege.mp4') },
+    { match: ['top assists', 'top-assists'], video: getPublicPath('/video/top_assists.mp4') },
+    { match: ['top time death', 'top-time-death'], video: getPublicPath('/video/top_time_death.mp4') },
+    { match: ['partida mas corta', 'partida-mas-corta'], video: getPublicPath('/video/short_match.mp4') },
+    { match: ['partida mas larga', 'partida-mas-larga'], video: getPublicPath('/video/longest_match.mp4') },
+    { match: ['top tank damage', 'top-tank-damage'], video: getPublicPath('/video/top_tank.mp4') },
+    { match: ['top capturas mercenarios', 'top-capturas-mercenarios'], video: getPublicPath('/video/top_mercenaries.mp4') },
+    { match: ['top kills w/healer', 'top-kills-w-healer'], video: getPublicPath('/video/top_kills_whealer.mp4') },
+    { match: ['top damage w/healer', 'top-damage-w-healer'], video: getPublicPath('/video/top_damage_whealer.mp4') },
+    { match: ['less tank damage', 'less-tank-damage'], video: getPublicPath('/video/less_tank.mp4') },
+    { match: ['top globitos', 'top-globitos'], video: getPublicPath('/video/top_globes.mp4') },
+    { match: ['top time onfire', 'top-time-onfire'], video: getPublicPath('/video/top_onfire.mp4') },
+    { match: ['top healing', 'top-healing'], video: getPublicPath('/video/top_healing.mp4') },
+    { match: ['top self healing', 'top-self-healing'], video: getPublicPath('/video/top_selfhealing.mp4') },
+    { match: ['top exp', 'top-exp'], video: getPublicPath('/video/top_exp.mp4') },
+    { match: ['top minion killer', 'top-minion-killer'], video: getPublicPath('/video/top_minion.mp4') }
   ]
   
   for (const pattern of patterns) {
