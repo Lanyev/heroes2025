@@ -19,6 +19,7 @@ const DEFAULT_GRADIENT = 'bg-gradient-to-br from-indigo-600 to-purple-800'
 
 /**
  * Get player image sources - tries multiple formats and fallbacks
+ * Now prioritizes images with -profile suffix
  */
 function getPlayerImageSources(name) {
   if (!name) return []
@@ -29,11 +30,21 @@ function getPlayerImageSources(name) {
     .replace(/\s+/g, '') // Remove spaces
 
   return [
-    `/players-images/${normalizedName}.jpg`,
+    // First try -profile images (new format)
+    `/players-images/${normalizedName}-profile.png`,
+    `/players-images/${normalizedName}-profile.jpg`,
+    `/players-images/${normalizedName}-profile.webp`,
+    // Fallback to old format without -profile
     `/players-images/${normalizedName}.png`,
+    `/players-images/${normalizedName}.jpg`,
     `/players-images/${normalizedName}.webp`,
-    `/players-images/${name}.jpg`, // Try original name with spaces/special chars
+    // Try original name with spaces/special chars (with -profile)
+    `/players-images/${name}-profile.png`,
+    `/players-images/${name}-profile.jpg`,
+    `/players-images/${name}-profile.webp`,
+    // Try original name without -profile
     `/players-images/${name}.png`,
+    `/players-images/${name}.jpg`,
     `/players-images/${name}.webp`
   ]
 }

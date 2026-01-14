@@ -667,6 +667,7 @@ function formatLargeNumber(num) {
 /**
  * Get avatar path for a player
  * Returns the primary path (component will handle fallback)
+ * Now prioritizes images with -profile suffix
  */
 export function getPlayerAvatarPath(playerName) {
   if (!playerName) return ''
@@ -676,8 +677,8 @@ export function getPlayerAvatarPath(playerName) {
     .replace(/[^a-z0-9]/g, '') // Remove special characters
     .replace(/\s+/g, '') // Remove spaces
   
-  // Return primary path (component handles fallback via onError)
-  return `/players-images/${normalizedName}.jpg`
+  // Return primary path with -profile suffix (component handles fallback via onError)
+  return `/players-images/${normalizedName}-profile.png`
 }
 
 /**
