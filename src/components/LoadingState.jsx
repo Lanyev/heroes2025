@@ -5,9 +5,13 @@ import { Emote } from './Emote'
  * Loading state component
  * @param {Object} props
  * @param {string} props.message - Loading message
+ * @param {Object} props.progress - Progress object { loaded, total, message }
  * @param {string} props.className - Additional CSS classes
  */
-export function LoadingState({ message = 'Cargando datos...', className }) {
+export function LoadingState({ message = 'Cargando datos...', progress, className }) {
+  const displayMessage = progress?.message || message
+  const showProgress = progress && progress.loaded > 0
+  
   return (
     <div className={clsx(
       'flex flex-col items-center justify-center py-16 px-4',
@@ -18,7 +22,26 @@ export function LoadingState({ message = 'Cargando datos...', className }) {
         <div className="w-16 h-16 border-4 border-slate-700 rounded-full"></div>
         <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full absolute top-0 left-0 animate-spin"></div>
       </div>
-      <p className="text-slate-400 text-lg">{message}</p>
+      <p className="text-slate-400 text-lg mb-2">{displayMessage}</p>
+      {showProgress && (
+        <div className="w-64 max-w-full">
+          <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-indigo-500 transition-all duration-300 ease-out"
+              style={{ 
+                width: progress.total 
+                  ? `${(progress.loaded / progress.total) * 100}%`
+                  : '50%'
+              }}
+            />
+          </div>
+          {progress.total && (
+            <p className="text-slate-500 text-sm mt-2">
+              {progress.loaded.toLocaleString()} / {progress.total.toLocaleString()} filas
+            </p>
+          )}
+        </div>
+      )}
     </div>
   )
 }

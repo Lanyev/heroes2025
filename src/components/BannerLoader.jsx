@@ -47,7 +47,8 @@ export function BannerLoader({ onComplete }) {
       // Asegurarse de restaurar el scroll si el componente se desmonta
       document.body.style.overflow = ''
     }
-  }, [onComplete])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Solo ejecutar una vez al montar
 
   // Permitir saltar el loader con un clic
   const handleClick = () => {

@@ -15,6 +15,7 @@ export function useDataset() {
   const [meta, setMeta] = useState(null)
   const [filters, setFilters] = useState(null)
   const [listedPlayers, setListedPlayers] = useState(null)
+  const [loadingProgress, setLoadingProgress] = useState(null)
   
   // Load and normalize data on mount
   useEffect(() => {
@@ -24,26 +25,49 @@ export function useDataset() {
       try {
         setLoading(true)
         setError(null)
+        setLoadingProgress({ loaded: 0, total: null, message: 'Cargando CSV...' })
         
-        // Load CSV and players list in parallel
-        const [rawRows, playersSet] = await Promise.all([
-          loadCsv(),
+        // Load CSV with progress tracking
+        const rawRows = await loadCsv(undefined, {
+          useCache: true,
+          onProgress: (progress) => {
+            if (!cancelled) {
+              setLoadingProgress({
+                loaded: progress.loaded,
+                total: progress.total,
+                message: progress.total 
+                  ? `Procesando ${progress.loaded.toLocaleString()} filas...`
+                  : `Cargando datos... (${progress.loaded.toLocaleString()} filas)`
+              })
+            }
+          }
+        })
+        
+        if (cancelled) return
+        
+        setLoadingProgress({ loaded: rawRows.length, total: rawRows.length, message: 'Normalizando datos...' })
+        
+        // Load players list in parallel with normalization
+        const [normalizedResult, playersSet] = await Promise.all([
+          Promise.resolve(normalizeData(rawRows)),
           loadPlayersList()
         ])
         
         if (cancelled) return
         
-        const { rows: normalizedRows, meta: dataMeta } = normalizeData(rawRows)
+        const { rows: normalizedRows, meta: dataMeta } = normalizedResult
         
         setRows(normalizedRows)
         setMeta(dataMeta)
         setFilters(createFilterState(dataMeta))
         setListedPlayers(playersSet)
         setLoading(false)
+        setLoadingProgress(null)
       } catch (err) {
         if (cancelled) return
         setError(err.message)
         setLoading(false)
+        setLoadingProgress(null)
       }
     }
     
@@ -88,6 +112,7 @@ export function useDataset() {
     filterOptions,
     updateFilter,
     resetFilters,
-    listedPlayers
+    listedPlayers,
+    loadingProgress
   }
 }

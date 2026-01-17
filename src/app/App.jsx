@@ -23,7 +23,8 @@ function App() {
     filterOptions,
     updateFilter,
     resetFilters,
-    listedPlayers
+    listedPlayers,
+    loadingProgress
   } = useDataset()
 
   // Get active page component
@@ -60,7 +61,7 @@ function App() {
         ) : activeRoute === 'comparison' ? (
           <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6">
             {loading ? (
-              <LoadingState message="Cargando datos del CSV..." />
+              <LoadingState message="Cargando datos del CSV..." progress={loadingProgress} />
             ) : error ? (
               <ErrorState 
                 error={error} 
@@ -73,7 +74,7 @@ function App() {
         ) : (
           <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6">
             {loading ? (
-              <LoadingState message="Cargando datos del CSV..." />
+              <LoadingState message="Cargando datos del CSV..." progress={loadingProgress} />
             ) : error ? (
               <ErrorState 
                 error={error} 
