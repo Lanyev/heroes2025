@@ -17,14 +17,38 @@ export async function loadPlayersList() {
     
     const text = await response.text()
     // Parse the file - it's a text file with one player name per line
+    // Normalize player names to match the normalization in normalizeRow.js
+    const normalizePlayerName = (name) => {
+      if (!name) return name
+      const normalized = name.trim()
+      
+      // Map aliases to canonical names (case-insensitive) - same as normalizeRow.js
+      const playerAliases = {
+        'swift': 'WatchdogMan',
+        'watchdogman': 'WatchdogMan',
+        'watchdog': 'WatchdogMan'
+      }
+      
+      const normalizedLower = normalized.toLowerCase()
+      if (playerAliases[normalizedLower]) {
+        return playerAliases[normalizedLower]
+      }
+      
+      return normalized
+    }
+    
     const players = text
       .split('\n')
       .map(line => line.trim())
       .filter(line => line.length > 0)
-      .map(name => name.trim())
+      .map(name => normalizePlayerName(name.trim()))
+      .filter(name => name) // Remove any empty names after normalization
     
-    console.log(`Loaded ${players.length} players from players.json:`, players)
-    return new Set(players)
+    // Remove duplicates (in case Swift and WatchdogMan both normalize to WatchdogMan)
+    const uniquePlayers = [...new Set(players)]
+    
+    console.log(`Loaded ${uniquePlayers.length} players from players.json (normalized):`, uniquePlayers)
+    return new Set(uniquePlayers)
   } catch (error) {
     console.warn('Error loading players.json:', error)
     return new Set()

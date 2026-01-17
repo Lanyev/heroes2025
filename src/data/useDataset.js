@@ -87,6 +87,7 @@ export function useDataset() {
     filters,
     filterOptions,
     updateFilter,
-    resetFilters
+    resetFilters,
+    listedPlayers
   }
 }

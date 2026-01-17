@@ -4,6 +4,7 @@ import { Stats } from '../pages/Stats'
 import { Players } from '../pages/Players'
 import { Premios } from '../pages/Premios'
 import { Geekos } from '../pages/Geekos'
+import { YearComparison } from '../pages/YearComparison'
 
 /**
  * Route configuration for the dashboard
@@ -32,6 +33,12 @@ export const routes = [
     label: 'Jugadores',
     icon: '👤',
     component: Players
+  },
+  {
+    id: 'comparison',
+    label: 'Comparación',
+    icon: '📊',
+    component: YearComparison
   },
   {
     id: 'geekos',
