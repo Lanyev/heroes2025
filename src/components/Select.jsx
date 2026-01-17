@@ -11,20 +11,20 @@ import clsx from 'clsx'
  */
 export function Select({ label, value, onChange, options = [], className }) {
   return (
-    <div className={clsx('flex flex-col gap-1.5', className)}>
+    <div className={clsx('flex flex-col gap-1 sm:gap-1.5', className)}>
       {label && (
-        <label className="text-slate-300 text-xs font-semibold uppercase tracking-wide">{label}</label>
+        <label className="text-slate-300 text-[10px] sm:text-xs font-semibold uppercase tracking-wide">{label}</label>
       )}
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={clsx(
-          'bg-slate-700/80 border border-slate-600/80 rounded-lg px-3.5 py-2.5',
-          'text-white text-sm font-medium',
+          'bg-slate-700/80 border border-slate-600/80 rounded-lg px-2.5 sm:px-3.5 py-2 sm:py-2.5',
+          'text-white text-xs sm:text-sm font-medium',
           'focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50',
           'cursor-pointer hover:border-slate-500 hover:bg-slate-700 transition-all duration-200',
           'appearance-none bg-no-repeat bg-right shadow-sm-custom hover:shadow-md-custom',
-          'pr-8'
+          'pr-7 sm:pr-8'
         )}
         style={{
           backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,

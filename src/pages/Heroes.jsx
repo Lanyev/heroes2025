@@ -106,11 +106,11 @@ export function Heroes({ rows }) {
   }
 
   return (
-    <div className="space-y-4 relative z-10">
+    <div className="space-y-3 sm:space-y-4 relative z-10">
       {/* Header - Más pequeño */}
       <SectionShell title="Héroes" isPrimary>
         {/* Contenedor con fondo distintivo y separación visual */}
-        <div className="bg-surface-1/40 rounded-2xl p-4 border border-slate-700/30 backdrop-blur-sm relative overflow-hidden">
+        <div className="bg-surface-1/40 rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-slate-700/30 backdrop-blur-sm relative overflow-hidden">
           {/* Patrón de fondo muy sutil */}
           <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
             style={{
@@ -120,11 +120,11 @@ export function Heroes({ rows }) {
           />
 
           {/* Filters, Búsqueda y Ordenamiento */}
-          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between relative z-10 mb-4">
-            <div className="flex flex-wrap gap-2 items-center">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center justify-between relative z-10 mb-3 sm:mb-4">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2 items-center w-full sm:w-auto">
               <button
                 onClick={() => setRoleFilter('all')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus-ring-accent ${
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium transition-all duration-200 focus-ring-accent ${
                   roleFilter === 'all'
                     ? 'bg-indigo-600 text-white shadow-elevated ring-2 ring-indigo-500/30'
                     : 'bg-surface-2 text-slate-300 hover:bg-surface-2/80 hover:shadow-sm-custom'
@@ -136,7 +136,7 @@ export function Heroes({ rows }) {
                 <button
                   key={role}
                   onClick={() => setRoleFilter(role)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus-ring-accent ${
+                  className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium transition-all duration-200 focus-ring-accent ${
                     roleFilter === role
                       ? 'bg-indigo-600 text-white shadow-elevated ring-2 ring-indigo-500/30'
                       : 'bg-surface-2 text-slate-300 hover:bg-surface-2/80 hover:shadow-sm-custom'
@@ -147,19 +147,19 @@ export function Heroes({ rows }) {
               ))}
               
               {/* Sort Controls - En la misma línea */}
-              <div className="flex items-center gap-2 ml-2">
-                <label className="text-slate-400 text-xs font-medium whitespace-nowrap">
+              <div className="flex items-center gap-1.5 sm:gap-2 ml-0 sm:ml-2 w-full sm:w-auto mt-2 sm:mt-0">
+                <label className="text-slate-400 text-[10px] sm:text-xs font-medium whitespace-nowrap shrink-0">
                   Ordenar por:
                 </label>
                 <Select
                   value={sortKey}
                   onChange={setSortKey}
                   options={sortOptions}
-                  className="min-w-[140px]"
+                  className="min-w-[120px] sm:min-w-[140px] flex-1 sm:flex-none"
                 />
                 <button
                   onClick={() => setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus-ring-accent ${
+                  className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium transition-all duration-200 focus-ring-accent shrink-0 ${
                     sortDirection === 'desc'
                       ? 'bg-indigo-600 text-white shadow-elevated'
                       : 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:shadow-sm-custom'
@@ -175,19 +175,19 @@ export function Heroes({ rows }) {
               value={searchText}
               onChange={setSearchText}
               placeholder="Buscar héroe..."
-              className="w-full sm:w-48"
+              className="w-full sm:w-48 mt-2 sm:mt-0"
             />
           </div>
 
           {/* Hero Grid */}
           {filteredHeroes.length === 0 ? (
-            <div className="text-center py-12 relative z-10">
-              <p className="text-slate-400 text-lg">
+            <div className="text-center py-8 sm:py-12 relative z-10">
+              <p className="text-slate-400 text-sm sm:text-lg">
                 No se encontraron héroes con los filtros seleccionados
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 relative z-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 relative z-10">
               {filteredHeroes.map((hero) => (
                 <button
                   key={hero.name}
@@ -230,7 +230,7 @@ export function Heroes({ rows }) {
           )}
 
           {/* Results count */}
-          <div className="text-center text-slate-500 text-xs relative z-10 mt-4">
+          <div className="text-center text-slate-500 text-[10px] sm:text-xs relative z-10 mt-3 sm:mt-4">
             Mostrando {filteredHeroes.length} de {heroTable.length} héroes
           </div>
         </div>

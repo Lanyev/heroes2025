@@ -288,9 +288,9 @@ export function Players({ rows }) {
   }
 
   return (
-    <div className="space-y-8 relative z-10">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8 relative z-10">
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Top Players by Matches */}
         <motion.div variants={chartVariants} initial="initial" animate="animate">
           <ChartCard>
@@ -298,7 +298,7 @@ export function Players({ rows }) {
               title="Jugadores Más Activos"
               subtitle="Top 10 por cantidad de partidas"
             />
-            <div className="h-80">
+            <div className="h-64 sm:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topByMatches} layout="vertical">
                   <CartesianGrid 
@@ -310,15 +310,15 @@ export function Players({ rows }) {
                   <XAxis 
                     type="number" 
                     stroke="#64748b" 
-                    fontSize={11}
+                    fontSize={10}
                     tick={{ fill: '#94a3b8' }}
                   />
                   <YAxis 
                     dataKey="name" 
                     type="category" 
                     stroke="#64748b" 
-                    fontSize={11}
-                    width={100}
+                    fontSize={10}
+                    width={80}
                     tick={{ fill: '#94a3b8' }}
                   />
                   <Tooltip 
@@ -356,7 +356,7 @@ export function Players({ rows }) {
               title="Jugadores con Mayor Win Rate"
               subtitle="Top 10 (mínimo 10 partidas)"
             />
-            <div className="h-80">
+            <div className="h-64 sm:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topByWinRate} layout="vertical">
                   <CartesianGrid 
@@ -368,7 +368,7 @@ export function Players({ rows }) {
                   <XAxis 
                     type="number" 
                     stroke="#64748b" 
-                    fontSize={11}
+                    fontSize={10}
                     domain={[0, 1]}
                     tick={{ fill: '#94a3b8' }}
                     tickFormatter={(v) => formatPercent(v, 0)}
@@ -377,8 +377,8 @@ export function Players({ rows }) {
                     dataKey="name" 
                     type="category" 
                     stroke="#64748b" 
-                    fontSize={11}
-                    width={100}
+                    fontSize={10}
+                    width={80}
                     tick={{ fill: '#94a3b8' }}
                   />
                   <Tooltip 
@@ -417,7 +417,7 @@ export function Players({ rows }) {
         isSecondary
       >
         <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
-          <div className="max-h-[600px] overflow-y-auto overflow-x-auto scrollbar-visible">
+          <div className="max-h-[400px] sm:max-h-[600px] overflow-y-auto overflow-x-auto scrollbar-visible">
             <SortableTable
               columns={PLAYER_TABLE_COLUMNS}
               rows={sortedPlayerStats}

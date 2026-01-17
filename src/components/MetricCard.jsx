@@ -90,38 +90,38 @@ export function MetricCard({
   const priorityStyles = useMemo(() => {
     if (priority === 1) {
       return {
-        value: 'text-2xl sm:text-3xl lg:text-4xl',
-        padding: 'p-4 sm:p-5 lg:p-6',
-        iconSize: 'w-10 h-10',
+        value: 'text-xl sm:text-2xl lg:text-3xl xl:text-4xl',
+        padding: 'p-3 sm:p-4 lg:p-5 xl:p-6',
+        iconSize: 'w-8 h-8 sm:w-10 sm:h-10',
         hover: 'hover:scale-105 hover:shadow-xl hover:border-indigo-400/60 hover:bg-indigo-500/5',
-        titleSize: 'text-xs'
+        titleSize: 'text-[10px] sm:text-xs'
       }
     }
     if (priority === 2) {
       return {
-        value: 'text-xl sm:text-2xl lg:text-3xl',
-        padding: 'p-3.5 sm:p-4.5 lg:p-5',
-        iconSize: 'w-9 h-9',
+        value: 'text-lg sm:text-xl lg:text-2xl xl:text-3xl',
+        padding: 'p-3 sm:p-3.5 lg:p-4.5 xl:p-5',
+        iconSize: 'w-7 h-7 sm:w-9 sm:h-9',
         hover: 'hover:scale-[1.03] hover:shadow-lg hover:border-indigo-400/50 hover:bg-indigo-500/3',
-        titleSize: 'text-xs'
+        titleSize: 'text-[10px] sm:text-xs'
       }
     }
     if (priority === 3) {
       return {
-        value: 'text-lg sm:text-xl lg:text-2xl',
-        padding: 'p-3 sm:p-4 lg:p-4.5',
-        iconSize: 'w-8 h-8',
+        value: 'text-base sm:text-lg lg:text-xl xl:text-2xl',
+        padding: 'p-2.5 sm:p-3 lg:p-4 xl:p-4.5',
+        iconSize: 'w-6 h-6 sm:w-8 sm:h-8',
         hover: 'hover:scale-[1.02] hover:shadow-md hover:border-indigo-400/40 hover:bg-indigo-500/2',
-        titleSize: 'text-xs'
+        titleSize: 'text-[10px] sm:text-xs'
       }
     }
     if (priority === 4) {
       return {
-        value: 'text-base sm:text-lg lg:text-xl',
-        padding: 'p-3 sm:p-3.5 lg:p-4',
-        iconSize: 'w-7 h-7',
+        value: 'text-sm sm:text-base lg:text-lg xl:text-xl',
+        padding: 'p-2.5 sm:p-3 lg:p-3.5 xl:p-4',
+        iconSize: 'w-5 h-5 sm:w-7 sm:h-7',
         hover: 'hover:scale-[1.01] hover:shadow-sm hover:border-indigo-400/30 hover:bg-indigo-500/1',
-        titleSize: 'text-xs'
+        titleSize: 'text-[10px] sm:text-xs'
       }
     }
     return null
@@ -133,36 +133,36 @@ export function MetricCard({
       return {
         container: '', // Container handled by parent grid
         card: 'bg-gradient-to-br from-slate-800/90 via-slate-800/80 to-slate-900/90 border-indigo-500/30',
-        value: priorityStyles?.value || 'text-3xl sm:text-4xl lg:text-5xl',
-        padding: priorityStyles?.padding || 'p-5 sm:p-6 lg:p-7',
+        value: priorityStyles?.value || 'text-2xl sm:text-3xl lg:text-4xl xl:text-5xl',
+        padding: priorityStyles?.padding || 'p-4 sm:p-5 lg:p-6 xl:p-7',
         shadow: 'shadow-lg-custom hover:shadow-xl',
         glow: 'before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-br before:from-indigo-500/5 before:to-purple-500/5 before:pointer-events-none',
         hover: priorityStyles?.hover || 'hover:border-indigo-500/50',
-        titleSize: priorityStyles?.titleSize || 'text-xs'
+        titleSize: priorityStyles?.titleSize || 'text-[10px] sm:text-xs'
       }
     }
     if (tier === 'B') {
       return {
         container: '', // Container handled by parent grid
         card: 'bg-layer-mid/70 border-slate-700/40',
-        value: priorityStyles?.value || 'text-2xl sm:text-3xl lg:text-4xl',
-        padding: priorityStyles?.padding || 'p-4 sm:p-5 lg:p-6',
+        value: priorityStyles?.value || 'text-xl sm:text-2xl lg:text-3xl xl:text-4xl',
+        padding: priorityStyles?.padding || 'p-3 sm:p-4 lg:p-5 xl:p-6',
         shadow: 'shadow-md-custom hover:shadow-lg-custom',
         glow: '',
         hover: priorityStyles?.hover || 'hover:border-indigo-500/50',
-        titleSize: priorityStyles?.titleSize || 'text-xs'
+        titleSize: priorityStyles?.titleSize || 'text-[10px] sm:text-xs'
       }
     }
     // Tier C
     return {
       container: '', // Container handled by parent grid
       card: 'bg-layer-mid/60 border-slate-700/30',
-      value: priorityStyles?.value || 'text-xl sm:text-2xl lg:text-3xl',
-      padding: priorityStyles?.padding || 'p-4 sm:p-4 lg:p-5',
+      value: priorityStyles?.value || 'text-lg sm:text-xl lg:text-2xl xl:text-3xl',
+      padding: priorityStyles?.padding || 'p-3 sm:p-4 lg:p-4 xl:p-5',
       shadow: 'shadow-sm-custom hover:shadow-md-custom',
       glow: '',
       hover: priorityStyles?.hover || 'hover:border-indigo-500/50',
-      titleSize: priorityStyles?.titleSize || 'text-xs'
+      titleSize: priorityStyles?.titleSize || 'text-[10px] sm:text-xs'
     }
   }, [tier, priorityStyles])
   
@@ -246,15 +246,15 @@ export function MetricCard({
             
             {/* Per-game value */}
             {perGameValue && (
-              <p className="text-slate-500 text-sm mt-1.5">
+              <p className="text-slate-500 text-xs sm:text-sm mt-1 sm:mt-1.5">
                 {perGameValue}
               </p>
             )}
             
             {/* Micro-insight */}
             {microInsight && (
-              <div className="mt-2 flex items-center gap-2">
-                <span className="text-slate-500/80 text-xs font-medium">
+              <div className="mt-1.5 sm:mt-2 flex items-center gap-2">
+                <span className="text-slate-500/80 text-[10px] sm:text-xs font-medium">
                   {microInsight}
                 </span>
               </div>

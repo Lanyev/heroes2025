@@ -26,7 +26,7 @@
   --bg-card-hover: var(--bg-light);
   
   /* Altura del header/navbar para cálculos de viewport */
-  --app-header-h: 80px; /* Header sticky: py-4 (32px) + contenido (~48px) */
+  --app-header-h: 64px; /* Mobile: 64px, Desktop: 80px */
   
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;

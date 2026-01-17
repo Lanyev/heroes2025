@@ -92,7 +92,7 @@ export function Overview({ rows }) {
     <div className="space-y-8 relative z-10">
       {/* Tier A: Máxima importancia - Total Partidas, Win Rate, Avg Takedowns */}
       <SectionShell title="Resumen General" isPrimary>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
           {/* Tier A cards - span 2 cols on desktop, full width on mobile */}
           <div className="sm:col-span-2 lg:col-span-2 xl:col-span-2">
             <MetricCard
@@ -146,7 +146,7 @@ export function Overview({ rows }) {
           
           {/* Tier B: Métricas secundarias - Centradas */}
           <div className="col-span-full xl:col-span-6 flex justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-5xl items-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full max-w-5xl items-stretch">
               <MetricCard
                 {...createMetricCardProps({
                   title: 'Avg Daño Héroe',
@@ -197,7 +197,7 @@ export function Overview({ rows }) {
 
       {/* Tier B: Estadísticas de Combate con comparación contextual */}
       <SectionShell title="Estadísticas de Combate" isSecondary>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           <MetricCard
             {...createMetricCardProps({
               title: 'Total Kills',
@@ -269,7 +269,7 @@ export function Overview({ rows }) {
       </SectionShell>
 
       {/* Charts Row - Más editoriales */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Matches Over Time */}
         <motion.div variants={chartVariants} initial="initial" animate="animate">
           <ChartCard>
@@ -278,7 +278,7 @@ export function Overview({ rows }) {
               subtitle="Agrupadas por semana"
               insight={matchesOverTimeInsight}
             />
-            <div className="h-80">
+            <div className="h-64 sm:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={matchesOverTime}>
                   <CartesianGrid 
@@ -289,17 +289,17 @@ export function Overview({ rows }) {
                   <XAxis 
                     dataKey="period" 
                     stroke="#64748b" 
-                    fontSize={11}
+                    fontSize={10}
                     angle={-45}
                     textAnchor="end"
-                    height={60}
+                    height={50}
                     tick={{ fill: '#94a3b8' }}
                   />
                   <YAxis 
                     stroke="#64748b" 
-                    fontSize={11}
+                    fontSize={10}
                     tick={{ fill: '#94a3b8' }}
-                    width={50}
+                    width={40}
                   />
                   <Tooltip 
                     contentStyle={{ 
@@ -341,7 +341,7 @@ export function Overview({ rows }) {
               subtitle="Cantidad de picks por rol"
               insight={roleDistributionInsight}
             />
-            <div className="h-80">
+            <div className="h-64 sm:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={roleDistribution} layout="vertical">
                   <CartesianGrid 
@@ -353,15 +353,15 @@ export function Overview({ rows }) {
                   <XAxis 
                     type="number" 
                     stroke="#64748b" 
-                    fontSize={11}
+                    fontSize={10}
                     tick={{ fill: '#94a3b8' }}
                   />
                   <YAxis 
                     dataKey="role" 
                     type="category" 
                     stroke="#64748b" 
-                    fontSize={11}
-                    width={110}
+                    fontSize={10}
+                    width={80}
                     tick={{ fill: '#94a3b8' }}
                   />
                   <Tooltip 

@@ -180,62 +180,64 @@ export function SortableTable({
   }
 
   return (
-    <div className={clsx('relative bg-layer-deep/60 rounded-xl border border-slate-700/50 shadow-inset-custom p-2', className)} ref={tableRef}>
-      <table className="w-full" style={{ minWidth: `${columns.length * 120}px` }}>
-        <thead className="sticky top-0 z-20">
-          <tr className="bg-layer-light/40 backdrop-blur-sm shadow-sm-custom">
-            {columns.map((col) => (
-              <th
-                key={col.key}
-                onClick={() => handleHeaderClick(col)}
-                className={clsx(
-                  'px-3 py-3 text-slate-300 font-medium text-sm whitespace-nowrap',
-                  col.key === 'name' ? 'text-left' : 'text-right',
-                  col.sortable && 'cursor-pointer hover:text-white hover:bg-slate-600/50 transition-colors'
-                )}
-              >
-                <div className={clsx(
-                  'flex items-center gap-1',
-                  col.key === 'name' ? 'justify-start' : 'justify-end'
-                )}>
-                  <span>{col.label}</span>
-                  {col.sortable && (
-                    <SortIcon direction={sort?.key === col.key ? sort.direction : null} />
-                  )}
-                </div>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-700/50">
-          {rows.map((row, idx) => (
-            <tr
-              key={row.name || idx}
-              onClick={() => onRowClick?.(row)}
-              onMouseEnter={(e) => handleRowMouseEnter(e, row)}
-              onMouseLeave={handleRowMouseLeave}
-              className={clsx(
-                'hover:bg-slate-700/30 transition-colors',
-                onRowClick && 'cursor-pointer'
-              )}
-            >
+    <div className={clsx('relative bg-layer-deep/60 rounded-xl border border-slate-700/50 shadow-inset-custom p-1 sm:p-2', className)} ref={tableRef}>
+      <div className="overflow-x-auto -mx-1 sm:-mx-2 px-1 sm:px-2 scrollbar-visible">
+        <table className="w-full" style={{ minWidth: `${columns.length * 100}px` }}>
+          <thead className="sticky top-0 z-20">
+            <tr className="bg-layer-light/40 backdrop-blur-sm shadow-sm-custom">
               {columns.map((col) => (
-                <td
+                <th
                   key={col.key}
+                  onClick={() => handleHeaderClick(col)}
                   className={clsx(
-                    'px-3 py-3',
-                    col.key === 'name' ? 'text-left' : 'text-right'
+                    'px-2 sm:px-3 py-2 sm:py-3 text-slate-300 font-medium text-xs sm:text-sm whitespace-nowrap',
+                    col.key === 'name' ? 'text-left' : 'text-right',
+                    col.sortable && 'cursor-pointer hover:text-white hover:bg-slate-600/50 transition-colors'
                   )}
                 >
-                  {renderCell ? renderCell(row, col) : (
-                    <CellContent row={row} column={col} showHeroAvatar={showHeroAvatar} />
-                  )}
-                </td>
+                  <div className={clsx(
+                    'flex items-center gap-0.5 sm:gap-1',
+                    col.key === 'name' ? 'justify-start' : 'justify-end'
+                  )}>
+                    <span className="truncate max-w-[80px] sm:max-w-none">{col.label}</span>
+                    {col.sortable && (
+                      <SortIcon direction={sort?.key === col.key ? sort.direction : null} />
+                    )}
+                  </div>
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-slate-700/50">
+            {rows.map((row, idx) => (
+              <tr
+                key={row.name || idx}
+                onClick={() => onRowClick?.(row)}
+                onMouseEnter={(e) => handleRowMouseEnter(e, row)}
+                onMouseLeave={handleRowMouseLeave}
+                className={clsx(
+                  'hover:bg-slate-700/30 transition-colors',
+                  onRowClick && 'cursor-pointer'
+                )}
+              >
+                {columns.map((col) => (
+                  <td
+                    key={col.key}
+                    className={clsx(
+                      'px-2 sm:px-3 py-2 sm:py-3',
+                      col.key === 'name' ? 'text-left' : 'text-right'
+                    )}
+                  >
+                    {renderCell ? renderCell(row, col) : (
+                      <CellContent row={row} column={col} showHeroAvatar={showHeroAvatar} />
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       
       {/* Tooltip for top players */}
       {tooltip && (
@@ -291,7 +293,7 @@ function CellContent({ row, column, showHeroAvatar = false }) {
   // Hero name with avatar and low sample indicator
   if (column.key === 'name') {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5 sm:gap-2">
         {showHeroAvatar && (
           <HeroAvatar 
             name={value} 
@@ -300,7 +302,7 @@ function CellContent({ row, column, showHeroAvatar = false }) {
             showBorder={true}
           />
         )}
-        <span className="text-white font-medium truncate max-w-[140px]" title={value}>
+        <span className="text-white font-medium truncate max-w-[100px] sm:max-w-[140px]" title={value}>
           {value}
         </span>
         {row.lowSample && (
@@ -317,6 +319,7 @@ function CellContent({ row, column, showHeroAvatar = false }) {
     return (
       <Badge 
         variant={value >= 0.55 ? 'success' : value <= 0.45 ? 'danger' : 'default'}
+        className="text-xs"
       >
         {formatPercent(value)}
       </Badge>
@@ -325,7 +328,7 @@ function CellContent({ row, column, showHeroAvatar = false }) {
   
   // Default formatting
   return (
-    <span className="text-slate-300">
+    <span className="text-slate-300 text-xs sm:text-sm">
       {formatCellValue(value, column.type)}
     </span>
   )

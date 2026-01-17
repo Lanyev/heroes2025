@@ -58,7 +58,7 @@ function App() {
         {activeRoute === 'premios' || activeRoute === 'geekos' ? (
           <PageComponent rows={rows} />
         ) : activeRoute === 'comparison' ? (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6">
             {loading ? (
               <LoadingState message="Cargando datos del CSV..." />
             ) : error ? (
@@ -71,7 +71,7 @@ function App() {
             )}
           </div>
         ) : (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6">
             {loading ? (
               <LoadingState message="Cargando datos del CSV..." />
             ) : error ? (
@@ -87,13 +87,13 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-layer-mid/50 border-t border-slate-700/50 py-6 shadow-sm-custom">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-2">
-            <p className="text-slate-300 text-base font-semibold">
+      <footer className="bg-layer-mid/50 border-t border-slate-700/50 py-4 sm:py-6 shadow-sm-custom">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="text-center space-y-1.5 sm:space-y-2">
+            <p className="text-slate-300 text-sm sm:text-base font-semibold">
               Alan Awards Dashboard 2023-2025
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-slate-500 text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-4 gap-y-1 text-slate-500 text-xs sm:text-sm">
               <span>
                 {meta?.totalRows || 0} partidas registradas
               </span>
@@ -113,12 +113,12 @@ function App() {
                 </span>
               )}
               {meta?.dateMin && meta?.dateMax && (
-                <span>
+                <span className="hidden sm:inline">
                   • {new Date(meta.dateMin).toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })} - {new Date(meta.dateMax).toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}
                 </span>
               )}
             </div>
-            <p className="text-slate-600 text-xs mt-3">
+            <p className="text-slate-600 text-[10px] sm:text-xs mt-2 sm:mt-3">
               Estadísticas de Heroes of the Storm de la comunidad Geekos
             </p>
           </div>

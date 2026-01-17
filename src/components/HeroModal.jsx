@@ -230,25 +230,25 @@ export function HeroModal({ hero, rows, onClose }) {
         className="fixed inset-0 bg-gradient-to-br from-black/60 via-slate-900/50 to-black/60 backdrop-blur-sm z-[60] flex items-center justify-center overflow-y-auto"
         onClick={onClose}
         style={{
-          paddingTop: 'calc(var(--app-header-h, 80px) + 16px)',
-          paddingLeft: '16px',
-          paddingRight: '16px',
-          paddingBottom: '16px'
+          paddingTop: 'calc(var(--app-header-h, 64px) + 8px)',
+          paddingLeft: '8px',
+          paddingRight: '8px',
+          paddingBottom: '8px'
         }}
       >
         {/* Modal Container - Premium dark glass panel */}
         <div 
-          className="bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-xl rounded-2xl border border-slate-700/30 shadow-2xl animate-modal-enter w-full flex flex-col"
+          className="bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-slate-700/30 shadow-2xl animate-modal-enter w-full flex flex-col"
           onClick={(e) => e.stopPropagation()}
           style={{ 
             maxWidth: '1000px',
-            maxHeight: '90vh',
+            maxHeight: 'calc(100vh - var(--app-header-h, 64px) - 16px)',
             overflow: 'hidden'
           }}
         >
           {/* Header - Hero Summary */}
-          <div className="sticky top-0 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/30 px-6 py-5 flex items-center justify-between z-10 shrink-0 rounded-t-2xl">
-            <div className="flex items-center gap-5 flex-1 min-w-0">
+          <div className="sticky top-0 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/30 px-3 sm:px-6 py-3 sm:py-5 flex items-center justify-between z-10 shrink-0 rounded-t-xl sm:rounded-t-2xl">
+            <div className="flex items-center gap-2 sm:gap-5 flex-1 min-w-0">
               {/* Avatar - 10-15% bigger */}
               <div className="shrink-0">
                 <HeroAvatar 
@@ -261,18 +261,18 @@ export function HeroModal({ hero, rows, onClose }) {
               
               {/* Name and Role */}
               <div className="flex-1 min-w-0">
-                <h2 className="text-3xl font-bold text-white mb-1">{name}</h2>
-                <Badge variant="info" size="md">{role}</Badge>
+                <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-white mb-0.5 sm:mb-1 truncate">{name}</h2>
+                <Badge variant="info" size="md" className="text-xs">{role}</Badge>
               </div>
               
               {/* Inline Badges - Quick Stats */}
-              <div className="flex items-center gap-3 shrink-0">
-                <div className={`${kpis.winRate >= 0.5 ? 'bg-emerald-500/20 border-emerald-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg px-4 py-2`}>
-                  <div className={`${kpis.winRate >= 0.5 ? 'text-emerald-400' : 'text-red-400'} text-xs font-medium mb-0.5`}>Win Rate</div>
-                  <div className="text-white text-xl font-bold">{formatPercent(kpis.winRate)}</div>
+              <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+                <div className={`${kpis.winRate >= 0.5 ? 'bg-emerald-500/20 border-emerald-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg px-2 sm:px-4 py-1.5 sm:py-2`}>
+                  <div className={`${kpis.winRate >= 0.5 ? 'text-emerald-400' : 'text-red-400'} text-[10px] sm:text-xs font-medium mb-0.5`}>Win Rate</div>
+                  <div className="text-white text-base sm:text-xl font-bold">{formatPercent(kpis.winRate)}</div>
                 </div>
-                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-4 py-2">
-                  <div className="text-slate-400 text-xs font-medium mb-0.5">Partidas</div>
+                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-2 sm:px-4 py-1.5 sm:py-2">
+                  <div className="text-slate-400 text-[10px] sm:text-xs font-medium mb-0.5">Partidas</div>
                   <div className="text-white text-xl font-bold">{formatNumber(kpis.matches)}</div>
                 </div>
                 <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-4 py-2">

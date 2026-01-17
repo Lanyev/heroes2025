@@ -10,14 +10,14 @@ import clsx from 'clsx'
  */
 export function SearchInput({ value, onChange, placeholder = 'Buscar...', className, showLabel = false }) {
   return (
-    <div className={clsx('relative flex flex-col gap-1.5', className)}>
+    <div className={clsx('relative flex flex-col gap-1 sm:gap-1.5', className)}>
       {showLabel && (
-        <label className="text-slate-300 text-xs font-semibold uppercase tracking-wide">Buscar</label>
+        <label className="text-slate-300 text-[10px] sm:text-xs font-semibold uppercase tracking-wide">Buscar</label>
       )}
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <div className="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center pointer-events-none">
           <svg 
-            className="h-4 w-4 text-slate-400" 
+            className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-400" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -37,7 +37,7 @@ export function SearchInput({ value, onChange, placeholder = 'Buscar...', classN
           placeholder={placeholder}
           className={clsx(
             'w-full bg-surface-1 border-0 rounded-lg shadow-sm',
-            'pl-10 pr-10 py-2.5 text-white text-sm font-medium',
+            'pl-8 sm:pl-10 pr-8 sm:pr-10 py-2 sm:py-2.5 text-white text-xs sm:text-sm font-medium',
             'placeholder-slate-500',
             'focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:ring-offset-2 focus:ring-offset-surface-1',
             'hover:bg-surface-2 transition-all duration-200'
@@ -46,9 +46,9 @@ export function SearchInput({ value, onChange, placeholder = 'Buscar...', classN
         {value && (
           <button
             onClick={() => onChange('')}
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white transition-colors"
+            className="absolute inset-y-0 right-0 pr-2.5 sm:pr-3 flex items-center text-slate-400 hover:text-white transition-colors"
           >
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>

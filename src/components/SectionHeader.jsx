@@ -10,13 +10,13 @@ import clsx from 'clsx'
  */
 export function SectionHeader({ title, subtitle, insight, className }) {
   return (
-    <div className={clsx('mb-4', className)}>
-      <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>
+    <div className={clsx('mb-3 sm:mb-4', className)}>
+      <h3 className="text-base sm:text-lg font-semibold text-white mb-0.5 sm:mb-1">{title}</h3>
       {subtitle && (
-        <p className="text-slate-400 text-sm">{subtitle}</p>
+        <p className="text-slate-400 text-xs sm:text-sm">{subtitle}</p>
       )}
       {insight && (
-        <p className="text-indigo-300/80 text-sm font-medium mt-2">
+        <p className="text-indigo-300/80 text-xs sm:text-sm font-medium mt-1.5 sm:mt-2">
           {insight}
         </p>
       )}

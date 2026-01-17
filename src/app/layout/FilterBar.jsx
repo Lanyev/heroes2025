@@ -95,13 +95,13 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
   if (isCompact) {
     return (
       <div className="bg-layer-mid/50 border-b border-slate-700/50 backdrop-blur-sm shadow-sm-custom">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 flex-wrap">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-2 sm:py-2.5">
+          <div className="flex items-center justify-between gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap flex-1 min-w-0">
               {activeFilters.length > 0 ? (
                 activeFilters.map((filter, idx) => (
-                  <div key={idx} className="flex items-center gap-1.5 px-2.5 py-1 bg-indigo-600/20 border border-indigo-500/30 rounded text-xs shadow-sm-custom">
-                    <span className="text-indigo-300 font-medium">
+                  <div key={idx} className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 bg-indigo-600/20 border border-indigo-500/30 rounded text-[10px] sm:text-xs shadow-sm-custom">
+                    <span className="text-indigo-300 font-medium truncate max-w-[120px] sm:max-w-none">
                       {filter.label}
                     </span>
                     <button
@@ -110,7 +110,7 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
                         else if (filter.type === 'geekos') updateFilter('onlyListedPlayers', false)
                         else updateFilter(filter.type, 'all')
                       }}
-                      className="text-indigo-400 hover:text-indigo-200 transition-colors ml-0.5"
+                      className="text-indigo-400 hover:text-indigo-200 transition-colors ml-0.5 shrink-0 text-sm sm:text-base"
                       title="Eliminar filtro"
                     >
                       ×
@@ -118,14 +118,15 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
                   </div>
                 ))
               ) : (
-                <span className="text-slate-400 text-xs">Sin filtros activos</span>
+                <span className="text-slate-400 text-[10px] sm:text-xs">Sin filtros activos</span>
               )}
             </div>
             <button
               onClick={() => setIsCompact(false)}
-              className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all shadow-sm-custom hover:shadow-md-custom"
+              className="px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all shadow-sm-custom hover:shadow-md-custom shrink-0 whitespace-nowrap"
             >
-              Expandir
+              <span className="hidden sm:inline">Expandir</span>
+              <span className="sm:hidden">+</span>
             </button>
           </div>
         </div>
@@ -136,28 +137,29 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
   // Expanded mode - show all filters
   return (
     <div className="bg-gradient-to-b from-slate-800/60 to-slate-800/40 border-b border-slate-700/70 shadow-md-custom backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wide">Filtros</h3>
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4">
+        <div className="flex items-center justify-between mb-2 sm:mb-3">
+          <h3 className="text-xs sm:text-sm font-semibold text-slate-300 uppercase tracking-wide">Filtros</h3>
           <button
             onClick={() => setIsCompact(true)}
-            className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all shadow-sm-custom hover:shadow-md-custom"
+            className="px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-700/50 rounded transition-all shadow-sm-custom hover:shadow-md-custom shrink-0"
           >
-            Compactar
+            <span className="hidden sm:inline">Compactar</span>
+            <span className="sm:hidden">−</span>
           </button>
         </div>
-        <div className="flex flex-wrap items-end gap-4">
+        <div className="flex flex-wrap items-end gap-2 sm:gap-3 lg:gap-4">
           {/* Year Selector */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-slate-300 text-xs font-semibold uppercase tracking-wide">
+          <div className="flex flex-col gap-1 sm:gap-1.5 w-full sm:w-auto">
+            <label className="text-slate-300 text-[10px] sm:text-xs font-semibold uppercase tracking-wide">
               Año {selectedYear && selectedYear !== 'all' && `(${selectedYear})`}
               {selectedYear === 'all' && '(Todos)'}
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {/* Botón "Todos los años" */}
               <button
                 onClick={() => handleYearSelect('all')}
-                className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
+                className={`px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 ${
                   selectedYear === 'all'
                     ? 'bg-indigo-600 text-white font-semibold shadow-elevated ring-2 ring-indigo-400/50'
                     : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white shadow-sm-custom hover:shadow-md-custom'
@@ -170,7 +172,7 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
                 <button
                   key={year}
                   onClick={() => handleYearSelect(year)}
-                  className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
+                  className={`px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 ${
                     selectedYear === year
                       ? 'bg-indigo-600 text-white font-semibold shadow-elevated ring-2 ring-indigo-400/50'
                       : 'bg-slate-700/80 text-slate-200 border border-slate-600/80 hover:bg-slate-600 hover:border-slate-500 hover:text-white shadow-sm-custom hover:shadow-md-custom'
@@ -240,9 +242,9 @@ export function FilterBar({ filters, filterOptions, meta, updateFilter, resetFil
           {/* Reset Button */}
           <button
             onClick={resetFilters}
-            className="px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white 
+            className="px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white 
               hover:bg-slate-700/80 rounded-lg transition-all duration-200 border border-slate-600/80
-              hover:border-slate-500 shadow-sm-custom hover:shadow-md-custom"
+              hover:border-slate-500 shadow-sm-custom hover:shadow-md-custom w-full sm:w-auto"
           >
             Limpiar
           </button>
