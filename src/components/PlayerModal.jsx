@@ -239,7 +239,7 @@ export function PlayerModal({ player, rows, onClose }) {
     <>
       {/* Backdrop - Dark glass overlay */}
       <div
-        className="fixed inset-0 bg-gradient-to-br from-black/60 via-slate-900/50 to-black/60 backdrop-blur-sm z-[60] flex items-center justify-center overflow-y-auto"
+        className="fixed inset-0 bg-gradient-to-br from-black/70 via-slate-900/60 to-black/70 backdrop-blur-md z-[70] flex items-center justify-center overflow-y-auto"
         onClick={onClose}
         style={{
           paddingTop: 'calc(var(--app-header-h, 64px) + 8px)',
@@ -258,58 +258,60 @@ export function PlayerModal({ player, rows, onClose }) {
           }}
         >
           {/* Header - Hero Summary */}
-          <div className="sticky top-0 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/30 px-3 sm:px-6 py-3 sm:py-5 flex items-center justify-between z-10 shrink-0 rounded-t-xl sm:rounded-t-2xl">
-            <div className="flex items-center gap-2 sm:gap-5 flex-1 min-w-0">
-              {/* Avatar - 10-15% bigger */}
-              <div className="shrink-0">
-                <PlayerAvatar name={name} size={80} className="shadow-xl hidden sm:block" />
-                <PlayerAvatar name={name} size={60} className="shadow-xl sm:hidden" />
-              </div>
-              
-              {/* Name and Info */}
-              <div className="flex-1 min-w-0">
-                <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-white mb-0.5 sm:mb-1 truncate">{name}</h2>
-                {heroName && (
-                  <div className="flex items-center gap-2">
-                    <HeroAvatar 
-                      name={heroName} 
-                      role={heroes.find(h => h.name === heroName)?.role || 'Unknown'}
-                      size="sm" 
-                      showBorder={true}
-                    />
-                    <span className="text-slate-400 text-sm">{heroName}</span>
-                    <Badge variant="info" size="sm">{heroes.find(h => h.name === heroName)?.role || 'Unknown'}</Badge>
-                  </div>
-                )}
+          <div className="sticky top-0 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/30 px-3 sm:px-6 py-3 sm:py-5 z-10 shrink-0 rounded-t-xl sm:rounded-t-2xl">
+            <div className="flex items-start sm:items-center gap-2 sm:gap-4 justify-between">
+              <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
+                {/* Avatar - 10-15% bigger */}
+                <div className="shrink-0">
+                  <PlayerAvatar name={name} size={80} className="shadow-xl hidden sm:block" />
+                  <PlayerAvatar name={name} size={60} className="shadow-xl sm:hidden" />
+                </div>
+                
+                {/* Name and Info */}
+                <div className="flex-1 min-w-0 pr-2 sm:pr-0">
+                  <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-white mb-0.5 sm:mb-1 truncate">{name}</h2>
+                  {heroName && (
+                    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap mt-0.5 sm:mt-1">
+                      <HeroAvatar 
+                        name={heroName} 
+                        role={heroes.find(h => h.name === heroName)?.role || 'Unknown'}
+                        size="sm" 
+                        showBorder={true}
+                      />
+                      <span className="text-slate-400 text-xs sm:text-sm truncate">{heroName}</span>
+                      <Badge variant="info" size="sm" className="shrink-0">{heroes.find(h => h.name === heroName)?.role || 'Unknown'}</Badge>
+                    </div>
+                  )}
+                </div>
               </div>
               
               {/* Inline Badges - Quick Stats */}
-              <div className="flex items-center gap-3 shrink-0">
-                <div className={`${kpis.winRate >= 0.5 ? 'bg-emerald-500/20 border-emerald-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg px-4 py-2`}>
-                  <div className={`${kpis.winRate >= 0.5 ? 'text-emerald-400' : 'text-red-400'} text-xs font-medium mb-0.5`}>Win Rate</div>
-                  <div className="text-white text-xl font-bold">{formatPercent(kpis.winRate)}</div>
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <div className={`${kpis.winRate >= 0.5 ? 'bg-emerald-500/20 border-emerald-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg px-2 sm:px-3 py-1.5 sm:py-2`}>
+                  <div className={`${kpis.winRate >= 0.5 ? 'text-emerald-400' : 'text-red-400'} text-[10px] sm:text-xs font-medium mb-0.5`}>Win Rate</div>
+                  <div className="text-white text-sm sm:text-base lg:text-xl font-bold whitespace-nowrap">{formatPercent(kpis.winRate)}</div>
                 </div>
-                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-4 py-2">
-                  <div className="text-slate-400 text-xs font-medium mb-0.5">Partidas</div>
-                  <div className="text-white text-xl font-bold">{formatNumber(kpis.matches)}</div>
+                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 hidden sm:block">
+                  <div className="text-slate-400 text-[10px] sm:text-xs font-medium mb-0.5">Partidas</div>
+                  <div className="text-white text-sm sm:text-base lg:text-xl font-bold whitespace-nowrap">{formatNumber(kpis.matches)}</div>
                 </div>
-                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-4 py-2">
+                <div className="bg-slate-700/50 border border-slate-600/30 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 hidden lg:block">
                   <div className="text-slate-400 text-xs font-medium mb-0.5">Récord</div>
-                  <div className="text-white text-xl font-bold">{kpis.wins}W - {kpis.losses}L</div>
+                  <div className="text-white text-xl font-bold whitespace-nowrap">{kpis.wins}W - {kpis.losses}L</div>
                 </div>
               </div>
+              
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                className="ml-2 sm:ml-4 p-1.5 sm:p-2 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-all shrink-0"
+                aria-label="Cerrar modal"
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-            
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="ml-4 p-2 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-all shrink-0"
-              aria-label="Cerrar modal"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
           </div>
 
           {/* Body - Scrollable Content */}
