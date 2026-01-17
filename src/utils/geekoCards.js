@@ -12,7 +12,7 @@ import { getPublicPath } from './paths'
 // Geeko players list
 export const GEEKO_PLAYERS = [
   'Raizenser', 'Ticoman', 'WatchdogMan', 'Deathmask', 'Swift',
-  'Indigente', 'ChapelHots', 'Malenfant', 'Rampage15th', 'Omarman'
+  'Indigente', 'ChapelHots', 'Malenfant', 'Rampage15th', 'Omarman', 'Tarkus'
 ]
 
 // Card archetypes mapped to Pokémon-like types

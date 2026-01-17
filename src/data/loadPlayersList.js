@@ -26,7 +26,12 @@ export async function loadPlayersList() {
       const playerAliases = {
         'swift': 'WatchdogMan',
         'watchdogman': 'WatchdogMan',
-        'watchdog': 'WatchdogMan'
+        'watchdog': 'WatchdogMan',
+        'bronzehearth': 'Indigente',
+        'henta1sama': 'Indigente',
+        'esshigod': 'Indigente',
+        'zombicioso': 'Indigente',
+        'chapel': 'ChapelHots'
       }
       
       const normalizedLower = normalized.toLowerCase()
